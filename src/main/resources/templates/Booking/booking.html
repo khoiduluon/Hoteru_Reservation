@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{/layout/index::dynamic(~{::main})}">
+
+<body>
+<main>
+    <h1>Booking Page</h1>
+    <a th:href="@{/booking/checkout}">Checkout</a>
+</main>
+</body>
+</html>

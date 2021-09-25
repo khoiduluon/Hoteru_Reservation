@@ -12,8 +12,8 @@
           <div class="header__top__right">
             <div class="header__top__auth">
               <ul>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
+                <li><a th:href="@{/login}">Login</a></li>
+                <li><a th:href="@{/register}">Register</a></li>
               </ul>
             </div>
             <div class="header__top__language">
@@ -45,19 +45,12 @@
                 <li class="active"><a th:href="@{/home/index}">Home</a></li>
                 <li><a th:href="@{/room/list}">Rooms</a></li>
                 <li><a th:href="@{/about}">About Us</a></li>
-                <li><a href="#">Pages</a>
-                  <ul class="dropdown">
-                    <li><a th:href="@{/about}">About Us</a></li>
-                    <li><a href="./room-details.html">Room Details</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
-                  </ul>
-                </li>
-                <li><a th:href="@{/blog}">News</a></li>
+                <li><a th:href="@{/blog}">Feedback</a></li>
                 <li><a th:href="@{/contact}">Contact</a></li>
               </ul>
             </nav>
             <div class="header__nav__widget">
-              <a href="#">Book Now <span class="arrow_right"></span></a>
+              <a th:href="@{/booking}">Book Now <span class="arrow_right"></span></a>
             </div>
           </div>
         </div>
