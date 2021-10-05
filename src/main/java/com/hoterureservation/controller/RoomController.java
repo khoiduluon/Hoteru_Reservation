@@ -1,4 +1,4 @@
-package com.HotelReservation.Controller;
+package com.hoterureservation.controller;
 
 
 import org.springframework.stereotype.Controller;
