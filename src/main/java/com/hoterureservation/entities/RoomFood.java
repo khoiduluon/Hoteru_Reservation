@@ -1,16 +1,12 @@
 package com.hoterureservation.entities;
+
 import java.io.Serializable;
-import java.util.*;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import lombok.Data;
 
 @SuppressWarnings("serial")
 @Data
-@EntityScan
+@Entity
 @Table(name = "RoomFood")
 public class RoomFood implements Serializable{
 

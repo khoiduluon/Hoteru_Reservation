@@ -4,13 +4,11 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import lombok.Data;
 
 @SuppressWarnings("serial")
 @Data
-@EntityScan
+@Entity
 @Table(name = "Customer")
 public class Customer implements Serializable{
   
@@ -33,8 +31,8 @@ public class Customer implements Serializable{
   @Column(name = "email")
 	String email;
 
-  @Column(name = "isAdmin")
-	boolean isAdmin = false;
+  @Column(name = "role")
+	String role;
 
   @JsonIgnore
 	@OneToMany(mappedBy = "customerb")
