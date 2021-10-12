@@ -25,7 +25,7 @@
     <!-- Rooms Section Begin -->
     <section class="rooms spad">
         <div class="container">
-            <div class="row">
+            <div class="row" th:each="room : ${listRoom}">
                 <div class="col-lg-6 p-0 order-lg-2 order-md-2 col-md-6">
                     <div class="room__pic__slider owl-carousel">
                         <div class="room__pic__item set-bg" data-setbg="/img/rooms/room-1.jpg"></div>
@@ -36,19 +36,19 @@
                 </div>
                 <div class="col-lg-6 p-0 order-lg-1 order-md-1 col-md-6">
                     <div class="room__text">
-                        <h3>Premium King Room</h3>
-                        <h2><sup>$</sup>99<span>/day</span></h2>
+                        <h3>[[${room.name}]]</h3>
+                        <h2><sup>$</sup>[[${#numbers.formatDecimal(room.roomType.price,0,'COMMA',0,'POINT')}]]<span>/day</span></h2>
                         <ul>
-                            <li><span>Size:</span>30 ft</li>
-                            <li><span>Capacity:</span>Max persion 3</li>
-                            <li><span>Bed:</span>King Beds</li>
+                            <li><span>Size:</span>[[${#numbers.formatDecimal(room.roomType.size,0,'COMMA',0,'POINT')}]] m²</li>
+                            <li><span>Capacity:</span>Max persion [[${room.roomType.capacity}]]</li>
+                            <li><span>Bed:</span>[[${room.roomType.typeBed.name}]]</li>
                             <li><span>Services:</span>Wifi, Television, Bathroom,...</li>
                             <li><span>View:</span>Sea View</li>
                         </ul>
-                        <a th:href="@{/room/detail}">View Details</a>
+                        <a th:href="@{|/room/detail/${room.id}|}">View Details</a>
                     </div>
                 </div>
-                <div class="col-lg-6 p-0 order-lg-3 order-md-3 col-md-6">
+                <!-- <div class="col-lg-6 p-0 order-lg-3 order-md-3 col-md-6">
                     <div class="room__pic__slider owl-carousel">
                         <div class="room__pic__item set-bg" data-setbg="/img/rooms/room-2.jpg"></div>
                         <div class="room__pic__item set-bg" data-setbg="/img/rooms/room-3.jpg"></div>
@@ -113,7 +113,7 @@
                         </ul>
                         <a href="#">View Details</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="row">
                 <div class="col-lg-12">

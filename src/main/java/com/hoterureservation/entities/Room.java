@@ -16,8 +16,8 @@ public class Room implements Serializable{
   @Column(name = "id")
 	String id;
   
-  @Column(name = "thumbnail")
-	String thumbnail;
+	@Column(name = "name")
+	String name;
 
   @Column(name = "image1")  
 	String image1;
