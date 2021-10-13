@@ -9,7 +9,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Comment")
 public class Comment implements Serializable{
-  
+
   @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")

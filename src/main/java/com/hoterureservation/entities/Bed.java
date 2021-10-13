@@ -13,7 +13,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Bed")
 public class Bed implements Serializable{
-  
+
   @Id
   @Column(name = "code")
 	String code;

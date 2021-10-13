@@ -1,84 +1,136 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-
-<head>
-	<title>Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" th:href="@{/login/images/icons/favicon.ico}" />
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/bootstrap/css/bootstrap.min.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/animate/animate.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/css-hamburgers/hamburgers.min.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/animsition/css/animsition.min.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/select2/select2.min.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/vendor/daterangepicker/daterangepicker.css}">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" th:href="@{/login/css/util.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/login/css/main.css}">
-	<!--===============================================================================================-->
-</head>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{/layout/index::dynamic(~{::main})}">
 <body>
+<main>
+    <div class="container mt-3">
+        <!-- Pills content -->
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                <form th:action="@{/login}" method="post">
+                    <div class="text-center mb-3">
+                        <p>Sign in with:</p>
+                        <button type="button" class="btn btn-warning btn-floating mx-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
 
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100 p-t-30 p-b-50">
-				<span class="login100-form-title p-b-41">
-					Account Login
-				</span>
-				<form class="login100-form validate-form p-b-33 p-t-5">
+                        <button type="button" class="btn btn-warning btn-floating mx-1">
+                            <i class="fab fa-google"></i>
+                        </button>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter username">
-						<input class="input100" type="text" name="username" placeholder="User name">
-						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-					</div>
+                        <button type="button" class="btn btn-warning btn-floating mx-1">
+                            <i class="fab fa-twitter"></i>
+                        </button>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="pass" placeholder="Password">
-						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
-					</div>
+                        <button type="button" class="btn btn-warning btn-floating mx-1">
+                            <i class="fab fa-github"></i>
+                        </button>
+                    </div>
 
-					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn">
-							Login
-						</button>
-					</div>
+                    <p class="text-center">or:</p>
 
-				</form>
-			</div>
-		</div>
-	</div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username"/>
+                    </div>
 
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password"/>
+                    </div>
 
-	<div id="dropDownSelect1"></div>
+                    <!-- 2 column grid layout -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <!-- Checkbox -->
+                            <div class="form-check mb-3 mb-md-0">
+                                <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me"/>
+                                <label class="form-check-label" for="remember-me"> Remember me </label>
+                            </div>
+                        </div>
 
-	<!--===============================================================================================-->
-	<script th:src="@{/login/vendor/jquery/jquery-3.2.1.min.js}"></script>
-	<!--===============================================================================================-->
-	<script th:src="@{/login/vendor/animsition/js/animsition.min.js}"></script>
-	<!--===============================================================================================-->
-	<script th:src="@{/login/vendor/bootstrap/js/popper.js}"></script>
-	<script th:src="@{/login/vendor/bootstrap/js/bootstrap.min.js}"></script>
-	<!--===============================================================================================-->
-	<script th:src="@{/login/vendor/select2/select2.min.js}"></script>
-	<!--===============================================================================================-->
-	<script th:src="@{/login/vendor/daterangepicker/moment.min.js}"></script>
-	<script th:src="@{/login/vendor/daterangepicker/daterangepicker.js}"></script>
-	<!--===============================================================================================-->
-	<script th:src="@{/login/vendor/countdowntime/countdowntime.js}"></script>
-	<!--===============================================================================================-->
-	<script th:src="@{/login/js/main.js}"></script>
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <!-- Simple link -->
+                            <a class="text-warning" href="#!">Forgot password?</a>
+                        </div>
+                    </div>
 
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-warning btn-block mb-4">Sign in</button>
+
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                        <p>Not a member? <a class="text-warning" href="#!">Register</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                <form>
+                    <div class="text-center mb-3">
+                        <p>Sign up with:</p>
+                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                            <i class="fab fa-google"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                            <i class="fab fa-github"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-center">or:</p>
+
+                    <!-- Name input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="registerName" class="form-control" />
+                        <label class="form-label" for="registerName">Name</label>
+                    </div>
+
+                    <!-- Username input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="registerUsername" class="form-control" />
+                        <label class="form-label" for="registerUsername">Username</label>
+                    </div>
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="registerEmail" class="form-control" />
+                        <label class="form-label" for="registerEmail">Email</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="registerPassword" class="form-control" />
+                        <label class="form-label" for="registerPassword">Password</label>
+                    </div>
+
+                    <!-- Repeat Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="registerRepeatPassword" class="form-control" />
+                        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="form-check d-flex justify-content-center mb-4">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked aria-describedby="registerCheckHelpText"/>
+                        <label class="form-check-label" for="registerCheck">
+                            I have read and agree to the terms
+                        </label>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 
 </html>

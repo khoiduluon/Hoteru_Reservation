@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Customer")
 public class Customer implements Serializable{
-  
+
   @Id
   @Column(name = "username")
   String username;
@@ -38,7 +38,6 @@ public class Customer implements Serializable{
 	@OneToMany(mappedBy = "customerb")
 	List<Booking> booking;
 
-  
   @JsonIgnore
 	@OneToMany(mappedBy = "customerc")
 	List<Comment> comment;

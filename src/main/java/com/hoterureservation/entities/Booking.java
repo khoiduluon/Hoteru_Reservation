@@ -10,7 +10,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Booking")
 public class Booking implements Serializable{
-  
+
   @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")

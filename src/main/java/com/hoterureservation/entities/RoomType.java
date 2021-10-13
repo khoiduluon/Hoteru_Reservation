@@ -15,7 +15,7 @@ public class RoomType implements Serializable{
   @Id
   @Column(name = "id")
 	String id;
-  
+
   @Column(name = "name")
 	String name;
 

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoomFoodRepository extends JpaRepository<RoomFood, Long>{
-  
+
 }
