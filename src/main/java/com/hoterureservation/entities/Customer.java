@@ -10,10 +10,10 @@ import lombok.Data;
 
 @SuppressWarnings("serial")
 @Data
-@EntityScan
+@Entity
 @Table(name = "Customer")
 public class Customer implements Serializable{
-  
+
   @Id
   @Column(name = "username")
   String username;
@@ -33,14 +33,13 @@ public class Customer implements Serializable{
   @Column(name = "email")
 	String email;
 
-  @Column(name = "isAdmin")
-	boolean isAdmin = false;
+  @Column(name = "role")
+	String role;
 
   @JsonIgnore
 	@OneToMany(mappedBy = "customerb")
 	List<Booking> booking;
 
-  
   @JsonIgnore
 	@OneToMany(mappedBy = "customerc")
 	List<Comment> comment;

@@ -14,7 +14,7 @@ import lombok.Data;
 @EntityScan
 @Table(name = "Bed")
 public class Bed implements Serializable{
-  
+
   @Id
   @Column(name = "code")
 	String code;

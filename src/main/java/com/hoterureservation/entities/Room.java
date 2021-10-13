@@ -18,11 +18,11 @@ public class Room implements Serializable{
   @Id
   @Column(name = "id")
 	String id;
-  
+
   @Column(name = "thumbnail")
 	String thumbnail;
 
-  @Column(name = "image1")  
+  @Column(name = "image1")
 	String image1;
 
   @Column(name = "image2")
@@ -36,7 +36,7 @@ public class Room implements Serializable{
 
   @Column(name = "description")
 	String description;
-  
+
   @ManyToOne
 	@JoinColumn(name = "roomtype_id")
 	RoomType roomType;

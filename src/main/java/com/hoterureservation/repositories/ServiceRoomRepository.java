@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ServiceRoomRepository extends JpaRepository<ServiceRoom, Long>{
-  
+
 }
