@@ -19,10 +19,7 @@ public class Room implements Serializable {
 
     @Column(name = "name")
     String name;
-
-    @Column(name = "thumbnail")
-    String thumbnail;
-
+    
     @Column(name = "image1")
     String image1;
 
@@ -43,18 +40,10 @@ public class Room implements Serializable {
     RoomType roomType;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "rooms")
-    List<ServiceRoom> roomService;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "roomf")
-    List<RoomFood> roomFood;
-
-    @JsonIgnore
     @OneToMany(mappedBy = "roomb")
     List<Booking> booking;
 
     @JsonIgnore
     @OneToMany(mappedBy = "roomc")
-    List<Comment> bomment;
+    List<Comment> comment;
 }

@@ -52,9 +52,9 @@ create table Service(
 	description nvarchar(max) not null
 )
 go
-create table Room_Service(
+create table Booking_Service(
 	id int identity(1,1) primary key,
-	room_id varchar(20) not null,
+	booking_id int not null,
 	service_id int not null
 )
 go
@@ -65,9 +65,9 @@ create table Food(
 	description nvarchar(max) not null
 )
 go
-create table Room_Food(
+create table Booking_Food(
 	id int identity(1,1) primary key,
-	room_id varchar(20) not null,
+	booking_id int not null,
 	food_id int not null
 )
 go
@@ -110,23 +110,23 @@ ADD CONSTRAINT FK_CMT_CUS
 FOREIGN KEY (username)
 REFERENCES Customer (username);
 go
-ALTER TABLE Room_Service
-ADD CONSTRAINT FK_RS_ROOM
-FOREIGN KEY (room_id)
-REFERENCES Room (id);
+ALTER TABLE Booking_Service
+ADD CONSTRAINT FK_BS_BOOK
+FOREIGN KEY (booking_id)
+REFERENCES Booking (id);
 go
-ALTER TABLE Room_Service
-ADD CONSTRAINT FK_RS_SERVICE
+ALTER TABLE Booking_Service
+ADD CONSTRAINT FK_BS_SERVICE
 FOREIGN KEY (service_id)
 REFERENCES Service (id);
 go
-ALTER TABLE Room_Food
-ADD CONSTRAINT FK_RF_ROOM
-FOREIGN KEY (room_id)
-REFERENCES Room (id);
+ALTER TABLE Booking_Food
+ADD CONSTRAINT FK_BF_BOOK
+FOREIGN KEY (booking_id)
+REFERENCES Booking (id);
 go
-ALTER TABLE Room_Food
-ADD CONSTRAINT FK_RF_FOOD
+ALTER TABLE Booking_Food
+ADD CONSTRAINT FK_BF_FOOD
 FOREIGN KEY (food_id)
 REFERENCES Food (id);
 
@@ -187,15 +187,15 @@ insert into Service values (N'Fitness center',500000,N'Các phòng tập thể d
 
 
 --insert room
-insert into Room values ('P001',N'Phòng 001 lầu 1','DLX','img01','img02','img03','img04',N'Phòng Deluxe được thiết kế tinh tế sang trọng nội thất đầy đủ tiện nghi hiện đại, cửa sổ kính rộng thoáng bao quát toàn cảnh thành phố mang đến cho bạn một không gian thanh bình và dễ chịu sẽ là sự lựa chọn cho những doanh nhân và khách du lịch.')
-insert into Room values ('P002',N'Phòng 002 lầu 1','SUP','img05','img06','img07','img08',N'Phòng Superior Double hay Twin được thiết kế sang trọng ấm cúng sang trọng và đầy đủ tiện nghi, tầm nhìn thoáng khiến bạn cảm thấy dễ chịu thoải mái như ở nhà.')
-insert into Room values ('P003',N'Phòng 001 lầu 1','SUT','img09','img010','img011','img012',N'Phòng Suit được thiết kế tinh tế sang trọng nội thất đầy đủ tiện nghi hiện đại, tầm nhìn rộng đẹp bao quát Hồ Tây, Sông Hồng và cảnh thành phố. Sự kết hợp hài hòa giữa không gian yên bình và thoáng đãng của Sông, Hồ và những căn phòng sang trọng cùng với lòng hiếu khách tận tình, chu đáo sẽ là sự lựa chọn cho những doanh nhân và khách du lịch.')
-insert into Room values ('P004',N'Phòng 001 lầu 1','SUT','img13','img014','img015','img016',N'Phòng cao cấp nhất, tầng cao nhất, trang bị cùng dịch vụ đặc biệt, thường gồm 1 phòng khách, 1 phòng ngủ, 2 wc, ban công hướng đẹp nhất. ')
-insert into Room values ('P005',N'Phòng 001 lầu 1','SUT','img017','img018','img019','img020',N'Royal Suit room.Phòng ngủ vương giả, phòng tắm rộng rãi, bồn tắm hoặc góc tắm, vòi sen kiểu dáng đẹp.')
-insert into Room values ('P006',N'Phòng 001 lầu 2','SUT','img021','img022','img023','img024',N' President Suite/Presidential Suite (Phòng tổng thống): Căn phòng đắt nhất trong khách sạn. Mỗi khách sạn chỉ có duy nhất một phòng tổng thống. Phòng có một hoặc nhiều phòng ngủ và không gian sống nhấn mạnh vào phong cách trang trí, tiện nghi cao cấp và dịch vụ riêng (ví dụ một quản gia trong suốt thời gian lưu trú). Diện tích phòng President Suite thường nằm trong khoảng 80 – 350 m2.')
-insert into Room values ('P007',N'Phòng 001 lầu 2','DLX','img021','img022','img023','img024',N'Được trang bị 2 giường đơn đặt cạnh nhau, cho 2 người ở. Bàn làm việc trong phòng đồng thời được thiết kế với ý tưởng cho khách kinh doanh. Diện tích phòng Hollywood Twin Room thường nằm trong khoảng 32 – 40 m2.')
-insert into Room values ('P008',N'Phòng 001 lầu 2','SUT','img025','img026','img027','img028',N'Mini Suite/Junior Suite: Một phòng đơn với một giường ngủ và khu vực ngồi tiếp khách. Đôi khi phòng ngủ tách biệt hẳn với khu vực tiếp khách. Diện tích phòng Junior Suite thường nằm trong khoảng 60 – 80 m2.')
-insert into Room values ('P009',N'Phòng 001 lầu 2','STD','img025','img026','img027','img028',N'Phòng dành cho một người, được trang bị một giường đơn. Diện tích Single thường nằm trong khoảng 37 – 45 m2.')
-insert into Room values ('P010',N'Phòng 001 lầu 2','STD','img029','img030','img031','img032',N'Phòng dành cho 2 người, được trang bị một giường đôi, được gọi là giường cỡ Queen. Diện tích phòng Double thường nằm trong khoảng 40 – 45 m2.')
+insert into Room values ('P001',N'Phòng 001 - Lầu 1','DLX','img01','img02','img03','img04',N'Phòng Deluxe được thiết kế tinh tế sang trọng nội thất đầy đủ tiện nghi hiện đại, cửa sổ kính rộng thoáng bao quát toàn cảnh thành phố mang đến cho bạn một không gian thanh bình và dễ chịu sẽ là sự lựa chọn cho những doanh nhân và khách du lịch.')
+insert into Room values ('P002',N'Phòng 002 - Lầu 1','SUP','img05','img06','img07','img08',N'Phòng Superior Double hay Twin được thiết kế sang trọng ấm cúng sang trọng và đầy đủ tiện nghi, tầm nhìn thoáng khiến bạn cảm thấy dễ chịu thoải mái như ở nhà.')
+insert into Room values ('P003',N'Phòng 003 - Lầu 1','SUT','img09','img010','img011','img012',N'Phòng Suit được thiết kế tinh tế sang trọng nội thất đầy đủ tiện nghi hiện đại, tầm nhìn rộng đẹp bao quát Hồ Tây, Sông Hồng và cảnh thành phố. Sự kết hợp hài hòa giữa không gian yên bình và thoáng đãng của Sông, Hồ và những căn phòng sang trọng cùng với lòng hiếu khách tận tình, chu đáo sẽ là sự lựa chọn cho những doanh nhân và khách du lịch.')
+insert into Room values ('P004',N'Phòng 004 - Lầu 1','SUT','img13','img014','img015','img016',N'Phòng cao cấp nhất, tầng cao nhất, trang bị cùng dịch vụ đặc biệt, thường gồm 1 phòng khách, 1 phòng ngủ, 2 wc, ban công hướng đẹp nhất. ')
+insert into Room values ('P005',N'Phòng 005 - Lầu 1','SUT','img017','img018','img019','img020',N'Royal Suit room.Phòng ngủ vương giả, phòng tắm rộng rãi, bồn tắm hoặc góc tắm, vòi sen kiểu dáng đẹp.')
+insert into Room values ('P006',N'Phòng 006 - Lầu 2','SUT','img021','img022','img023','img024',N' President Suite/Presidential Suite (Phòng tổng thống): Căn phòng đắt nhất trong khách sạn. Mỗi khách sạn chỉ có duy nhất một phòng tổng thống. Phòng có một hoặc nhiều phòng ngủ và không gian sống nhấn mạnh vào phong cách trang trí, tiện nghi cao cấp và dịch vụ riêng (ví dụ một quản gia trong suốt thời gian lưu trú). Diện tích phòng President Suite thường nằm trong khoảng 80 – 350 m2.')
+insert into Room values ('P007',N'Phòng 007 - Lầu 2','DLX','img021','img022','img023','img024',N'Được trang bị 2 giường đơn đặt cạnh nhau, cho 2 người ở. Bàn làm việc trong phòng đồng thời được thiết kế với ý tưởng cho khách kinh doanh. Diện tích phòng Hollywood Twin Room thường nằm trong khoảng 32 – 40 m2.')
+insert into Room values ('P008',N'Phòng 008 - Lầu 2','SUT','img025','img026','img027','img028',N'Mini Suite/Junior Suite: Một phòng đơn với một giường ngủ và khu vực ngồi tiếp khách. Đôi khi phòng ngủ tách biệt hẳn với khu vực tiếp khách. Diện tích phòng Junior Suite thường nằm trong khoảng 60 – 80 m2.')
+insert into Room values ('P009',N'Phòng 009 - Lầu 2','STD','img025','img026','img027','img028',N'Phòng dành cho một người, được trang bị một giường đơn. Diện tích Single thường nằm trong khoảng 37 – 45 m2.')
+insert into Room values ('P010',N'Phòng 010 - Lầu 2','STD','img029','img030','img031','img032',N'Phòng dành cho 2 người, được trang bị một giường đôi, được gọi là giường cỡ Queen. Diện tích phòng Double thường nằm trong khoảng 40 – 45 m2.')
 
 

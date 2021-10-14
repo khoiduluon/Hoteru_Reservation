@@ -7,8 +7,8 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @Data
 @Entity
-@Table(name = "RoomFood")
-public class RoomFood implements Serializable{
+@Table(name = "Booking_Service")
+public class ServiceBooking implements Serializable{
 
   @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +16,10 @@ public class RoomFood implements Serializable{
 	Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "food_id")
-	Food food;
+	@JoinColumn(name = "service_id")
+	Service service;
 
 	@ManyToOne
-	@JoinColumn(name = "room_id")
-	Room roomf;
+	@JoinColumn(name = "booking_id")
+	Booking bookings;
 }

@@ -28,5 +28,5 @@ public class Food implements Serializable{
 
   @JsonIgnore
 	@OneToMany(mappedBy = "food")
-	List<RoomFood> roomFood;
+	List<FoodBooking> foodBookings;
 }

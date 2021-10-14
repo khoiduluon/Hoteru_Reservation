@@ -3,6 +3,9 @@ package com.hoterureservation.entities;
 import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @SuppressWarnings("serial")
@@ -32,4 +35,12 @@ public class Booking implements Serializable{
   @ManyToOne
 	@JoinColumn(name = "username")
 	Customer customerb;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "bookingf")
+  List<FoodBooking> foodBookings;
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "bookings")
+  List<ServiceBooking> serviceBookings;
 }
