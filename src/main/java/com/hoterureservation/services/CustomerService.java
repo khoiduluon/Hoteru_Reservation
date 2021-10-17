@@ -7,4 +7,8 @@ public interface CustomerService {
 
     public Customer findByUsername(String username);
 
+    public Customer save(Customer customer);
+
+    public boolean checkUserExist(String username);
+
 }

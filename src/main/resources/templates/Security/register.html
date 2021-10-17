@@ -1,97 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-
-<head>
-    <title>Login</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" th:href="@{/login/images/icons/favicon.ico}" />
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/vendor/bootstrap/css/bootstrap.min.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/vendor/animate/animate.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/vendor/css-hamburgers/hamburgers.min.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/vendor/animsition/css/animsition.min.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/vendor/select2/select2.min.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/vendor/daterangepicker/daterangepicker.css}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{/login/css/util.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/login/css/main.css}">
-    <!--===============================================================================================-->
-</head>
-
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{/layout/index::dynamic(~{::main})}">
 <body>
+<main>
+    <div class="container mt-3">
+        <!-- Pills content -->
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                <h3 class="m-auto">Register form</h3>
+                <form th:action="@{/register}" method="post" th:object="${customer}">
 
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100 p-t-30 p-b-50">
-                <span class="login100-form-title p-b-41">
-                    Register
-                </span>
-                <form class="login100-form validate-form p-b-33 p-t-5">
-
-                    <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" type="text" name="username" placeholder="User name">
-                        <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                    <div class="form-outline mb-4">
+                       <span>[[${message}]]</span>
+                    </div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" th:field="*{username}" required/>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter Email address">
-                        <input class="input100" type="text" name="pass" placeholder="Email address">
-                        <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" th:field="*{password}" required/>
+                        <td></td>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
-                        <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                    <div class="form-outline mb-4">
+                        <input type="password" id="re-password" name="re-password" class="form-control" placeholder="Re-type Password" th:field="*{re_password}" required/>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter confirm password">
-                        <input class="input100" type="password" name="pass" placeholder="Confirm Password">
-                        <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                    <div class="form-outline mb-4">
+                        <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Fullname" th:field="*{fullname}" required/>
                     </div>
 
-
-
-                    <div class="container-login100-form-btn m-t-32">
-                        <button class="login100-form-btn">
-                            Register
-                        </button>
+                    <div class="form-outline mb-4">
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phonenumber" th:field="*{phone}" required/>
                     </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="text" id="address" name="address" class="form-control" placeholder="Address" th:field="*{address}" required/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" th:field="*{email}" required/>
+                    </div>
+
+<!--                    <div class="form-outline mb-4">-->
+<!--                        <input type="email" id="role" name="role" class="form-control" placeholder="Email" th:field="*{role}" hidden/>-->
+<!--                    </div>-->
+
+                    <!-- 2 column grid layout -->
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-warning btn-block mb-4">Register</button>
 
                 </form>
             </div>
         </div>
     </div>
-
-
-    <div id="dropDownSelect1"></div>
-
-    <!--===============================================================================================-->
-    <script th:src="@{/login/vendor/jquery/jquery-3.2.1.min.js}"></script>
-    <!--===============================================================================================-->
-    <script th:src="@{/login/vendor/animsition/js/animsition.min.js}"></script>
-    <!--===============================================================================================-->
-    <script th:src="@{/login/vendor/bootstrap/js/popper.js}"></script>
-    <script th:src="@{/login/vendor/bootstrap/js/bootstrap.min.js}"></script>
-    <!--===============================================================================================-->
-    <script th:src="@{/login/vendor/select2/select2.min.js}"></script>
-    <!--===============================================================================================-->
-    <script th:src="@{/login/vendor/daterangepicker/moment.min.js}"></script>
-    <script th:src="@{/login/vendor/daterangepicker/daterangepicker.js}"></script>
-    <!--===============================================================================================-->
-    <script th:src="@{/login/vendor/countdowntime/countdowntime.js}"></script>
-    <!--===============================================================================================-->
-    <script th:src="@{/login/js/main.js}"></script>
-
+</main>
 </body>
 
 </html>

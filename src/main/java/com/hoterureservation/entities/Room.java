@@ -20,9 +20,6 @@ public class Room implements Serializable {
     @Column(name = "name")
     String name;
 
-    @Column(name = "thumbnail")
-    String thumbnail;
-
     @Column(name = "image1")
     String image1;
 

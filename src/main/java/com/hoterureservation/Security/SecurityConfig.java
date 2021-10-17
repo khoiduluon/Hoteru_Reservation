@@ -2,6 +2,7 @@ package com.hoterureservation.Security;
 
 import com.hoterureservation.entities.Customer;
 import com.hoterureservation.services.CustomerService;
+import com.hoterureservation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,28 +20,22 @@ import java.util.concurrent.TimeUnit;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    CustomerService customerService;
-
-    private final PasswordEncoder passwordEncoder;
+//    @Autowired
+//    CustomerService customerService;
 
     @Autowired
-    public SecurityConfig(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    UserService userService;
+
+//    private final PasswordEncoder passwordEncoder;
+//
+//    @Autowired
+//    public SecurityConfig(PasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(username -> {
-            try{
-                Customer customer = customerService.findByUsername(username);
-                String password = passwordEncoder.encode(customer.getPassword());
-                String [] roles = {customer.getRole()};
-                return User.withUsername(username).password(password).roles(roles).build();
-            } catch (Exception e){
-                throw new UsernameNotFoundException(username + "not found");
-            }
-        });
+        auth.userDetailsService(userService);
     }
 
     @Override
@@ -70,6 +65,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID","remember-me")
                 .logoutSuccessUrl("/home/index");
+        http
+                .oauth2Login()
+                .loginPage("/login")
+                .defaultSuccessUrl("/oauth2/login/success", true)
+                .failureUrl("/login?error=fail")
+                .authorizationEndpoint()
+                .baseUri("/oauth2/authorization");
 
     }
 }
