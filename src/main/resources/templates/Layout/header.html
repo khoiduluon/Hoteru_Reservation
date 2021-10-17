@@ -15,7 +15,7 @@
                                 <a class="text-dark" th:href="@{/register}">Register</a>
                         </th:block>
                         <th:block th:if="${#request.getRemoteUser}">
-                           <a class="font-weight-bold">[[${#request.getRemoteUser}]]</a> |
+                           <a class="font-weight-bold">[[${#request.userPrincipal.name}]]</a> |
                             <a class="text-danger" th:href="@{/logout}">Logout</a>
                         </th:block>
                     </div>

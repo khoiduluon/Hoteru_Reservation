@@ -4,7 +4,60 @@
 
 <body>
 <main>
-    <h1>Booking Page</h1>
+    <div class="container mt-5">
+        <div class="row d-flex flex-row justify-content-lg-between">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header">
+                        Date
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="col-auto">
+                                    <div class="filter__form__item">
+                                        <p>Check in date</p>
+                                        <div class="filter__form__datepicker">
+                                            <span class="icon_calendar"></span>
+                                            <input type="text" class="datepicker_pop check__in">
+                                            <i class="arrow_carrot-down"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="filter__form__item">
+                                        <p>Check out date</p>
+                                        <div class="filter__form__datepicker">
+                                            <span class="icon_calendar"></span>
+                                            <input type="text" class="datepicker_pop check__out">
+                                            <i class="arrow_carrot-down"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Summary
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Check in</li>
+                            <li class="list-group-item">A second item</li>
+                            <li class="list-group-item">A third item</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        Total: 10$
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <a th:href="@{/booking/checkout}">Checkout</a>
 </main>
 </body>

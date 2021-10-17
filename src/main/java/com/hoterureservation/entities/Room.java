@@ -19,7 +19,7 @@ public class Room implements Serializable {
 
     @Column(name = "name")
     String name;
-    
+
     @Column(name = "image1")
     String image1;
 
