@@ -11,4 +11,5 @@ public interface CustomerService {
 
     public boolean checkUserExist(String username);
 
+    public Customer update(Customer customer);
 }
