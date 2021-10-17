@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{/layout/index::dynamic(~{::main})}">
+<body>
+<main>
+    <div class="container mt-3">
+        <!-- Pills content -->
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                <h3 class="m-auto">Update Account</h3>
+                <form th:action="@{/update-accout}" method="post" th:object="${customer}">
+
+                    <div class="form-outline mb-4">
+                       <span>[[${message}]]</span>
+                    </div>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" th:field="*{username}" required/>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="password" name="password" class="form-control" placeholder="Password" th:field="*{password}" required/>
+                        <td></td>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Fullname" th:field="*{fullname}" required/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phonenumber" th:field="*{phone}" required/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="text" id="address" name="address" class="form-control" placeholder="Address" th:field="*{address}" required/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" th:field="*{email}" required/>
+                    </div>
+
+<!--                    <div class="form-outline mb-4">-->
+<!--                        <input type="email" id="role" name="role" class="form-control" placeholder="Email" th:field="*{role}" hidden/>-->
+<!--                    </div>-->
+
+                    <!-- 2 column grid layout -->
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-warning btn-block mb-4">Update</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+
+</html>
