@@ -18,7 +18,7 @@ public class FoodMgmtController {
 
     @RequestMapping("/Food")
     public String show(Model model) {
-        // load Customer
+        // load Food
         Food item = new Food();
         model.addAttribute("item", item);
         List<Food> FoodItems = foodRepository.findAll();
@@ -26,39 +26,39 @@ public class FoodMgmtController {
         return "Admin/Food";
     }
 
-    @RequestMapping("/food/edit/{id}")
-    public String edit(Model model, @PathVariable("id") Long id) {
-        Food item = foodRepository.findById(id).get();
-        model.addAttribute("item", item);
-        List<Food> items = foodRepository.findAll();
-        model.addAttribute("List", items);
-        return "Admin/Food";
-    }
+    // @RequestMapping("/food/edit/{id}")
+    // public String edit(Model model, @PathVariable("id") Long id) {
+    //     Food item = foodRepository.findById(id).get();
+    //     model.addAttribute("item", item);
+    //     List<Food> items = foodRepository.findAll();
+    //     model.addAttribute("List", items);
+    //     return "Admin/Food";
+    // }
 
-    @RequestMapping("/food/save")
-    public String create(Food item) {
-        foodRepository.save(item);
-        return "redirect:/Food";
-    }
+    // @RequestMapping("/food/save")
+    // public String create(Food item) {
+    //     foodRepository.save(item);
+    //     return "redirect:/Food";
+    // }
 
-    @RequestMapping("/food/update")
-    public String update(Food item, Model model) {
-        try {
-            foodRepository.save(item);
-        } catch (Exception e) {
-            model.addAttribute("message", "Có Lỗi Xảy Ra");
-        }
-        return "redirect:/food/edit/" + item.getId();
-    }
+    // @RequestMapping("/food/update")
+    // public String update(Food item, Model model) {
+    //     try {
+    //         foodRepository.save(item);
+    //     } catch (Exception e) {
+    //         model.addAttribute("message", "Có Lỗi Xảy Ra");
+    //     }
+    //     return "redirect:/food/edit/" + item.getId();
+    // }
 
-    @RequestMapping("/food/delete/{id}")
-    public String delete(@PathVariable("id") Long id, Model model) {
-        try {
-            foodRepository.deleteById(id);
-        } catch (Exception e) {
-            model.addAttribute("message", "Có Lỗi Xảy Ra");
-        }
-        return "redirect:/Food";
-    }
+    // @RequestMapping("/food/delete/{id}")
+    // public String delete(@PathVariable("id") Long id, Model model) {
+    //     try {
+    //         foodRepository.deleteById(id);
+    //     } catch (Exception e) {
+    //         model.addAttribute("message", "Có Lỗi Xảy Ra");
+    //     }
+    //     return "redirect:/Food";
+    // }
     
 }
