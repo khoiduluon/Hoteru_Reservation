@@ -38,27 +38,154 @@
                         </div>
                     </div>
                 </div>
+
+                    <div class="row ">
+                        <div class="col-6">
+                            <label for="firstName" class="form-label">Full name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="lastName" class="form-label">Phone number</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="username" class="form-label">Email</label>
+                            <div class="input-group has-validation">
+                                <input type="text" class="form-control" id="username" placeholder="Username" required="">
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <hr class="my-4">
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="col-4">
+                            <img src="/img/rooms/room-3.jpg" alt="">
+                        </div>
+                      <div class="col-auto">
+                          <h5 class="card-title">Room</h5>
+                          <p class="card-text">Tên phòng nè</p>
+                          <h5 class="card-title">Room Type</h5>
+                          <p class="card-text">Phòng vip nè</p>
+                      </div>
+                        <div class="col-auto">
+                            <p class="card-text mt-3">Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, </p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="card">
+                    <div class="card-header">
+                        Service & Food
+                    </div>
+                    <div class="card-body row">
+                            <div class="dropdown col-6">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownService" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Choose Service
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <button class="dropdown-item" type="button">
+                                        <input type="checkbox">Action
+                                    </button>
+                                    <button class="dropdown-item" type="button">
+                                        <input type="checkbox">Action
+                                    </button>
+                                    <button class="dropdown-item" type="button">
+                                        <input type="checkbox">Action
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="dropdown col-6">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFood" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Choose Food
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <button class="dropdown-item" type="button">
+                                        <input type="checkbox">Action
+                                    </button>
+                                    <button class="dropdown-item" type="button">
+                                        <input type="checkbox">Action
+                                    </button>
+                                    <button class="dropdown-item" type="button">
+                                        <input type="checkbox">Action
+                                    </button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <a th:href="@{/booking/checkout}" class="w-100 btn btn-primary btn-lg mb-5" type="submit">Continue to checkout</a>
             </div>
             <div class="col-auto">
                 <div class="card" style="width: 18rem;">
                     <div class="card-header">
                         Summary
                     </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Check in</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                    <div class="card-body m-0 p-0">
+                        <ul class="list-group m-0">
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div class="d-flex flex-row">
+                                    <div class="col-6 m-0 p-0">
+                                        <h6 class="col-6 m-0 p-0">Check in</h6>
+                                        <p class="fs-5">Ngày xx Tháng xx Năm xx</p>
+                                    </div>
+                                    <div class="col-6 m-0 p-0">
+                                        <h6 class="col-6 m-0 p-0">Check out</h6>
+                                        <p class="fs-5">Ngày xx Tháng xx Năm xx</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <p class="m-0">Thời gian lưu trú: <b>5 ngày</b></p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Phòng Deluxe</h6>
+                                    <small class="text-muted">Brief description</small>
+                                </div>
+                                <span class="text-muted">5.000.000VNĐ</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Service</h6>
+                                    <small class="text-muted">Brief description</small>
+                                </div>
+                                <span class="text-muted">5.000.000VNĐ</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                <div>
+                                    <h6 class="my-0">Food</h6>
+                                    <small class="text-muted">Brief description</small>
+                                </div>
+                                <span class="text-muted">5.000.000VNĐ</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <div>
+                                    <h6 class="my-0">Phòng Deluxe</h6>
+                                    <small class="text-muted">Brief description</small>
+                                </div>
+                                <span class="text-muted">5.000.000VNĐ</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total (VNĐ)</span>
+                                <strong>5.000.000VNĐ</strong>
+                            </li>
                         </ul>
-                    </div>
-                    <div class="card-footer">
-                        Total: 10$
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <a th:href="@{/booking/checkout}">Checkout</a>
 </main>
 </body>
 </html>
