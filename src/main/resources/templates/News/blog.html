@@ -29,84 +29,24 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="blog__item__large">
                         <div class="blog__item__large__pic">
-                            <img src="img/blog/blog-large.jpg" alt="">
+                            <img th:src="@{/img/blog/blog-large.jpg}" alt="">
                             <div class="tag">Hotel</div>
                         </div>
                         <div class="blog__item__large__text">
-                            <p><i class="fa fa-clock-o"></i> 01th March, 2019</p>
-                            <h4><a th:href="@{/blog/detail}">Classifieds are usually the first place you think of when you are</a></h4>
+                            <p><i class="fas fa-clock"></i> 01th March, 2019</p>
+                            <h4><a th:href="@{/about}">Classifieds are usually the first place you think of when you are</a></h4>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6">
+                        <div class="col-lg-6 col-md-6" th:each="room : ${list}">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
-                                    <img src="img/blog/blog-1.jpg" alt="">
-                                    <div class="tag">Event</div>
+                                    <img th:src="@{/img/blog/blog-1.jpg}" alt="">
+                                    <div class="tag">Room</div>
                                 </div>
                                 <div class="blog__item__text">
-                                    <p><i class="fa fa-clock-o"></i> 02th March, 2019</p>
-                                    <h5><a href="#">Guests think these services would be</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-2.jpg" alt="">
-                                    <div class="tag">Travel</div>
-                                </div>
-                                <div class="blog__item__text">
-                                    <p><i class="fa fa-clock-o"></i> 03th March, 2019</p>
-                                    <h5><a href="#">Europe's 2018 hotel strengths belie</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-3.jpg" alt="">
-                                    <div class="tag">Restaurant</div>
-                                </div>
-                                <div class="blog__item__text">
-                                    <p><i class="fa fa-clock-o"></i> 04th March, 2019</p>
-                                    <h5><a href="#">Tribute Portfolio opens The Alida in</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-4.jpg" alt="">
-                                    <div class="tag">Hotel</div>
-                                </div>
-                                <div class="blog__item__text">
-                                    <p><i class="fa fa-clock-o"></i> 05th March, 2019</p>
-                                    <h5><a href="#">Rocco Forte Hotels unveils its second</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-5.jpg" alt="">
-                                    <div class="tag">Travel</div>
-                                </div>
-                                <div class="blog__item__text">
-                                    <p><i class="fa fa-clock-o"></i> 07th March, 2019</p>
-                                    <h5><a href="#">The Ritz-Carlton, St. Louis renovates</a></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-4.jpg" alt="">
-                                    <div class="tag">Restaurant</div>
-                                </div>
-                                <div class="blog__item__text">
-                                    <p><i class="fa fa-clock-o"></i> 08th March, 2019</p>
-                                    <h5><a href="#">NexPoint Hospitality Trust to acquire</a></h5>
+                                    <p><i class="fas fa-person-booth"></i> [[${room.roomType.name}]]</p>
+                                    <h5><a th:href="@{|/comment/room/${room.id}|}">[[${room.name}]]</a></h5>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +72,7 @@
                             <h4>Recent Posts</h4>
                             <a href="#" class="blog__sidebar__recent__item">
                                 <div class="blog__sidebar__recent__item__pic">
-                                    <img src="img/blog/sidebar/recent-1.jpg" alt="">
+                                    <img th:src="@{/img/blog/sidebar/recent-1.jpg}" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
                                     <h6>Smart HVAC Solutions Keep It</h6>
@@ -141,7 +81,7 @@
                             </a>
                             <a href="#" class="blog__sidebar__recent__item">
                                 <div class="blog__sidebar__recent__item__pic">
-                                    <img src="img/blog/sidebar/recent-2.jpg" alt="">
+                                    <img th:src="@{/img/blog/sidebar/recent-2.jpg}" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
                                     <h6>Guests think these services</h6>
@@ -150,7 +90,7 @@
                             </a>
                             <a href="#" class="blog__sidebar__recent__item">
                                 <div class="blog__sidebar__recent__item__pic">
-                                    <img src="img/blog/sidebar/recent-3.jpg" alt="">
+                                    <img th:src="@{/img/blog/sidebar/recent-3.jpg}" alt="">
                                 </div>
                                 <div class="blog__sidebar__recent__item__text">
                                     <h6>Europe's 2018 hotel strengths</h6>

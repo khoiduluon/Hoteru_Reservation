@@ -5,6 +5,8 @@ import com.hoterureservation.services.CustomerService;
 import com.hoterureservation.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,7 +55,9 @@ public class SecurityController {
     }
 
     @GetMapping("/update-account/{username}")
-    public String updateAccount(Model model, @PathVariable("username") String username){
+    public String updateAccount(Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
         Customer customer = customerService.findByUsername(username);
         model.addAttribute("customer", customer);
         return "Security/update_account";
@@ -68,7 +72,9 @@ public class SecurityController {
     }
 
     @GetMapping("/update-password/{username}")
-    public String updatePassword(Model model, @PathVariable("username") String username){
+    public String updatePassword(Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
         Customer customer = customerService.findByUsername(username);
         model.addAttribute("customer", customer);
         return "Security/update_password";
