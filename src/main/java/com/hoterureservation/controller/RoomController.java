@@ -1,6 +1,7 @@
 package com.hoterureservation.controller;
 
 
+import com.hoterureservation.services.CommentService;
 import com.hoterureservation.services.RoomService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private CommentService commentService;
+
     @GetMapping("/list")
     public String listRoom(Model model) {
         model.addAttribute("listRoom",roomService.findAll());
@@ -25,6 +29,7 @@ public class RoomController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") String id, Model model){
         model.addAttribute("room",roomService.findById(id));
+        model.addAttribute("comment",commentService.countComment(id));
         return "Room/room-details";
     }
 }
