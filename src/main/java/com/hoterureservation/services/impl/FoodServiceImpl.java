@@ -22,6 +22,11 @@ public class FoodServiceImpl implements FoodService{
         return foodRepository.save(food);
     }
 
+    @Override
+    public int countFood() {
+        return foodRepository.countFood();
+    }
+
     // @Override
     // public Boolean remove(Long id) {
     //     try{

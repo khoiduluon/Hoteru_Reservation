@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ServiceRepository extends JpaRepository<Service, Long>{
-
+  @Query("Select count(s) from Service s")
+  public int countService();
 }

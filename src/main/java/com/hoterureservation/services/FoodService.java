@@ -9,5 +9,6 @@ public interface FoodService {
     Food insert(Food food);
 
     // void remove(Long id);
-  
+    
+    public int countFood();
 }
