@@ -23,5 +23,10 @@ public class RoomServiceImpl implements RoomService{
   public Room findById(String id) {
     return roomRepository.findById(id).get();
   }
+
+  @Override
+  public int countRoom() {
+    return roomRepository.countRoom();
+  }
   
 }

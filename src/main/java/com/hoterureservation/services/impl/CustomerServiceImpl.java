@@ -35,4 +35,9 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer update(Customer customer) {
         return customerRepository.save(customer);
     }
+
+    @Override
+    public int countCustomer() {
+        return customerRepository.countCustomer();
+    }
 }
