@@ -19,8 +19,6 @@
     <h4>Food Management</h4>
   </center>
   <div class="container">
-    <br>
-
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1" style="width:100px;">ID</span>
@@ -71,8 +69,16 @@
         </tr>
       </tbody>
     </table>
+    <div style="padding-bottom: 20px;">
+      <center>
+      <a class="btn btn-outline-primary" th:href="@{/Food/page(p=0)}">First</a>
+      <a class="btn btn-outline-primary" th:href="@{/Food/page(p=${List.number-1})}">Prev</a>
+      <a class="btn btn-outline-primary" th:href="@{/Food/page(p=${List.number+1})}">Next</a>
+      <a class="btn btn-outline-primary" th:href="@{/Food/page(p=${List.totalPages - 1 })}">Last</a>
+    </center>
+    </div>
   </div>
-    <!-- Success Toast -->
+  <!-- Success Toast -->
   <div class="wrapperToast">
     <div id="toast">
       <div class="container-toast">
