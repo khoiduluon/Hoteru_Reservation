@@ -7,6 +7,7 @@ function getOne(id) {
       document.getElementById("NameFood").value = food.name;
       document.getElementById("PriceFood").value = food.price;
       document.getElementById("DescFood").value = food.description;
+      document.getElementById('btnSave').innerHTML = 'Update';
     })
     .catch(function (error) {
       showToastError();
@@ -33,10 +34,11 @@ function save() {
 }
 
 function clearForm() {
-  document.getElementById('IdFood').value = ''
-  document.getElementById('NameFood').value = ''
-  document.getElementById('PriceFood').value = ''
-  document.getElementById('DescFood').value = ''
+  document.getElementById('IdFood').value = '';
+  document.getElementById('NameFood').value = '';
+  document.getElementById('PriceFood').value = '';
+  document.getElementById('DescFood').value = '';
+  document.getElementById('btnSave').innerHTML = 'Save';
 }
 
 function deleteFood() {
@@ -64,5 +66,6 @@ function deleteFoodID(id) {
     .catch(function (error) {
       showToastError();
     });
-
 }
+
+
