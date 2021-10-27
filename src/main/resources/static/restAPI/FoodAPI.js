@@ -9,7 +9,7 @@ function getOne(id) {
       document.getElementById("DescFood").value = food.description;
     })
     .catch(function (error) {
-      console.log(error);
+      showToastError();
     });
 }
 
@@ -27,7 +27,7 @@ function save() {
     setTimeout(() => { location.reload() }, 2100);
   })
     .catch(function (error) {
-      console.log(error);
+      showToastError();
     });
 
 }
@@ -48,6 +48,9 @@ function deleteFood() {
       setTimeout(() => { location.reload() }, 2100);
     }    
   })
+  .catch(function (error) {
+    showToastError();
+  });
 }
 
 function deleteFoodID(id) {
@@ -58,5 +61,8 @@ function deleteFoodID(id) {
         setTimeout(() => { location.reload() }, 2100);
       }    
     })
+    .catch(function (error) {
+      showToastError();
+    });
 
 }

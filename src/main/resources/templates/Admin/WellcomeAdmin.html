@@ -10,11 +10,40 @@
     integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 
-<main class="content-wrapper">
-  
-<center> Chart here </center>
- 
-  
+<main class="content-wrapper" style="font-family: 'Libre Franklin', sans-serif;">
+  <div class="col-12">
+    <div class="row p-4">
+      <div><h2>Welcome ADMIN!</h2>
+        <h4>Dashboard</h4></div>
+    </div>
+    <div class="row p-4" >
+        <div class="col-2 border border-secondary rounded p-2 m-2 row">
+          <div class="col-6"><i class="fas fa-users" style="font-size: 50px;color:cadetblue"></i></div>
+          <div class="col-6" id="user" style="font-size: 40px;"></div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-2 border border-secondary rounded p-2 m-2 row">
+          <div class="col-6"><i class="fas fa-utensils" style="font-size: 50px;color:cadetblue"></i></div>
+          <div class="col-6" id="food" style="font-size: 40px;"></div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-2 border border-secondary rounded p-2 m-2 row">
+          <div class="col-6"><i class="fas fa-concierge-bell" style="font-size: 50px;color:cadetblue"></i></div>
+          <div class="col-6" id="service" style="font-size: 40px;"></div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-2 border border-secondary rounded p-2 m-2 row">
+          <div class="col-6"><i class="fas fa-bed" style="font-size: 50px;color:cadetblue"></i></div>
+          <div class="col-6" id="room" style="font-size: 40px;"></div>
+        </div>
+        <div class="col-1"></div>
+        <div class="row m-0">
+          <div  style="height:auto; width:auto">
+            <canvas id="mychart"></canvas>
+        </div>
+        </div>
+    </div>
+  </div>
 </main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -23,6 +23,9 @@
 
   <link rel="stylesheet" th:href="@{/toast message/styleSucess.css}">
   <link rel="stylesheet" th:href="@{/toast message/styleError.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -161,5 +164,55 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script th:src="@{/toast message/toastSucess.js}"></script>
 <script th:src="@{/toast message/toastError.js}"></script>
+<script th:src="@{/restAPI/Report.js}"></script>
+<script>getIndex();</script>
+<!-- Chart custom -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"
+        integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+          let myChart = document.getElementById("mychart").getContext("2d");
+      
+          //global options
+          // Chart.defaults.global.defaultFontFamily = 'Aria';
+          // Chart.defaults.global.defaultFontSize = 18;
+          // Chart.defaults.global.defaultFontColor = '#777';
+      
+          let ChartShape = new Chart(myChart, {
+              type: 'line', //bar ,pie ,line, doughnut, radar, polarArea
+              data: {
+                  labels: ['Jan', 'Feb', 'March', 'Apr', 'May'],
+                  datasets: [{
+                      label: 'Doanh Thu Theo Tháng',
+                      data: [300, 256, 665, 113, 447],
+                      backgroundColor: [
+                          '#99FFFF',
+                          '#99CCFF',
+                          '#66CCFF',
+                          '#33CCFF',
+                          '#00CCFF'
+                      ],
+                      borderWidth: 1,
+                      borderColor: '#777',
+                      hoverBorderWidth: 2,
+                      hoverBorderColor: '#000'
+      
+                  }]
+              },
+              options: {
+                  plugins: {
+                  title: {
+                      display: false,
+                      text: 'DOANH THU HÀNG THÁNG ($)'
+                  },
+                  legend: {
+                      display:false
+                  },
+              }
+              }
+          });
+      
+      </script>
 </body>
 </html>
