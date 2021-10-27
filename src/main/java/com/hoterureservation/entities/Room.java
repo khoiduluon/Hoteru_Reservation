@@ -46,4 +46,18 @@ public class Room implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "roomc")
     List<Comment> comment;
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", image1='" + image1 + '\'' +
+                ", image2='" + image2 + '\'' +
+                ", image3='" + image3 + '\'' +
+                ", image4='" + image4 + '\'' +
+                ", description='" + description + '\'' +
+                super.toString() +
+                '}';
+    }
 }

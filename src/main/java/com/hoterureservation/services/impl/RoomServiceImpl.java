@@ -25,8 +25,18 @@ public class RoomServiceImpl implements RoomService{
   }
 
   @Override
+  public Room save(Room room) {
+    return roomRepository.save(room);
+  }
+
+  @Override
   public int countRoom() {
     return roomRepository.countRoom();
   }
-  
+
+  @Override
+  public void deleteRoom(String id) {
+    roomRepository.deleteById(id);
+  }
+
 }

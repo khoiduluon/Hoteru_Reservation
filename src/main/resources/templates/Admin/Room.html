@@ -1,18 +1,86 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org" th:replace="~{/Admin/AdminIndex :: dynamic(~{::main})}">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin</title>
-</head>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{/Admin/AdminIndex::dynamic(~{::main})}">
+
+<body>
 
 <main class="content-wrapper">
   <!--content-->
-  <center>
-    room here
-  </center>
+  <main class="content-wrapper">
+    <center> <h2>Customer Management</h2></center>
+    <div class="container">
+      <br>
+      <h2 th:text="${message}"></h2>
+      <form th:action="@{/admin/room/save}" th:object="${room}" method="post" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon5" style="width:100px;">Roomid</span>
+          </div>
+          <input type="text" class="form-control" placeholder="RoomId?" th:field="*{id}"  aria-describedby="basic-addon5">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1" style="width:100px;">RoomName</span>
+          </div>
+          <input type="text" class="form-control" placeholder="RoomName?" th:field="*{name}"  aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon2" style="width:100px;">Description</span>
+          </div>
+          <textarea type="text" class="form-control" placeholder="Description?" th:field="*{description}" aria-describedby="basic-addon2"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3" style="width:100px;">Image</span>
+          </div>
+          <input type="file" name="image" class="form-control"  aria-describedby="basic-addon3" accept="image/jpeg, image/png"/>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon4" style="width:100px;">RoomType</span>
+          </div>
+         <select class="form-select" th:field="*{roomType}">
+           <option th:each="items :${listType}" th:value="${items.id}" th:text="${items.name}">
+           </option>
+         </select>
+        </div>
+
+        <hr>
+        <button class="btn btn-outline-danger">Save</button>
+        <a  class="btn btn-outline-danger" th:href="@{'/admin/room/delete/' + ${room.id}}">Delete</a>
+        <hr>
+        <table class="table table-striped table-bordered table-hover">
+          <thead class="thead-light">
+          <tr>
+            <th>Roomid</th>
+            <th>Roomtype</th>
+            <th>Roomname</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th colspan="2">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="item : ${list}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.roomType.id}"></td>
+            <td th:text="${item.roomType.name}"></td>
+            <td th:text="${item.description}"></td>
+            <td>
+              <img th:src="@{'/img/rooms/room-1.jpg'}" alt="Lỗi"
+                   style="width: 70px; height: 70px;">
+            </td>
+            <td><a th:href="@{'/admin/room/edit/' + ${item.id}}">Edit</a></td>
+            <td><a th:href="@{'/admin/room/delete/' + ${item.id}}">Delete</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </main>
 </main>
+</body>
 
 </html>
