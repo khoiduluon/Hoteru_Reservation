@@ -24,4 +24,14 @@ public class Bed implements Serializable{
   @JsonIgnore
 	@OneToMany(mappedBy = "typeBed")
 	List<RoomType> roomType;
+
+
+    @Override
+    public String toString() {
+        return "Bed{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                super.toString() +
+                '}';
+    }
 }

@@ -35,4 +35,16 @@ public class RoomType implements Serializable{
   @ManyToOne
 	@JoinColumn(name = "bed_code")
 	Bed typeBed;
+
+	@Override
+	public String toString() {
+		return "RoomType{" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				", price=" + price +
+				", size=" + size +
+				", capacity=" + capacity +
+				super.toString() +
+				'}';
+	}
 }

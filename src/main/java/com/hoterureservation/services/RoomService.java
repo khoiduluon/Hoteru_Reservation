@@ -9,5 +9,9 @@ public interface RoomService {
   
   Room findById(String id);
 
+  Room save(Room room);
+
   public int countRoom();
+
+  public void deleteRoom(String id);
 }
