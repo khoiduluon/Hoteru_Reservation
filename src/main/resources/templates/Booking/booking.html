@@ -4,9 +4,10 @@
 
 <body>
 <main>
-    <div class="container mt-5">
+    <div class="container mt-5" >
         <div class="row d-flex flex-row justify-content-lg-between">
             <div class="col-8">
+                <form action="#" >
                 <div class="card">
                     <div class="card-header">
                         Date
@@ -19,7 +20,7 @@
                                         <p>Check in date</p>
                                         <div class="filter__form__datepicker">
                                             <span class="icon_calendar"></span>
-                                            <input type="text" class="datepicker_pop check__in">
+                                            <input type="text" class="datepicker_pop check__in" id="checkIn" onChange="dateCheckIn()">
                                             <i class="arrow_carrot-down"></i>
                                         </div>
                                     </div>
@@ -29,7 +30,7 @@
                                         <p>Check out date</p>
                                         <div class="filter__form__datepicker">
                                             <span class="icon_calendar"></span>
-                                            <input type="text" class="datepicker_pop check__out">
+                                            <input type="text" class="datepicker_pop check__out" id="checkOut" onChange="dateCheckOut()">
                                             <i class="arrow_carrot-down"></i>
                                         </div>
                                     </div>
@@ -74,12 +75,14 @@
                         </div>
                       <div class="col-auto">
                           <h5 class="card-title">Room</h5>
-                          <p class="card-text">Tên phòng nè</p>
+                          <p class="card-text">[[${room.name}]]</p>
+                          <input type="text" hidden id="room_id" th:value="${room.id}"/>
+                          <input type="text" hidden id="user_id" th:value="${#request.userPrincipal.name}"/>
                           <h5 class="card-title">Room Type</h5>
-                          <p class="card-text">Phòng vip nè</p>
+                          <p class="card-text" th:text="${room.roomType.name}" th:value="${room.roomType.name}"></p>
                       </div>
                         <div class="col-auto">
-                            <p class="card-text mt-3">Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, Chém gió nè, </p>
+                            <p class="card-text mt-3" th:text="${room.description}"></p>
                         </div>
                     </div>
                 </div>
@@ -94,15 +97,15 @@
                                     Choose Service
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <button class="dropdown-item" type="button">
-                                        <input type="checkbox">Action
+                                    <button th:each="list : ${list}" class="dropdown-item" type="button">
+                                        <input type="checkbox" class="service" th:value="*{list.id}" th:name="*{list.name +'-'+ list.price}" onClick="getService()"/>[[*{list.name}]] ([[*{list.price}]])
                                     </button>
-                                    <button class="dropdown-item" type="button">
-                                        <input type="checkbox">Action
-                                    </button>
-                                    <button class="dropdown-item" type="button">
-                                        <input type="checkbox">Action
-                                    </button>
+<!--                                    <button class="dropdown-item" type="button">-->
+<!--                                        <input type="checkbox">value2-->
+<!--                                    </button>-->
+<!--                                    <button class="dropdown-item" type="button">-->
+<!--                                        <input type="checkbox">value3-->
+<!--                                    </button>-->
                                 </div>
                             </div>
                             <div class="dropdown col-6">
@@ -110,21 +113,17 @@
                                     Choose Food
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <button class="dropdown-item" type="button">
-                                        <input type="checkbox">Action
-                                    </button>
-                                    <button class="dropdown-item" type="button">
-                                        <input type="checkbox">Action
-                                    </button>
-                                    <button class="dropdown-item" type="button">
-                                        <input type="checkbox">Action
+                                    <button th:each="list : ${listFood}" class="dropdown-item" type="button">
+                                        <input type="checkbox" class="food" th:value="*{list.id}" th:name="*{list.name +'-'+ list.price}" onClick="getFood()">[[*{list.name}]] ([[*{list.price}]])
                                     </button>
                                 </div>
                             </div>
                     </div>
                 </div>
                 <hr class="my-4">
-                <a th:href="@{/booking/checkout}" class="w-100 btn btn-primary btn-lg mb-5" type="submit">Continue to checkout</a>
+<!--                    th:href="@{/booking/checkout}"-->
+                <a class="w-100 btn btn-primary btn-lg mb-5" type="submit" onCLick="booking()">Continue to checkout</a>
+                </form>
             </div>
             <div class="col-auto">
                 <div class="card" style="width: 18rem;">
@@ -133,52 +132,45 @@
                     </div>
                     <div class="card-body m-0 p-0">
                         <ul class="list-group m-0">
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <li class="list-group-item lh-sm">
                                 <div class="d-flex flex-row">
                                     <div class="col-6 m-0 p-0">
                                         <h6 class="col-6 m-0 p-0">Check in</h6>
-                                        <p class="fs-5">Ngày xx Tháng xx Năm xx</p>
+                                        <p class="fs-5" id="check_in"></p>
                                     </div>
                                     <div class="col-6 m-0 p-0">
                                         <h6 class="col-6 m-0 p-0">Check out</h6>
-                                        <p class="fs-5">Ngày xx Tháng xx Năm xx</p>
+                                        <p class="fs-5" id="check_out"></p>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <p class="m-0">Thời gian lưu trú: <b>5 ngày</b></p>
+                                <p class="m-0">Thời gian lưu trú: <b id="dayStay"> ngày</b></p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-sm">
                                 <div>
-                                    <h6 class="my-0">Phòng Deluxe</h6>
+                                    <h6 class="my-0" id="card-room-name" th:text="${room.roomType.name}" th:value="${room.roomType.name}" ></h6>
                                     <small class="text-muted">Brief description</small>
                                 </div>
-                                <span class="text-muted">5.000.000VNĐ</span>
+                                <span class="text-muted" id="card-room-price" th:value="${room.roomType.price}" th:name="${room.roomType.price}">[[${room.roomType.price}]]</span><p>VNĐ</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-sm">
                                 <div>
                                     <h6 class="my-0">Service</h6>
-                                    <small class="text-muted">Brief description</small>
+                                    <small class="text-muted" id="card-service-name"></small>
                                 </div>
-                                <span class="text-muted">5.000.000VNĐ</span>
+                                <span class="text-muted" id="card-service-price"></span><p>VNĐ</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between lh-sm">
                                 <div>
                                     <h6 class="my-0">Food</h6>
-                                    <small class="text-muted">Brief description</small>
+                                    <small class="text-muted" id="card-food-name"></small>
                                 </div>
-                                <span class="text-muted">5.000.000VNĐ</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between bg-light">
-                                <div>
-                                    <h6 class="my-0">Phòng Deluxe</h6>
-                                    <small class="text-muted">Brief description</small>
-                                </div>
-                                <span class="text-muted">5.000.000VNĐ</span>
+                                <span class="text-muted" id="card-food-price"></span><p>VNĐ</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Total (VNĐ)</span>
-                                <strong>5.000.000VNĐ</strong>
+                                <strong id="card-total-price"></strong><p>VNĐ</p>
                             </li>
                         </ul>
                     </div>
