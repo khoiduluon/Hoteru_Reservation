@@ -101,19 +101,16 @@ const getFood = function() {
 }
 
 const booking = function (){
-    let check_in = new Date(dateCheckIn());
-    let check_out = new Date(dateCheckOut());
-    let room_id = document.getElementById("room_id").value;
-    let cardTotalPrice = document.getElementById("card-total-price").value;
-    let user_id = document.getElementById("user_id").value;
     const obj = {
-        foodBookings: getFood(),
-        serviceBookings: getFood(),
-        inDate: check_in,
-        outDate: check_out,
-        room_id: room_id,
-        username: user_id,
-        total: cardTotalPrice
+        customerb = document.getElementById("user_id").value,
+        roomb = document.getElementById("room_id").value,
+        inDate = new Date(dateCheckIn()),
+        outDate = new Date(dateCheckOut()),
+        total = document.getElementById("card-total-price").value,
+        fullname = null,
+        phone = null,
+        foodBookings = getFood(),
+        serviceBookings = getService()
     }
     console.log(obj);
 }

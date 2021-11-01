@@ -28,6 +28,12 @@ public class Booking implements Serializable{
   @Column(name = "total")
 	Double total;
 
+  @Column(name = "fullname")
+	String fullname;
+
+  @Column(name = "phone")
+	String phone;
+
   @ManyToOne
 	@JoinColumn(name = "room_id")
 	Room roomb;

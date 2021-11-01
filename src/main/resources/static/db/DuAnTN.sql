@@ -77,7 +77,9 @@ create table Booking(
 	room_id varchar(20) not null,
 	inDate date not null,
 	outDate date not null,
-	total float not null
+	total float not null,
+	fullname nvarchar(150) not null,
+	phone nvarchar(12) not null 
 )
 go
 ALTER TABLE Room_Type
@@ -134,6 +136,10 @@ REFERENCES Food (id);
 go
 insert into Customer values ('user','1111','user','0123456778',N'tổ 14 Bùi Thị Xuân','user@gmail.com','Customer')
 insert into Customer values ('admin','1111','admin','0123456778',N'tổ 17 Đinh Tiên Hoàng','admin@gmail.com','Admin')
+insert into Customer values ('ngandhl','1111',N'Đoàn Huỳnh Long Ngân','0998894560',N'Quận 12, TP Hồ Chí Minh','ngan@gmail.com','Customer')
+insert into Customer values ('trungth','1111',N'Trần Hiếu Trung','0456654789',N'Bình Tân, TP Hồ Chí Minh','trung@gmail.com','Customer')
+insert into Customer values ('phutn','1111',N'Trần Ngọc Phú','034569770',N'Trảng Bom, Đồng Nai','phu@gmail.com','Customer')
+insert into Customer values ('bichbtt','1111',N'Bùi Thị Thu Bích','090486547',N'Tân An, Long An','bich@gmail.com','Customer')
 
 --insert bed
 go
@@ -198,4 +204,10 @@ insert into Room values ('P008',N'Phòng 008 - Lầu 2','SUT','img025','img026',
 insert into Room values ('P009',N'Phòng 009 - Lầu 2','STD','img025','img026','img027','img028',N'Phòng dành cho một người, được trang bị một giường đơn. Diện tích Single thường nằm trong khoảng 37 – 45 m2.')
 insert into Room values ('P010',N'Phòng 010 - Lầu 2','STD','img029','img030','img031','img032',N'Phòng dành cho 2 người, được trang bị một giường đôi, được gọi là giường cỡ Queen. Diện tích phòng Double thường nằm trong khoảng 40 – 45 m2.')
 
-
+--insert comment
+insert into Comment(username,room_id,description) values('ngandhl','P001',N'Phòng khá thoáng, đầy đủ tiện nghi và giường ngủ cũng êm. Phòng có view biển xịn');
+insert into Comment(username,room_id,description) values('trungth','P001',N'Phòng sạch sẽ, tiện nghi và thông thoáng, tiện nghi khá tốt');
+insert into Comment(username,room_id,description) values('phutn','P001',N'Phòng rộng, giường đôi khá thoải mái cho 2 người ngủ, tôi khá thích phòng vì có ban công');
+insert into Comment(username,room_id,description) values('ngandhl','P002',N'Tôi thấy khá ổn vì phòng rộng rãi, sạch sẽ, tủ lạnh có nước giải khát');
+insert into Comment(username,room_id,description) values('trungth','P002',N'Phòng gần cầu thang, khá khó chịu mỗi khi có người đi cầu thang vì họ nói chuyện làm ồn, cách âm khá kém');
+insert into Comment(username,room_id,description) values('phutn','P002',N'Của phòng bị hỏng, kêu người sữa thì hẹn nhưng lúc đi vẫn chưa sửa, tôi khá khó chịu về điều này');
