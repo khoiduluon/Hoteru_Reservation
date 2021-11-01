@@ -1,4 +1,8 @@
-
+var cardServicePrice = document.getElementById("card-service-price").value = 0;
+var cardFoodPrice = document.getElementById("card-food-price").value = 0;
+var cardRoomPrice = document.getElementById("card-room-price").value;
+var cardTotalPrice = document.getElementById("card-total-price").value = parseInt(cardRoomPrice);
+document.getElementById("card-total-price").innerHTML = cardRoomPrice;
 
 const dateCheckIn = () => {
     let checkIn = document.getElementById("checkIn").value;
@@ -11,11 +15,13 @@ const dateCheckOut = () => {
     document.getElementById("check_out").innerHTML = checkOut;
     let timeStay =  new Date (checkOut).getTime() - dateCheckIn();
     let dayStay = timeStay / (1000 * 3600 * 24);
+    var totalStayPrice = dayStay * cardRoomPrice;
+    cardRoomPrice = totalStayPrice;
+    document.getElementById("card-room-price").innerHTML = cardRoomPrice;
+    console.log(totalStayPrice);
     document.getElementById("dayStay").innerHTML = `${dayStay} ngày`;
     return new Date (checkOut).getTime();
 }
-
-
 
 const getService = function() {
     let service = document.getElementsByClassName("service");
@@ -32,20 +38,27 @@ const getService = function() {
                 name: name,
                 price: price
             });
-            let cardService = [...services];
-            let cardFoodPrice = cardService.reduce((total, cur) => {
+
+            let servicePrice = services.reduce((total, cur) => {
                 let price = parseInt(cur.price);
                 let formatTotal = parseInt(total);
                 formatTotal += price;
                 return formatTotal;
             }, 0);
-            document.getElementById("card-service-name").innerHTML = cardService.map(sv=>sv.name)
-            document.getElementById("card-service-price").innerHTML = cardFoodPrice
-            document.getElementById("card-total-price").value = cardFoodPrice;
-            document.getElementById("card-total-price").innerHTML = cardFoodPrice;
+             document.getElementById("card-service-name").innerHTML = services.map(sv=>sv.name)
+            cardServicePrice = servicePrice;
+             cardTotalPrice = parseInt(cardRoomPrice) + cardFoodPrice + cardServicePrice;
+             document.getElementById("card-service-price").innerHTML = cardServicePrice
+             document.getElementById("card-total-price").innerHTML = cardTotalPrice;
         }
     }
-    console.log(services)
+    if(services.length <= 0 ){
+        cardServicePrice = 0;
+        cardTotalPrice = parseInt(cardRoomPrice) + cardFoodPrice + cardServicePrice;
+        document.getElementById("card-service-price").innerHTML = cardServicePrice;
+        document.getElementById("card-total-price").innerHTML = cardTotalPrice;
+        document.getElementById("card-service-name").innerHTML = '';
+    }
     return services;
 }
 
@@ -64,18 +77,25 @@ const getFood = function() {
                 name: name,
                 price: price
             });
-            let cardFoods = [...foods];
-            let cardPriceFood = cardFoods.reduce((total, cur) => {
+            let foodPrice = foods.reduce((total, cur) => {
                 let price = parseInt(cur.price);
                 let formatTotal = parseInt(total);
                 formatTotal += price;
                 return formatTotal;
-            }, 0);
-            document.getElementById("card-food-name").innerHTML = cardFoods.map(f => f.name);
-            document.getElementById("card-food-price").innerHTML = cardPriceFood;
-            let totalPrice = document.getElementById("card-total-price").value;
-            document.getElementById("card-total-price").innerHTML = totalPrice + cardPriceFood;
+            },0);
+            cardFoodPrice = foodPrice;
+            cardTotalPrice = parseInt(cardRoomPrice) + cardFoodPrice + cardServicePrice;
+             document.getElementById("card-food-name").innerHTML = `${foods.map(f => f.name)}`;
+             document.getElementById("card-food-price").innerHTML = cardFoodPrice;
+             document.getElementById("card-total-price").innerHTML = cardTotalPrice;
         }
+    }
+    if(foods.length <= 0 ){
+        cardFoodPrice = 0;
+        cardTotalPrice = parseInt(cardRoomPrice) + cardFoodPrice + cardServicePrice;
+        document.getElementById("card-food-price").innerHTML = cardFoodPrice;
+        document.getElementById("card-total-price").innerHTML = cardTotalPrice;
+        document.getElementById("card-food-name").innerHTML = '';
     }
     return foods;
 }
