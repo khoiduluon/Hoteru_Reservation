@@ -2,6 +2,8 @@ var cardServicePrice = document.getElementById("card-service-price").value = 0;
 var cardFoodPrice = document.getElementById("card-food-price").value = 0;
 var cardRoomPrice = document.getElementById("card-room-price").value;
 var cardTotalPrice = document.getElementById("card-total-price").value = parseInt(cardRoomPrice);
+var fullName = document.getElementById("fullname").value;
+var phone = document.getElementById("phone").value;
 document.getElementById("card-total-price").innerHTML = cardRoomPrice;
 
 const dateCheckIn = () => {
@@ -102,15 +104,15 @@ const getFood = function() {
 
 const booking = function (){
     const obj = {
-        customerb = document.getElementById("user_id").value,
-        roomb = document.getElementById("room_id").value,
-        inDate = new Date(dateCheckIn()),
-        outDate = new Date(dateCheckOut()),
-        total = document.getElementById("card-total-price").value,
-        fullname = null,
-        phone = null,
-        foodBookings = getFood(),
-        serviceBookings = getService()
+        customerb : document.getElementById("user_id").value,
+        roomb : document.getElementById("room_id").value,
+        inDate : new Date(dateCheckIn()),
+        outDate : new Date(dateCheckOut()),
+        total : cardTotalPrice,
+        fullname : fullName,
+        phone : phone,
+        foodBookings : getFood(),
+        serviceBookings : getService()
     }
     console.log(obj);
 }
@@ -119,4 +121,4 @@ const booking = function (){
 //     style:'currency',
 //     currency: 'VND'
 // })
-//let formatPrice = new Intl.NumberFormat().format(formatTotal);
+// let formatPrice = new Intl.NumberFormat().format(formatTotal);
