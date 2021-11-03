@@ -1,5 +1,5 @@
 package com.hoterureservation.services;
 
-public interface RoomFoodService {
+public interface FoodBookingService {
   
 }

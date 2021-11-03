@@ -17,7 +17,7 @@ public class ServiceBooking implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "service_id")
-	Service service;
+	Services service;
 
 	@ManyToOne
 	@JoinColumn(name = "booking_id")

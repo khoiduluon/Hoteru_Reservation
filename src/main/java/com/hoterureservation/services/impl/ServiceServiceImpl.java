@@ -1,6 +1,6 @@
 package com.hoterureservation.services.impl;
 
-import com.hoterureservation.entities.Service;
+import com.hoterureservation.entities.Services;
 import com.hoterureservation.repositories.ServiceRepository;
 import com.hoterureservation.services.ServiceService;
 
@@ -15,7 +15,7 @@ public class ServiceServiceImpl implements ServiceService{
   private ServiceRepository serviceRepository;
 
   @Override
-  public List<Service> findAll() {
+  public List<Services> findAll() {
     return serviceRepository.findAll();
   }
 

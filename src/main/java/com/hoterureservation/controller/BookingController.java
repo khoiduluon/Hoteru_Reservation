@@ -3,7 +3,7 @@ package com.hoterureservation.controller;
 import com.hoterureservation.entities.Customer;
 import com.hoterureservation.entities.Food;
 import com.hoterureservation.entities.Room;
-import com.hoterureservation.entities.Service;
+import com.hoterureservation.entities.Services;
 import com.hoterureservation.services.CustomerService;
 import com.hoterureservation.services.FoodService;
 import com.hoterureservation.services.RoomService;
@@ -37,7 +37,7 @@ public class BookingController {
 
    @GetMapping("{id}")
     public String booking(Model model, @PathVariable("id") String id){
-        List<Service> list = serviceService.findAll();
+        List<Services> list = serviceService.findAll();
         List<Food> listFood = foodService.findAll();
         Room room = roomService.findById(id);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Service")
-public class Service implements Serializable{
+public class Services implements Serializable{
 
   @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
