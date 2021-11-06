@@ -54,7 +54,7 @@ public class SecurityController {
         return "Security/register";
     }
 
-    @GetMapping("/update-account/{username}")
+    @GetMapping("/update-account")
     public String updateAccount(Model model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails)principal).getUsername();
@@ -71,7 +71,7 @@ public class SecurityController {
         return "Security/update_account";
     }
 
-    @GetMapping("/update-password/{username}")
+    @GetMapping("/update-password")
     public String updatePassword(Model model){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails)principal).getUsername();
@@ -95,12 +95,12 @@ public class SecurityController {
         return "Security/update_password";
     }
 
-    @GetMapping("forgot-password")
+    @GetMapping("/forgot-password")
     public String forgotPassword(){
         return "Security/forgot_password";
     }
 
-    @PostMapping("forgot-password")
+    @PostMapping("/forgot-password")
     public String forgotPassword(Model model){
         String username = request.getParameter("username");
         String email = request.getParameter("email");
