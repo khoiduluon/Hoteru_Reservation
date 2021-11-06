@@ -15,11 +15,21 @@
                             <a class="text-dark" th:href="@{/register}">Register</a>
                         </th:block>
                         <th:block th:if="${#request.getRemoteUser}">
-                           <a class="font-weight-bold">[[${#request.userPrincipal.name}]]</a> |
-                          <!--  <a class="text-dark" th:href="@{/update-account}">Update Account</a>
-                           <a class="text-dark" th:href="@{/update-password}">Update Pass</a>
-                           <a class="text-dark" th:href="@{/forgot-password}">Forgot pass</a> -->
-                            <a class="text-danger" th:href="@{/logout}">Logout</a>
+                            <div class="dropdown">
+                                <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    [[${#request.userPrincipal.name}]]
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" th:href="@{/update-password}">Update Pass</a></li>
+                                    <li><a class="dropdown-item" href="#">My Order</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                                </ul>
+                            </div>
+<!--                           <a class="font-weight-bold">[[${#request.userPrincipal.name}]]</a> |-->
+<!--                          &lt;!&ndash;  <a class="text-dark" th:href="@{/update-account}">Update Account</a>-->
+<!--                           <a class="text-dark" th:href="@{/update-password}">Update Pass</a>-->
+<!--                           <a class="text-dark" th:href="@{/forgot-password}">Forgot pass</a> &ndash;&gt;-->
+<!--                            <a class="text-danger" th:href="@{/logout}">Logout</a>-->
                         </th:block>
                     </div>
                     <div class="header__top__language">
