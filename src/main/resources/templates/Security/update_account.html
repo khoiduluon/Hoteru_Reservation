@@ -7,8 +7,7 @@
         <div class="tab-content">
             <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                 <h3 class="m-auto">Update Account</h3>
-                <form th:action="@{/update-accout}" method="post" th:object="${customer}">
-
+                <form th:action="@{/update-account}" method="post" th:object="${customer}">
                     <div class="form-outline mb-4">
                        <span>[[${message}]]</span>
                     </div>

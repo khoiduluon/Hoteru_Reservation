@@ -64,13 +64,18 @@
                         </div>
                         <div class="blog__details__comment">
                             <h3>[[${comment}]] Comments</h3>
-                            <div class="blog__details__comment__item" th:each="c : ${listcmt}">
+                            <div class="blog__details__comment__item d-flex" th:each="c : ${listcmt}">
                                 <div class="blog__details__comment__item__pic">
                                     <img src="/img/blog/details/comment-3.png" alt="">
                                 </div>
                                 <div class="blog__details__comment__item__text">
                                     <h5>[[${c.customerc.fullname}]]</h5>
                                     <p>[[${c.description}]]</p>
+                                </div>
+                                <div>
+                                    <th:block th:if="${#request.getRemoteUser} == ${c.customerc.username}">
+                                        <a class="text-dark" th:href="@{|/comment/delete/${c.id}?roomid=${room.id}|}"><i class="fas fa-times"></i></a>
+                                    </th:block>
                                 </div>
                             </div>
                         </div>

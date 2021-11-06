@@ -67,6 +67,8 @@ public class SecurityController {
     public String updateAccount(Model model, @Valid Customer customer, BindingResult bindingResult){
         customer.setRole("Customer");
         customerService.update(customer);
+        Customer customer1 = customerService.findByUsername(customer.getUsername());
+        model.addAttribute("customer", customer1);
         model.addAttribute("message", "Cập nhật thành công");
         return "Security/update_account";
     }

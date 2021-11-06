@@ -32,7 +32,7 @@ public class BookingServiceImpl implements BookingService{
   BookingRepository bookingRepository;
 
   @Override
-  public void createBooking(JsonNode req) {
+  public Booking createBooking(JsonNode req) {
     ObjectMapper mapper=new ObjectMapper();
     BookingDto dto=mapper.convertValue(req, BookingDto.class);
 
@@ -69,6 +69,8 @@ public class BookingServiceImpl implements BookingService{
       lisFoodBookings.add(foodBooking);
     }
     foodBookingRepository.saveAll(lisFoodBookings);
+
+    return booking;
   }
 
   @Override
