@@ -2,6 +2,7 @@ package com.hoterureservation.controller.Admin;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.hoterureservation.dtos.BookingDto;
+import com.hoterureservation.entities.Booking;
 import com.hoterureservation.services.BookingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class BookRestController {
   BookingService bookingService;
   
   @PostMapping("/book-create")
-  public String book(@RequestBody JsonNode req){
-    bookingService.createBooking(req);
-    return "redirect:/home/index";
+  public Long book(@RequestBody JsonNode req){
+    Booking booking = bookingService.createBooking(req);
+    return booking.getId();
   }
 }

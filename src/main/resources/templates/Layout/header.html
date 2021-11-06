@@ -16,20 +16,17 @@
                         </th:block>
                         <th:block th:if="${#request.getRemoteUser}">
                             <div class="dropdown">
-                                <a class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="btn dropdown-toggle font-weight-bold" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     [[${#request.userPrincipal.name}]]
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" th:href="@{/update-password}">Update Pass</a></li>
+                                <div class="dropdown-menu" >
                                     <li><a class="dropdown-item" href="#">My Order</a></li>
+                                    <div class="dropdown-divider"></div>
+                                    <li><a class="dropdown-item" th:href="@{/update-account}">Update Account</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/update-password}">Update Pass</a></li>
                                     <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
-                                </ul>
+                                </div>
                             </div>
-<!--                           <a class="font-weight-bold">[[${#request.userPrincipal.name}]]</a> |-->
-<!--                          &lt;!&ndash;  <a class="text-dark" th:href="@{/update-account}">Update Account</a>-->
-<!--                           <a class="text-dark" th:href="@{/update-password}">Update Pass</a>-->
-<!--                           <a class="text-dark" th:href="@{/forgot-password}">Forgot pass</a> &ndash;&gt;-->
-<!--                            <a class="text-danger" th:href="@{/logout}">Logout</a>-->
                         </th:block>
                     </div>
                     <div class="header__top__language">

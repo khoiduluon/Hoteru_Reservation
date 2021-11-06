@@ -11,4 +11,6 @@ public interface CommentService {
     public List<Comment> getCommnetByRoomId(String id);
 
     public Comment save(Comment comment);
+
+    public void delete(Long id);
 }
