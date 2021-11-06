@@ -20,6 +20,6 @@ public class BookRestController {
   @PostMapping("/book-create")
   public String book(@RequestBody JsonNode req){
     bookingService.createBooking(req);
-    return "";
+    return "redirect:/home/index";
   }
 }

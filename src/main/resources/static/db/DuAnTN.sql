@@ -75,8 +75,8 @@ create table Booking(
 	id int identity(1,1) primary key,
 	username nvarchar(50) not null,
 	room_id varchar(20) not null,
-	inDate date not null,
-	outDate date not null,
+	in_Date date not null,
+	out_Date date not null,
 	total float not null,
 	fullname nvarchar(150) not null,
 	phone nvarchar(12) not null 
@@ -211,3 +211,45 @@ insert into Comment(username,room_id,description) values('phutn','P001',N'Phòng
 insert into Comment(username,room_id,description) values('ngandhl','P002',N'Tôi thấy khá ổn vì phòng rộng rãi, sạch sẽ, tủ lạnh có nước giải khát');
 insert into Comment(username,room_id,description) values('trungth','P002',N'Phòng gần cầu thang, khá khó chịu mỗi khi có người đi cầu thang vì họ nói chuyện làm ồn, cách âm khá kém');
 insert into Comment(username,room_id,description) values('phutn','P002',N'Của phòng bị hỏng, kêu người sữa thì hẹn nhưng lúc đi vẫn chưa sửa, tôi khá khó chịu về điều này');
+
+--insert Booking
+insert into Booking(in_Date,out_Date,fullname,phone,room_id,username,total) values('2021/11/04', '2021/11/08', N'Khách hàng 1', '0988945612', 'P002', 'user', '9870000');
+insert into Booking(in_Date,out_Date,fullname,phone,room_id,username,total) values('2021/11/06', '2021/11/12', N'Ngan NE', '0988945612', 'P003', 'user', '1400000');
+
+--insert Booking_service
+insert Booking_Service(booking_id,service_id) values (1,1)
+insert Booking_Service(booking_id,service_id) values (1,6)
+insert Booking_Service(booking_id,service_id) values (1,5)
+insert Booking_Service(booking_id,service_id) values (1,9)
+insert Booking_Service(booking_id,service_id) values (1,11)
+insert Booking_Service(booking_id,service_id) values (1,3)
+insert Booking_Service(booking_id,service_id) values (1,7)
+
+insert Booking_Service(booking_id,service_id) values (2,1)
+insert Booking_Service(booking_id,service_id) values (2,6)
+insert Booking_Service(booking_id,service_id) values (2,5)
+insert Booking_Service(booking_id,service_id) values (2,9)
+insert Booking_Service(booking_id,service_id) values (2,11)
+insert Booking_Service(booking_id,service_id) values (2,3)
+insert Booking_Service(booking_id,service_id) values (2,7)
+insert Booking_Service(booking_id,service_id) values (2,10)
+insert Booking_Service(booking_id,service_id) values (2,4)
+
+--insert Booking_food
+insert Booking_Food(booking_id,food_id) values (1,1)
+insert Booking_Food(booking_id,food_id) values (1,10)
+insert Booking_Food(booking_id,food_id) values (1,5)
+insert Booking_Food(booking_id,food_id) values (1,17)
+insert Booking_Food(booking_id,food_id) values (1,11)
+insert Booking_Food(booking_id,food_id) values (1,3)
+insert Booking_Food(booking_id,food_id) values (1,7)
+
+insert Booking_Food(booking_id,food_id) values (2,1)
+insert Booking_Food(booking_id,food_id) values (2,10)
+insert Booking_Food(booking_id,food_id) values (2,5)
+insert Booking_Food(booking_id,food_id) values (2,17)
+insert Booking_Food(booking_id,food_id) values (2,11)
+insert Booking_Food(booking_id,food_id) values (2,3)
+insert Booking_Food(booking_id,food_id) values (2,7)
+insert Booking_Food(booking_id,food_id) values (2,4)
+insert Booking_Food(booking_id,food_id) values (2,9)

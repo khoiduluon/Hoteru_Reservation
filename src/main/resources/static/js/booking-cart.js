@@ -114,7 +114,13 @@ const booking = function (){
         foodBookings : getFood(),
         serviceBookings : getService()
     }
-    console.log(obj);
+    axios.post('/book-create', obj).then(function (response) {
+        console.log(response);
+        showToast()
+        setTimeout(() => { location.reload() }, 2100);
+      }).catch(function (error) {
+          showToastError();
+    });
 }
 
 // let formatCurrency = new Intl.NumberFormat('en-US',{

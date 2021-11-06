@@ -19,10 +19,10 @@ public class Booking implements Serializable{
   @Column(name = "id")
 	Long id;
 
-  @Column(name = "inDate")
+  @Column(name = "in_Date")
   Date inDate;
 
-  @Column(name = "outDate")
+  @Column(name = "out_Date")
 	Date outDate;
 
   @Column(name = "total")
