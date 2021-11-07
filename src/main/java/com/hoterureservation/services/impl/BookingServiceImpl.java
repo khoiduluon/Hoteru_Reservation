@@ -77,5 +77,14 @@ public class BookingServiceImpl implements BookingService{
   public Booking save(Booking booking) {
     return bookingRepository.save(booking);
   }
-  
+
+  @Override
+  public Booking findById(Long id) {
+    return bookingRepository.findById(id).get();
+  }
+
+  @Override
+  public List<Booking> findByUsername(String username) {
+    return bookingRepository.findByUsername(username);
+  }
 }

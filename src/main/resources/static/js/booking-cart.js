@@ -115,9 +115,9 @@ const booking = function (){
         serviceBookings : getService()
     }
     axios.post('/book-create', obj).then(function (response) {
-        console.log(response);
         showToast()
         setTimeout(() => { location.reload() }, 2100);
+        location.href="/booking/detail/"+response.data;
       }).catch(function (error) {
           showToastError();
     });

@@ -20,7 +20,7 @@
                                     [[${#request.userPrincipal.name}]]
                                 </a>
                                 <div class="dropdown-menu" >
-                                    <li><a class="dropdown-item" href="#">My Order</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/booking/history}">My Booking</a></li>
                                     <div class="dropdown-divider"></div>
                                     <li><a class="dropdown-item" th:href="@{/update-account}">Update Account</a></li>
                                     <li><a class="dropdown-item" th:href="@{/update-password}">Update Pass</a></li>
@@ -62,9 +62,9 @@
                             <li><a th:href="@{/contact}">Contact</a></li>   
                         </ul>
                     </nav>
-                    <div class="header__nav__widget">
+                    <!-- <div class="header__nav__widget">
                         <a th:href="@{/booking}">Book Now <span class="arrow_right"></span></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

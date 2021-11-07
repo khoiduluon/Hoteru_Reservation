@@ -15,57 +15,60 @@
                         <li class="list-group-item d-flex justify-content-center lh-condensed">
                             <div>
                                 <h6 class="my-0">Fullname</h6>
-                                <small class="text-muted" >Brief description</small>
+                                <small class="text-muted" >[[${bookingitem.fullname}]]</small>
                             </div>
 
                         </li>
                         <li class="list-group-item d-flex justify-content-center lh-condensed">
                             <div>
                                 <h6 class="my-0">Phone</h6>
-                                <small class="text-muted" >Brief description</small>
+                                <small class="text-muted" >[[${bookingitem.phone}]]</small>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-around lh-condensed">
                             <div>
                                 <h6 class="my-0">Check-in</h6>
-                                <small class="text-muted" >Brief description</small>
+                                <small class="text-muted" >[[${#dates.format(bookingitem.inDate,'dd/MM/yyyy')}]]</small>
                             </div>
                             <div>
                                 <h6 class="my-0">Check-out</h6>
-                                <small class="text-muted">Brief description</small>
+                                <small class="text-muted">[[${#dates.format(bookingitem.outDate,'dd/MM/yyyy')}]]</small>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-around lh-condensed">
                             <div>
                                 <h6 class="my-0">Room</h6>
-                                <small class="text-muted">Brief description</small>
+                                <small class="text-muted">[[${bookingitem.roomb.name}]] <br> [[${bookingitem.roomb.roomType.name}]]</small>
                             </div>
                             <div>
-                                <span class="text-muted">50000VNĐ</span>
+                                <h6 class="my-0">Price</h6>
+                                <span class="text-muted">[[${#numbers.formatDecimal(bookingitem.roomb.roomType.price,0,'COMMA',0,'POINT')}]] VNĐ</span>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-around lh-condensed">
                             <div>
                                 <h6 class="my-0">Services</h6>
-                                <small class="text-muted">Brief description</small>
+                                <small class="text-muted" th:each=" f : ${bookingitem.serviceBookings}">[[${f.service.name}]]<br></small>
                             </div>
                             <div>
-                                <span class="text-muted">50000VNĐ</span>
+                                <h6 class="my-0">Price</h6>
+                                <span class="text-muted"th:each=" f : ${bookingitem.serviceBookings}">[[${#numbers.formatDecimal(f.service.price,0,'COMMA',0,'POINT')}]] VNĐ<br></span>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-around lh-condensed">
                             <div>
                                 <h6 class="my-0">Foods</h6>
-                                <small class="text-muted">Brief description</small>
+                                <small class="text-muted" th:each=" f : ${bookingitem.foodBookings}">[[${f.food.name}]]<br></small>
                             </div>
                             <div>
-                                <span class="text-muted">50000VNĐ</span>
+                                <h6 class="my-0">Price</h6>
+                                <span class="text-muted" th:each=" f : ${bookingitem.foodBookings}">[[${#numbers.formatDecimal(f.food.price,0,'COMMA',0,'POINT')}]] VNĐ<br></span>
                             </div>
                         </li>
                     </ul>
                     <div class="card-footer" style="background-color: #E9AD28;">
-                        <span>Total (USD)</span>
-                        <strong>$20</strong>
+                        <span>Total (VNĐ)</span>
+                        <strong>[[${#numbers.formatDecimal(bookingitem.total,0,'COMMA',0,'POINT')}]]</strong>
                     </div>
                     <a class="w-100 btn btn-lg mt-3 bg-warning" type="submit" th:href="@{/home/index}">Home</a>
                 </div>
