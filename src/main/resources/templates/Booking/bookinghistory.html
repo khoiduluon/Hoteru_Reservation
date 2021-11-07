@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{/layout/index::dynamic(~{::main})}">
 <body>
-
+<main>
+    <div class="card my-3 container p-0">
+        <div class="card-header bg-warning">
+            Your booking history
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Roomname</th>
+                    <th>Fullname</th>
+                    <th>Phone</th>
+                    <th>Checkin</th>
+                    <th>Checkout</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="b : ${listBooing}">
+                    <td>[[${b.roomb.name}]]</td>
+                    <td>[[${b.fullname}]]</td>
+                    <td>[[${b.phone}]]</td>
+                    <td>[[${#dates.format(b.inDate,'dd/MM/yyyy')}]]</td>
+                    <td>[[${#dates.format(b.outDate,'dd/MM/yyyy')}]]</td>
+                    <td>[[${#numbers.formatDecimal(b.total,0,'COMMA',0,'POINT')}]] VNĐ</td>
+                    <td>
+                        <a class="text-primary" th:href="@{|/booking/detail/${b.id}|}">Detail</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
 </body>
 </html>

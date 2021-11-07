@@ -1,9 +1,11 @@
 package com.hoterureservation.controller;
 
+import com.hoterureservation.entities.Booking;
 import com.hoterureservation.entities.Customer;
 import com.hoterureservation.entities.Food;
 import com.hoterureservation.entities.Room;
 import com.hoterureservation.entities.Services;
+import com.hoterureservation.services.BookingService;
 import com.hoterureservation.services.CustomerService;
 import com.hoterureservation.services.FoodService;
 import com.hoterureservation.services.RoomService;
@@ -35,6 +37,9 @@ public class BookingController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    BookingService bookingService;
+
    @GetMapping("{id}")
     public String booking(Model model, @PathVariable("id") String id){
         List<Services> list = serviceService.findAll();
@@ -50,8 +55,17 @@ public class BookingController {
         return "Booking/booking";
     }
 
-    @GetMapping("/checkout")
-    public String bookingDetail(){
+    @GetMapping("/history")
+    public String bookingHistory(Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails)principal).getUsername();
+        model.addAttribute("listBooing", bookingService.findByUsername(username));
+        return "Booking/bookinghistory";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String bookingDetail(@PathVariable("id") Long id, Model model){
+        model.addAttribute("bookingitem", bookingService.findById(id));
         return "Booking/bookingdetail";
     }
 }
