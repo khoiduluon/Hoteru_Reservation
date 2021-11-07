@@ -1,6 +1,8 @@
 package com.hoterureservation.controller.Admin;
 
 
+import java.util.List;
+
 import com.hoterureservation.entities.Food;
 import com.hoterureservation.repositories.FoodRepository;
 import com.hoterureservation.services.FoodService;
@@ -38,6 +40,11 @@ public class FoodRestController {
         }catch (Exception e){
             return false;
         }
+    }
+
+    @GetMapping("/api/AllFood")
+    public List<Food> getFoodAll(){
+        return service.findAll();
     }
     
 }

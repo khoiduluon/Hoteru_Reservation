@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Management</title>
+  <link rel="stylesheet" href="https://cdn.webix.com/edge/webix.css" type="text/css">
+  <script src="https://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script th:src="@{/toast_message/toastSucess.js}"></script>
+  <script th:src="@{/toast_message/toastError.js}"></script>
+  <link rel="stylesheet" th:href="@{/toast_message/styleSucess.css}">
+  <link rel="stylesheet" th:href="@{/toast_message/styleError.css}">
+</head>
+
+<body>
+
+
+  <!-- Render UI -->
+  <script>
+    webix.ready(async function () {
+      await searchFood();
+      await webix.ui({
+        "cols": [
+          {
+            columns: [
+              { id: "id", "header": "ID", "sort": "int", fillspace: 2 },
+              { id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 7 },
+              { id: "price", "header": "PRICE", "sort": "int", fillspace: 2 },
+              { id: "description", "header": "DESCRIPTION", width: 300 }
+            ],
+            "view": "datatable",
+            id: "FoodTable",
+            select: true,
+            scroll: "y",
+            data: ListFood,
+          },
+          {
+            "autoheight": false,
+            "view": "form",
+            id: "formFood",
+            // "borderless": 1,
+            "rows": [
+              { "view": "text", id: "txtID", "label": "ID", "name": "id" },
+              { "view": "text", id: "txtName", "label": "Name", "name": "name", required:true },
+              { "view": "text", id: "txtPrice", "label": "Price", "name": "price", required:true },
+              { "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160,required:true},
+              {
+                "cols": [
+                  { "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: clearForm },
+                  { "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, click: save },
+                  { "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: save },
+                  { "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: deleteFood },
+
+                ]
+              }
+            ],
+            "height": 500,
+            autowidth: true,
+          }
+        ]
+      }
+      );
+
+      $$("formFood").bind("FoodTable");
+      setvalueButton();
+    });
+
+  </script>
+</body>
+
+<!-- function -->
+<script>
+  let ListFood = [];
+  function searchFood() {
+    axios.get('/api/AllFood')
+      .then(function (response) {
+        ListFood = response.data;
+        $$("FoodTable").parse(ListFood, "json");
+      })
+      .catch(function (error) {
+        console.error(error)
+      });
+  }
+
+  function setvalueButton() {
+    $$("btnUpdate").disable();
+    $$("btnDelete").disable();
+    $$("btnNew").disable();
+
+    $$("FoodTable").attachEvent("onSelectChange", () => {
+      $$("btnSave").disable();
+      $$("btnUpdate").enable();
+      $$("btnDelete").enable();
+      $$("btnNew").enable();
+      $$("txtID").disable();
+    });
+  }
+
+  function clearForm() {
+    $$("txtID").setValue("");
+    $$("txtName").setValue("");
+    $$("txtPrice").setValue("");
+    $$("txtDesc").setValue("");
+    $$("btnSave").enable();
+    $$("btnUpdate").disable();
+    $$("btnDelete").disable();
+    $$("btnNew").disable();
+  }
+
+  function save() {
+    const obj = {
+      id: $$("txtID").getValue(),
+      name: $$("txtName").getValue(),
+      price: $$("txtPrice").getValue(),
+      description: $$("txtDesc").getValue(),
+    }
+    axios.post('/api/insert', obj).then(function (response) {
+      webix.alert({
+            title: "Successfully!",
+          }).then(function () {
+          location.reload();
+          });
+
+    })
+      .catch(function (error) {
+        webix.alert({
+          type: "alert-error",
+          title: "An Error Occurred",
+        });
+      });
+
+  }
+
+  function deleteFood() {
+    var id = $$("txtID").getValue();
+    axios.get('/api/delete/' + id)
+      .then(function (response) {
+        if (response.data == true) {
+          webix.alert({
+            title: "Successfully!",
+          }).then(function () {
+          location.reload();
+          });
+        }
+      })
+      .catch(function (error) {
+        webix.alert({
+          type: "alert-error",
+          title: "An Error Occurred",
+        });
+      });
+  }
+
+</script>
+
+</html>

@@ -10,5 +10,10 @@ public class AdminIndexController {
     public String getIndex(){
         return "/Admin/WellcomeAdmin";
     }
+
+    @RequestMapping("/admin/webix")
+    public String getwebix(){
+        return "/Admin/Food_copy";
+    }
     
 }
