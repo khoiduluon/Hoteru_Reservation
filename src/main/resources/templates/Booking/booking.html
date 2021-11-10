@@ -9,13 +9,12 @@
             <div class="col-8">
                 <form action="#" >
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-warning">
                         Date
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="d-flex flex-row justify-content-between">
-                                <div class="col-auto">
+                        <div class="d-flex flex-row justify-content-around">
+                            <div class="col-auto">
                                     <div class="filter__form__item">
                                         <p>Check in date</p>
                                         <div class="filter__form__datepicker">
@@ -35,12 +34,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-
-                    <div class="row ">
+                    <div class="row mt-3">
                         <div class="col-6">
                             <label for="fullname" class="form-label">Full name</label>
                             <input type="text" class="form-control" id="fullname" placeholder="" th:value="${customer.fullname}" required="">
@@ -78,12 +75,12 @@
                 </div>
                 <hr class="my-4">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-warning">
                         Service & Food
                     </div>
-                    <div class="card-body row">
-                            <div class="dropdown col-6">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownService" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="card-body row d-flex flex-row justify-content-lg-around">
+                            <div class="dropdown">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownService" data-bs-toggle="dropdown" aria-expanded="false">
                                     Choose Service
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -98,8 +95,8 @@
 <!--                                    </button>-->
                                 </div>
                             </div>
-                            <div class="dropdown col-6">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFood" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="dropdown">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownFood" data-bs-toggle="dropdown" aria-expanded="false">
                                     Choose Food
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

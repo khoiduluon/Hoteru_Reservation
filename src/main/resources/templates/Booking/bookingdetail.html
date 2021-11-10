@@ -45,10 +45,10 @@
                                 <span class="text-muted">[[${#numbers.formatDecimal(bookingitem.roomb.roomType.price,0,'COMMA',0,'POINT')}]] VNĐ</span>
                             </div>
                         </li>
-                        <li class="list-group-item d-flex justify-content-around lh-condensed">
+                        <li class="list-group-item d-flex flex-fill lh-condensed justify-content-around ">
                             <div>
                                 <h6 class="my-0">Services</h6>
-                                <small class="text-muted" th:each=" f : ${bookingitem.serviceBookings}">[[${f.service.name}]]<br></small>
+                                <small class="text-muted text-left p-0 m-0 fs-6" th:each=" f : ${bookingitem.serviceBookings}">[[${f.service.name}]]<br></small>
                             </div>
                             <div>
                                 <h6 class="my-0">Price</h6>
