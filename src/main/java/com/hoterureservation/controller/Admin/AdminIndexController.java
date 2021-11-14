@@ -8,10 +8,10 @@ public class AdminIndexController {
 
     @RequestMapping("/admin/index")
     public String getIndex(){
-        return "/Admin/WellcomeAdmin";
+        return "/Admin/index";
     }
 
-    @RequestMapping("/admin/webix")
+    @RequestMapping("/admin/foodmgmt")
     public String getwebix(){
         return "/Admin/Food_copy";
     }
