@@ -16,7 +16,7 @@
                             <p>Check In</p>
                             <div class="filter__form__datepicker">
                                 <span class="icon_calendar"></span>
-                                <input type="text" class="datepicker_pop check__in" >
+                                <input type="text" class="datepicker_pop check__in" id="check_in" onChange="searchDateCheckIn()">
                                 <i class="arrow_carrot-down"></i>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                             <p>Check Out</p>
                             <div class="filter__form__datepicker">
                                 <span class="icon_calendar"></span>
-                                <input type="text" class="datepicker_pop check__out" >
+                                <input type="text" class="datepicker_pop check__out" id="check_out" onChange="searchDateCheckOut()">
                                 <i class="arrow_carrot-down"></i>
                             </div>
                         </div>
@@ -32,10 +32,10 @@
                             <p>Room Type</p>
                             <div class="filter__form__select">
                                 <span class="icon_group"></span>
-                                <select>
-                                    <option value="">Deluxe</option>
-                                    <option value="">Suite</option>
-                                    <option value="">Luxury</option>
+                                <select id="room_selected" onChange="roomSelected()">
+                                    <option value="Deluxe">Deluxe</option>
+                                    <option value="Suite">Suite</option>
+                                    <option value="Luxury">Luxury</option>
                                 </select>
                             </div>
                         </div>
@@ -43,14 +43,14 @@
                             <p>Price</p>
                             <div class="filter__form__select">
                                 <span class="icon_group"></span>
-                                <select>
-                                    <option value="">1500 - 2000</option>
-                                    <option value="">1500 - 2000</option>
-                                    <option value="">1500 - 2000</option>
+                                <select id="room_price" onChange="priceSelected()">
+                                    <option value="1500 - 2000">1500 - 2000</option>
+                                    <option value="1500 - 2000">1500 - 2000</option>
+                                    <option value="1500 - 2000">1500 - 2000</option>
                                 </select>
                             </div>
                         </div>
-                        <button type="submit">SEARCH NOW</button>
+                        <button type="submit" onClick="search()">SEARCH NOW</button>
                     </form>
                 </div>
             </div>
