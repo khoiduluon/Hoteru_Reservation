@@ -8,7 +8,7 @@ public class AdminIndexController {
 
     @RequestMapping("/admin/index")
     public String getIndex(){
-        return "/Admin/WellcomeAdmin";
+        return "/Admin/index";
     }
 
     @RequestMapping("/admin/webix")
