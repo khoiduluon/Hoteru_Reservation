@@ -11,12 +11,12 @@
                         <h5>WELCOME HIROTO</h5>
                         <h2>Experience the greatest for you holidays.</h2>
                     </div>
-                    <form action="#" class="filter__form">
+                    <form th:action="@{/room/search}" class="filter__form" method="post">
                         <div class="filter__form__item">
                             <p>Check In</p>
                             <div class="filter__form__datepicker">
                                 <span class="icon_calendar"></span>
-                                <input type="text" class="datepicker_pop check__in" id="check_in" onChange="searchDateCheckIn()">
+                                <input type="text" class="datepicker_pop check__in" id="check_in" name="checkIn">
                                 <i class="arrow_carrot-down"></i>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                             <p>Check Out</p>
                             <div class="filter__form__datepicker">
                                 <span class="icon_calendar"></span>
-                                <input type="text" class="datepicker_pop check__out" id="check_out" onChange="searchDateCheckOut()">
+                                <input type="text" class="datepicker_pop check__out" id="check_out" name="checkOut">
                                 <i class="arrow_carrot-down"></i>
                             </div>
                         </div>
@@ -32,25 +32,12 @@
                             <p>Room Type</p>
                             <div class="filter__form__select">
                                 <span class="icon_group"></span>
-                                <select id="room_selected" onChange="roomSelected()">
-                                    <option value="Deluxe">Deluxe</option>
-                                    <option value="Suite">Suite</option>
-                                    <option value="Luxury">Luxury</option>
+                                <select id="room_selected" name="roomType">
+                                    <option th:each="type : ${listRoomType}" th:value="${type.id}">[[${type.name}]]</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="filter__form__item filter__form__item--select">
-                            <p>Price</p>
-                            <div class="filter__form__select">
-                                <span class="icon_group"></span>
-                                <select id="room_price" onChange="priceSelected()">
-                                    <option value="1500 - 2000">1500 - 2000</option>
-                                    <option value="1500 - 2000">1500 - 2000</option>
-                                    <option value="1500 - 2000">1500 - 2000</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="submit" onClick="search()">SEARCH NOW</button>
+                        <button>SEARCH NOW</button>
                     </form>
                 </div>
             </div>
