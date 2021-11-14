@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Hoteru Admin</title>
-
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}"/>
 
@@ -10,6 +9,9 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
 	<link rel="stylesheet" type="text/css" th:href="@{/Admin/fontawesome-free/css/all.min.css}">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script th:src="@{/restAPI/Report.js}"></script>
+	<script>getIndex();</script>
 	<!-- End import lib -->
 
 	<link rel="stylesheet" type="text/css" th:href="@{/Admin/style.css}">
@@ -287,7 +289,7 @@
 	<div class="sidebar">
 		<ul class="sidebar-nav">
 			<li class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link active">
+				<a th:href="@{/admin/index}" class="sidebar-nav-link active">
 					<div>
 						<i class="fas fa-tachometer-alt"></i>
 					</div>
@@ -301,7 +303,7 @@
 					<div>
 						<i class="fas fa-users"></i>
 					</div>
-					<span>Users Management</span>
+					<span>Users Mgmt</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
@@ -309,7 +311,7 @@
 					<div>
 						<i class="fas fa-bed"></i>
 					</div>
-					<span>Rooms Management</span>
+					<span>Rooms Mgmt</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
@@ -317,15 +319,15 @@
 					<div>
 						<i class="fas fa-concierge-bell"></i>
 					</div>
-					<span>Services Management</span>
+					<span>Services Mgmt</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a th:href="@{/admin/foodmgmt}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-utensils"></i>
 					</div>
-					<span>Foods Management</span>
+					<span>Foods Mgmt</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
@@ -347,7 +349,7 @@
 					<p>
 						<i class="fas fa-users"></i>
 					</p>
-					<h3>100+</h3>
+					<h3 id="user"></h3>
 					<p>Users</p>
 				</div>
 			</div>
@@ -356,7 +358,7 @@
 					<p>
 						<i class="fas fa-bed"></i>
 					</p>
-					<h3>100+</h3>
+					<h3 id="room"></h3>
 					<p>Rooms</p>
 				</div>
 			</div>
@@ -365,7 +367,7 @@
 					<p>
 						<i class="fas fa-concierge-bell"></i>
 					</p>
-					<h3>100+</h3>
+					<h3 id="service"></h3>
 					<p>Services</p>
 				</div>
 			</div>
@@ -374,7 +376,7 @@
 					<p>
 						<i class="fas fa-utensils"></i>
 					</p>
-					<h3>100+</h3>
+					<h3 id="food"></h3>
 					<p>Foods</p>
 				</div>
 			</div>

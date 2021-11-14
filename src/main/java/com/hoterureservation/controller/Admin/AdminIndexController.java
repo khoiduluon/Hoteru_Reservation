@@ -11,7 +11,7 @@ public class AdminIndexController {
         return "/Admin/index";
     }
 
-    @RequestMapping("/admin/webix")
+    @RequestMapping("/admin/foodmgmt")
     public String getwebix(){
         return "/Admin/Food_copy";
     }
