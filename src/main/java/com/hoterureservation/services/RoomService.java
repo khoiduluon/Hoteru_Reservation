@@ -14,4 +14,6 @@ public interface RoomService {
   public int countRoom();
 
   public void deleteRoom(String id);
+
+  public List<Room> searchRooms(String inDate, String outDate, String id);
 }
