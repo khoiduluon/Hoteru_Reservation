@@ -1,12 +1,14 @@
 package com.hoterureservation.controller;
 
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-
+import com.hoterureservation.entities.Room;
 import com.hoterureservation.services.CommentService;
 import com.hoterureservation.services.RoomService;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

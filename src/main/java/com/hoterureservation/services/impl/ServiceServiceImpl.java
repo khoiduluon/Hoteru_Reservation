@@ -23,5 +23,15 @@ public class ServiceServiceImpl implements ServiceService{
   public int countService() {
     return serviceRepository.countService();
   }
+
+  @Override
+  public Services findById(Long id) {
+    return serviceRepository.findById(id).get();
+  }
+
+  @Override
+  public Services insert(Services services) {
+    return serviceRepository.save(services);
+  }
   
 }

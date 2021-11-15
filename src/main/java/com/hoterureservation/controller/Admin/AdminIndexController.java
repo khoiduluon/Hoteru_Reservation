@@ -15,5 +15,15 @@ public class AdminIndexController {
     public String getwebix(){
         return "/Admin/Food_copy";
     }
+
+    @RequestMapping("/admin/servicemgmt")
+    public String getServicemgmt(){
+        return "/Admin/Service_copy";
+    }
+
+    @RequestMapping("/admin/customermgmt")
+    public String getcustomer(){
+        return "/Admin/Customer_copy";
+    }
     
 }

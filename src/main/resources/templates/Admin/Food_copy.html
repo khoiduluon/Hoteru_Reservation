@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Hoteru Food Mgmt</title>
 
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}"/>
+	<meta name="viewport"
+		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}" />
 
 	<!-- Import lib -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
 	<link rel="stylesheet" type="text/css" th:href="@{/Admin/fontawesome-free/css/all.min.css}">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<!-- End import lib -->
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.webix.com/edge/webix.css" type="text/css">
-  <script src="https://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.webix.com/edge/webix.css" type="text/css">
+	<script src="https://cdn.webix.com/edge/webix.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" th:href="@{/Admin/style.css}">
 </head>
+
 <body class="overlay-scrollbar">
 	<!-- navbar -->
 	<div class="navbar">
@@ -27,8 +30,8 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<img th:src="@{/Admin/assets/AT-pro-black.png}" alt="ATPro logo" class="logo logo-light">
-				<img th:src="@{/Admin/assets/AT-pro-white.png}" alt="ATPro logo" class="logo logo-dark">
+				<img th:src="@{/Admin/assets/AT-pro-logo.png}" alt="ATPro logo" class="logo logo-light">
+				<img th:src="@{/Admin/assets/AT-pro-logo.png}" alt="ATPro logo" class="logo logo-dark">
 			</li>
 		</ul>
 		<!-- end nav left -->
@@ -236,9 +239,10 @@
 			</li>
 			<li class="nav-item avt-wrapper">
 				<div class="avt dropdown">
-					<img src="https://us.123rf.com/450wm/donets/donets1508/donets150800333/43440158-vector-user-icon-of-man-in-business-suit.jpg?ver=6" alt="User image" class="dropdown-toggle" data-toggle="user-menu">
+					<img src="https://us.123rf.com/450wm/donets/donets1508/donets150800333/43440158-vector-user-icon-of-man-in-business-suit.jpg?ver=6"
+						alt="User image" class="dropdown-toggle" data-toggle="user-menu">
 					<ul id="user-menu" class="dropdown-menu">
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-user-tie"></i>
@@ -254,7 +258,7 @@
 								<span>Settings</span>
 							</a>
 						</li>
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a href="#" class="dropdown-menu-link">
 								<div>
 									<i class="far fa-credit-card"></i>
@@ -262,7 +266,7 @@
 								<span>Payments</span>
 							</a>
 						</li>
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a href="#" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-spinner"></i>
@@ -270,7 +274,7 @@
 								<span>Projects</span>
 							</a>
 						</li>
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a href="#" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
@@ -306,7 +310,7 @@
 					<span>Users Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
+			<li class="sidebar-nav-item">
 				<a href="#" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-bed"></i>
@@ -314,15 +318,15 @@
 					<span>Rooms Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+			<li class="sidebar-nav-item">
+				<a th:href="@{/admin/servicemgmt}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-concierge-bell"></i>
 					</div>
 					<span>Services Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
+			<li class="sidebar-nav-item">
 				<a th:href="@{/admin/foodmgmt}" class="sidebar-nav-link active">
 					<div>
 						<i class="fas fa-utensils"></i>
@@ -330,7 +334,7 @@
 					<span>Foods Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
+			<li class="sidebar-nav-item">
 				<a href="#" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-chart-line"></i>
@@ -352,7 +356,7 @@
 						</h3>
 					</div>
 					<div class="card-content">
-					<div id="mgmtBody"></div>
+						<div id="mgmtBody"></div>
 					</div>
 				</div>
 			</div>
@@ -366,152 +370,173 @@
 </body>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-  webix.ready(async function () {
-    await searchFood();
-    await webix.ui({
-      "container": "mgmtBody",
-      css: "container",
-      autoheight: true,
-      "cols": [
-        {
-          columns: [
-            { id: "id", "header": "ID", "sort": "int", fillspace: 1 },
-            { id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
-            { id: "price", "header": "PRICE", "sort": "int", fillspace: 2 },
+	webix.ready(async function () {
+		await searchFood();
+		await webix.ui({
+			"container": "mgmtBody",
+			css: "container",
+			autoheight: true,
+			"cols": [
+				{
+					columns: [
+						{ id: "id", "header": "ID", "sort": "int", fillspace: 1 },
+						{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
+						{ id: "price", "header": "PRICE", "sort": "int", fillspace: 2 },
 
-          ],
-          "view": "datatable",
-          id: "FoodTable",
-          select: true,
-          scroll: "y",
-          data: ListFood,
-          width: 750,
-          height: 500
-        },
-        {
+					],
+					"view": "datatable",
+					id: "FoodTable",
+					select: true,
+					scroll: "y",
+					data: ListFood,
+					width: 750,
+					height: 500
+				},
+				{
 
-          "view": "form",
-          id: "formFood",
-          // "borderless": 1,
-          "rows": [
-            { "view": "text", id: "txtID", "label": "ID", "name": "id" },
-            { "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
-            { "view": "text", id: "txtPrice", "label": "Price", "name": "price", required: true },
-            { "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160, required: true },
-            {
-              "cols": [
-                { "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: clearForm },
-                { "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save },
-                { "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save },
-                { "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteFood },
-              ]
-            }
-          ],
-          autowidth: true,
-        }
-      ]
-    }
-    );
+					"view": "form",
+					id: "formFood",
+					// "borderless": 1,
+					"rows": [
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id" },
+						{ "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
+						{ "view": "text", id: "txtPrice", "label": "Price", "name": "price", required: true },
+						{ "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160, required: true },
+						{
+							"cols": [
+								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: clearForm },
+								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save },
+								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteFood },
+							]
+						}
+					],
+					autowidth: true,
+				}
+			]
+		}
+		);
 
-    $$("formFood").bind("FoodTable");
-    setvalueButton();
-  });
+		$$("formFood").bind("FoodTable");
+		setvalueButton();
+	});
 
 </script>
 
 
 <!-- function -->
 <script>
-  let ListFood = [];
-  function searchFood() {
-    axios.get('/api/AllFood')
-      .then(function (response) {
-        ListFood = response.data;
-        $$("FoodTable").parse(ListFood, "json");
-      })
-      .catch(function (error) {
-        console.error(error)
-      });
-  }
+	let ListFood = [];
+	function searchFood() {
+		axios.get('/api/AllFood')
+			.then(function (response) {
+				ListFood = response.data;
+				$$("FoodTable").parse(ListFood, "json");
+			})
+			.catch(function (error) {
+				console.error(error)
+			});
+	}
 
-  function setvalueButton() {
-    $$("btnUpdate").disable();
-    $$("btnDelete").disable();
-    $$("btnNew").disable();
+	function setvalueButton() {
+		$$("btnUpdate").disable();
+		$$("btnDelete").disable();
+		$$("btnNew").disable();
 
-    $$("FoodTable").attachEvent("onSelectChange", () => {
-      $$("btnSave").disable();
-      $$("btnUpdate").enable();
-      $$("btnDelete").enable();
-      $$("btnNew").enable();
-      $$("txtID").disable();
-    });
-  }
+		$$("FoodTable").attachEvent("onSelectChange", () => {
+			$$("btnSave").disable();
+			$$("btnUpdate").enable();
+			$$("btnDelete").enable();
+			$$("btnNew").enable();
+			$$("txtID").disable();
+		});
+	}
 
-  function clearForm() {
-    $$("txtID").setValue("");
-    $$("txtName").setValue("");
-    $$("txtPrice").setValue("");
-    $$("txtDesc").setValue("");
-    $$("btnSave").enable();
-    $$("btnUpdate").disable();
-    $$("btnDelete").disable();
-    $$("btnNew").disable();
-  }
+	function clearForm() {
+		$$("txtID").setValue("");
+		$$("txtName").setValue("");
+		$$("txtPrice").setValue("");
+		$$("txtDesc").setValue("");
+		$$("btnSave").enable();
+		$$("btnUpdate").disable();
+		$$("btnDelete").disable();
+		$$("btnNew").disable();
+	}
 
-  function save() {
-    const obj = {
-      id: $$("txtID").getValue(),
-      name: $$("txtName").getValue(),
-      price: $$("txtPrice").getValue(),
-      description: $$("txtDesc").getValue(),
-    }
-    axios.post('/api/insert', obj).then(function (response) {
-      webix.alert({
-        title: "Successfully!",
-      }).then(function () {
-        location.reload();
-      });
+	function save() {
+		const obj = {
+			id: $$("txtID").getValue(),
+			name: $$("txtName").getValue(),
+			price: $$("txtPrice").getValue(),
+			description: $$("txtDesc").getValue(),
+		}
 
-    })
-      .catch(function (error) {
-        webix.alert({
-          type: "alert-error",
-          title: "An Error Occurred",
-        });
-      });
+		if (obj.name == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Name can not be null!",
+			});
+		}
+		else if (obj.price == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Price can not be null!",
+			});
+		}
+		else if (obj.description == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Description can not be null!",
+			});
+		}
+		else {
+			axios.post('/api/insert', obj).then(function (response) {
+				webix.alert({
+					title: "Successfully!",
+				}).then(function () {
+					location.reload();
+				});
 
-  }
+			})
+				.catch(function (error) {
+					webix.alert({
+						type: "alert-error",
+						title: "An Error Occurred",
+					});
+				});
+		}
+	}
 
-  function deleteFood() {
-    webix.confirm({
-      title: "Title",
-      ok: "Yes", cancel: "No",
-      text: "Are you sure to delete this?"
-    })
-      .then(function () {
-        var id = $$("txtID").getValue();
-        axios.get('/api/delete/' + id)
-          .then(function (response) {
-            if (response.data == true) {
-              webix.alert({
-                title: "Successfully!",
-              }).then(function () {
-                location.reload();
-              });
-            }
-          })
-          .catch(function (error) {
-            webix.alert({
-              type: "alert-error",
-              title: "An Error Occurred",
-            });
-          });
-      })
-      .fail(function () {
+	function deleteFood() {
+		webix.confirm({
+			title: "Title",
+			ok: "Yes", cancel: "No",
+			text: "Are you sure to delete this?"
+		})
+			.then(function () {
+				var id = $$("txtID").getValue();
+				axios.get('/api/delete/' + id)
+					.then(function (response) {
+						if (response.data == true) {
+							webix.alert({
+								title: "Successfully!",
+							}).then(function () {
+								location.reload();
+							});
+						}
+					})
+					.catch(function (error) {
+						webix.alert({
+							type: "alert-error",
+							title: "An Error Occurred",
+						});
+					});
+			})
+			.fail(function () {
 
-      });
-  }
+			});
+	}
 
 </script>
+
 </html>
