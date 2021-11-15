@@ -39,4 +39,9 @@ public class RoomServiceImpl implements RoomService{
     roomRepository.deleteById(id);
   }
 
+  @Override
+  public List<Room> search(String checkin, String checkout, String id) {
+    return roomRepository.search(checkin, checkout, id);
+  }
+
 }

@@ -11,6 +11,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th>Booking Date</th>
                     <th>Roomname</th>
                     <th>Fullname</th>
                     <th>Phone</th>
@@ -22,6 +23,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="b : ${listBooing}">
+                    <td>[[${#dates.format(b.bookDate,'dd/MM/yyyy')}]]</td>
                     <td>[[${b.roomb.name}]]</td>
                     <td>[[${b.fullname}]]</td>
                     <td>[[${b.phone}]]</td>
@@ -29,7 +31,8 @@
                     <td>[[${#dates.format(b.outDate,'dd/MM/yyyy')}]]</td>
                     <td>[[${#numbers.formatDecimal(b.total,0,'COMMA',0,'POINT')}]] VNĐ</td>
                     <td>
-                        <a class="text-primary" th:href="@{|/booking/detail/${b.id}|}">Detail</a>
+                        <a th:href="@{|/booking/detail/${b.id}|}"><button type="button" class="btn btn-outline-info">Detail</button></a> &ensp;
+                        <a th:href="@{|/booking/cancel/${b.id}|}"><button type="button" class="btn btn-outline-danger">Cancel</button></a> 
                     </td>
                 </tr>
                 </tbody>

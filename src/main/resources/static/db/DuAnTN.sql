@@ -73,13 +73,15 @@ create table Booking_Food(
 go
 create table Booking(
 	id int identity(1,1) primary key,
+	book_Date date not null,
 	username nvarchar(50) not null,
 	room_id varchar(20) not null,
 	in_Date date not null,
 	out_Date date not null,
 	total float not null,
 	fullname nvarchar(150) not null,
-	phone nvarchar(12) not null 
+	phone nvarchar(12) not null,
+	status nvarchar(30) not null
 )
 go
 ALTER TABLE Room_Type
@@ -152,10 +154,10 @@ insert into Bed values ('EXB','Extra Bed')
 
 
 --insert room type
-insert into Room_Type values ('STD','Phòng standard',500000,18.0,2,'SB')
-insert into Room_Type values ('SUP','Phòng superior',735000,22.0,6,'QSB')
-insert into Room_Type values ('SUT','Phòng suite',1260000 ,80.0,10,'SKSB')
-insert into Room_Type values ('DLX','Phòng deluxe',790000,30.0,6,'KSB')
+insert into Room_Type values ('STD',N'Phòng standard',500000,18.0,2,'SB')
+insert into Room_Type values ('SUP',N'Phòng superior',735000,22.0,6,'QSB')
+insert into Room_Type values ('SUT',N'Phòng suite',1260000 ,80.0,10,'SKSB')
+insert into Room_Type values ('DLX',N'Phòng deluxe',790000,30.0,6,'KSB')
 
 --insert Food
 insert into Food values ('California Roll',70000,N'Cơm cuộn kiểu California')
@@ -179,16 +181,16 @@ insert into Food values ('Steamed Minced Pork With Mushroom',80000,N'Xíu mại 
 insert into Food values ('Steamed BBQ Pork Bun',99000,N'Bánh bao xá xíu')
 
 --insert service
-insert into Service values (N'Dịch vụ giặt ủi quần áo',50000,N'Đây là dịch vụ được tạo ra nhằm đáp ứng nhu cầu vệ sinh cá nhân và mặc của khách hàng.')
-insert into Service values (N'Dịch vụ xe đưa đón sân bay',100000,N'Dịch vụ xe đưa đón nhằm đáp ứng nhu cầu di chuyển ngày càng cao và mong muốn tạo được trải nghiệm thoải mái nhất cho khách hàng.')
-insert into Service values (N'Dịch vụ cho thuê xe máy tự lái',150000,N'Đáp ứng nhu cầu đi lại tự do cho khách hàng,không hạn chế giờ giấc')
-insert into Service values (N'Dịch vụ trông trẻ',150000,N'Đáp ứng như cầu chăm sóc trẻ nhỏ khi khách hàng để khách hàng có thể an tâm nghĩ dưỡng')
+insert into Service values (N'Giặt ủi quần áo',50000,N'Đây là dịch vụ được tạo ra nhằm đáp ứng nhu cầu vệ sinh cá nhân và mặc của khách hàng.')
+insert into Service values (N'Xe đưa đón sân bay',100000,N'Dịch vụ xe đưa đón nhằm đáp ứng nhu cầu di chuyển ngày càng cao và mong muốn tạo được trải nghiệm thoải mái nhất cho khách hàng.')
+insert into Service values (N'Cho thuê xe máy tự lái',150000,N'Đáp ứng nhu cầu đi lại tự do cho khách hàng,không hạn chế giờ giấc')
+insert into Service values (N'Trông trẻ',150000,N'Đáp ứng như cầu chăm sóc trẻ nhỏ khi khách hàng để khách hàng có thể an tâm nghĩ dưỡng')
 insert into Service values (N'Bơi 4 mùa',100000,N'Bể bơi 4 mùa có thể sử dụng mọi lúc theo nhu cầu khách hàng')
-insert into Service values (N'Dịch vụ karaoke',150000,N'Phòng Karaoke đáp ứng nhu cầu ca hát của khách hàng')
-insert into Service values (N'Dịch vụ thu đổi ngoại tệ',5000,N'Dịch vụ đáp ứng nhu cầu sử dụng,đổi trả các loại tiền ngoại tệ khách hàng')
-insert into Service values (N'Dịch vụ hội họp, văn phòng',1000000,N'Dịch vụ phòng họp, hội trường để tổ chức các sự kiện như sinh nhật, đám cưới, event công ty, hội thảo… Các phòng họp, sự kiện đi kèm trong khách sạn có quy mô từ nhỏ từ vài chục người đến vài trăm người. Ngoài ra ở đây còn được trang bị bàn ghế, âm thanh, ánh sáng để đảm bảo sự kiện diễn ra tốt đẹp.')
+insert into Service values (N'Karaoke',150000,N'Phòng Karaoke đáp ứng nhu cầu ca hát của khách hàng')
+insert into Service values (N'Thu đổi ngoại tệ',5000,N'Dịch vụ đáp ứng nhu cầu sử dụng,đổi trả các loại tiền ngoại tệ khách hàng')
+insert into Service values (N'Hội họp, văn phòng',1000000,N'Dịch vụ phòng họp, hội trường để tổ chức các sự kiện như sinh nhật, đám cưới, event công ty, hội thảo… Các phòng họp, sự kiện đi kèm trong khách sạn có quy mô từ nhỏ từ vài chục người đến vài trăm người. Ngoài ra ở đây còn được trang bị bàn ghế, âm thanh, ánh sáng để đảm bảo sự kiện diễn ra tốt đẹp.')
 insert into Service values (N'Quầy bar',500000,N'Quầy bar đều phục vụ thức uống, nhạc,... đáp ứng nhu cầu giải trí, thư giãn của du khách.')
-insert into Service values (N'Dịch vụ Spa',500000,N'Để đáp ứng nhu cầu làm đẹp của các chị em phụ nữ, các dịch vụ Spa được mở ra nhiều hơn trong những năm gần đây. Bao gồm: xông hơi, lột mụn, gội đầu ...')
+insert into Service values (N'Spa và massage',500000,N'Để đáp ứng nhu cầu làm đẹp của các chị em phụ nữ, các dịch vụ Spa được mở ra nhiều hơn trong những năm gần đây. Bao gồm: xông hơi, lột mụn, gội đầu ...')
 insert into Service values (N'Fitness center',500000,N'Các phòng tập thể dục đa năng hay các phòng tập gym luôn là nơi được du khách quan tâm. Khi đi công tác hay du lịch nhưng nhiều người vẫn muốn đảm bảo tiến độ tập luyện cho cơ thể mình')
 
 
@@ -211,45 +213,3 @@ insert into Comment(username,room_id,description) values('phutn','P001',N'Phòng
 insert into Comment(username,room_id,description) values('ngandhl','P002',N'Tôi thấy khá ổn vì phòng rộng rãi, sạch sẽ, tủ lạnh có nước giải khát');
 insert into Comment(username,room_id,description) values('trungth','P002',N'Phòng gần cầu thang, khá khó chịu mỗi khi có người đi cầu thang vì họ nói chuyện làm ồn, cách âm khá kém');
 insert into Comment(username,room_id,description) values('phutn','P002',N'Của phòng bị hỏng, kêu người sữa thì hẹn nhưng lúc đi vẫn chưa sửa, tôi khá khó chịu về điều này');
-
---insert Booking
-insert into Booking(in_Date,out_Date,fullname,phone,room_id,username,total) values('2021/11/04', '2021/11/08', N'Khách hàng 1', '0988945612', 'P002', 'user', '9870000');
-insert into Booking(in_Date,out_Date,fullname,phone,room_id,username,total) values('2021/11/06', '2021/11/12', N'Ngan NE', '0988945612', 'P003', 'user', '1400000');
-
---insert Booking_service
-insert Booking_Service(booking_id,service_id) values (1,1)
-insert Booking_Service(booking_id,service_id) values (1,6)
-insert Booking_Service(booking_id,service_id) values (1,5)
-insert Booking_Service(booking_id,service_id) values (1,9)
-insert Booking_Service(booking_id,service_id) values (1,11)
-insert Booking_Service(booking_id,service_id) values (1,3)
-insert Booking_Service(booking_id,service_id) values (1,7)
-
-insert Booking_Service(booking_id,service_id) values (2,1)
-insert Booking_Service(booking_id,service_id) values (2,6)
-insert Booking_Service(booking_id,service_id) values (2,5)
-insert Booking_Service(booking_id,service_id) values (2,9)
-insert Booking_Service(booking_id,service_id) values (2,11)
-insert Booking_Service(booking_id,service_id) values (2,3)
-insert Booking_Service(booking_id,service_id) values (2,7)
-insert Booking_Service(booking_id,service_id) values (2,10)
-insert Booking_Service(booking_id,service_id) values (2,4)
-
---insert Booking_food
-insert Booking_Food(booking_id,food_id) values (1,1)
-insert Booking_Food(booking_id,food_id) values (1,10)
-insert Booking_Food(booking_id,food_id) values (1,5)
-insert Booking_Food(booking_id,food_id) values (1,17)
-insert Booking_Food(booking_id,food_id) values (1,11)
-insert Booking_Food(booking_id,food_id) values (1,3)
-insert Booking_Food(booking_id,food_id) values (1,7)
-
-insert Booking_Food(booking_id,food_id) values (2,1)
-insert Booking_Food(booking_id,food_id) values (2,10)
-insert Booking_Food(booking_id,food_id) values (2,5)
-insert Booking_Food(booking_id,food_id) values (2,17)
-insert Booking_Food(booking_id,food_id) values (2,11)
-insert Booking_Food(booking_id,food_id) values (2,3)
-insert Booking_Food(booking_id,food_id) values (2,7)
-insert Booking_Food(booking_id,food_id) values (2,4)
-insert Booking_Food(booking_id,food_id) values (2,9)

@@ -6,9 +6,12 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 @SuppressWarnings("serial")
+@Where(clause = "status = 'NORMAL'")
 @Data
 @Entity
 @Table(name = "Booking")
@@ -18,6 +21,9 @@ public class Booking implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
 	Long id;
+
+  @Column(name = "book_Date")
+  Date bookDate;
 
   @Column(name = "in_Date")
   Date inDate;
@@ -33,6 +39,9 @@ public class Booking implements Serializable{
 
   @Column(name = "phone")
 	String phone;
+
+  @Column(name = "status")
+	String status;
 
   @ManyToOne
 	@JoinColumn(name = "room_id")

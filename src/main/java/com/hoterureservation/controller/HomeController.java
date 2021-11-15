@@ -1,7 +1,10 @@
 package com.hoterureservation.controller;
 
 import com.hoterureservation.entities.Customer;
+import com.hoterureservation.entities.RoomType;
 import com.hoterureservation.services.CustomerService;
+import com.hoterureservation.services.RoomTypeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class HomeController {
+    @Autowired
+    RoomTypeService roomTypeService;
 
     @Autowired
     CustomerService customerService;
 
     @RequestMapping({"/", "/home/index"})
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("listRoomType", roomTypeService.findAll());
         return "Layout/session";
     }
 
