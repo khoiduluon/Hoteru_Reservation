@@ -40,8 +40,8 @@ public class RoomServiceImpl implements RoomService{
   }
 
   @Override
-  public List<Room> searchRooms(String inDate, String outDate, String id) {
-    return roomRepository.searhRoom(inDate, outDate, id);
+  public List<Room> search(String checkin, String checkout, String id) {
+    return roomRepository.search(checkin, checkout, id);
   }
 
 }

@@ -68,4 +68,10 @@ public class BookingController {
         model.addAttribute("bookingitem", bookingService.findById(id));
         return "Booking/bookingdetail";
     }
+
+    @GetMapping("/cancel/{id}")
+    public String cancel(@PathVariable("id") Long id){
+        bookingService.cancel(id);
+        return "redirect:/booking/history";
+    }
 }

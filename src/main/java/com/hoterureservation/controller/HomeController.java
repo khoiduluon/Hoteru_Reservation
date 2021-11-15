@@ -1,6 +1,7 @@
 package com.hoterureservation.controller;
 
 import com.hoterureservation.entities.Customer;
+import com.hoterureservation.entities.RoomType;
 import com.hoterureservation.services.CustomerService;
 import com.hoterureservation.services.RoomTypeService;
 

@@ -13,4 +13,6 @@ public interface BookingService {
   public Booking findById(Long id);
 
   public List<Booking> findByUsername(String username);
+
+  public void cancel(Long id);
 }

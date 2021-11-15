@@ -1,4 +1,4 @@
-package com.hoterureservation.controller.Admin;
+package com.hoterureservation.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.hoterureservation.dtos.BookingDto;

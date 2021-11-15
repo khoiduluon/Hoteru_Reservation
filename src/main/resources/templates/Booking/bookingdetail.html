@@ -14,10 +14,15 @@
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-center lh-condensed">
                             <div>
+                                <h6 class="my-0">Book Date</h6>
+                                <small class="text-muted" >[[${#dates.format(bookingitem.bookDate,'dd/MM/yyyy')}]]</small>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center lh-condensed">
+                            <div>
                                 <h6 class="my-0">Fullname</h6>
                                 <small class="text-muted" >[[${bookingitem.fullname}]]</small>
                             </div>
-
                         </li>
                         <li class="list-group-item d-flex justify-content-center lh-condensed">
                             <div>
@@ -70,7 +75,7 @@
                         <span>Total (VNĐ)</span>
                         <strong>[[${#numbers.formatDecimal(bookingitem.total,0,'COMMA',0,'POINT')}]]</strong>
                     </div>
-                    <a class="w-100 btn btn-lg mt-3 bg-warning" type="submit" th:href="@{/home/index}">Home</a>
+                    <a class="w-100 btn btn-lg mt-3 bg-warning" type="submit" th:href="@{/booking/history}">Back</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 package com.hoterureservation.services.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,6 +41,7 @@ public class BookingServiceImpl implements BookingService{
     Customer customer = customerService.findByUsername(dto.getCustomerb());
     
     Booking booking = new Booking();
+    booking.setBookDate(new Date());
     booking.setInDate(dto.getInDate());
     booking.setOutDate(dto.getOutDate());
     booking.setTotal(dto.getTotal());
@@ -47,6 +49,7 @@ public class BookingServiceImpl implements BookingService{
     booking.setPhone(dto.getPhone());
     booking.setRoomb(room);
     booking.setCustomerb(customer);
+    booking.setStatus("NORMAL");
     bookingService.save(booking);
 
     List<Services> serviceList = dto.getServiceBookings();
@@ -86,5 +89,12 @@ public class BookingServiceImpl implements BookingService{
   @Override
   public List<Booking> findByUsername(String username) {
     return bookingRepository.findByUsername(username);
+  }
+
+  @Override
+  public void cancel(Long id) {
+    Booking booking = bookingRepository.findById(id).get();
+    booking.setStatus("CANCEL");
+    bookingRepository.save(booking);
   }
 }
