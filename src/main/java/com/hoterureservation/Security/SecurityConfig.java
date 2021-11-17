@@ -44,14 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/resource","/js/**","/css/**","/fonts/**","/img/**","/sass/**").permitAll()
-                .antMatchers("/","/home/index").permitAll()
-                .antMatchers("/room/*","/about","/contact","/blog","/blog/*").permitAll()
+                .antMatchers("/","/home/index","/room/**","/about","/contact","/comment","/comment/room/**").permitAll()
                 .antMatchers("/login","/register","/forgot-password").permitAll()
                 .antMatchers("/booking").hasAnyRole("Admin","Customer")
                 .anyRequest().authenticated();
         http
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/home/index",true)
                 .failureUrl("/login?error=fail")
                 .and()
