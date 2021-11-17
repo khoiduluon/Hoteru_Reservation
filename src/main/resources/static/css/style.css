@@ -499,6 +499,7 @@ ol {
 	display: flex;
 	padding: 30px 0 30px 40px;
 	position: relative;
+	justify-content: space-around;
 }
 
 .filter__form button {

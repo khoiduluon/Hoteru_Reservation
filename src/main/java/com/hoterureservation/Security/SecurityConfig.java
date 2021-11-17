@@ -26,12 +26,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
-//    private final PasswordEncoder passwordEncoder;
+    //    private final PasswordEncoder passwordEncoder;
 //
 //    @Autowired
 //    public SecurityConfig(PasswordEncoder passwordEncoder) {
 //        this.passwordEncoder = passwordEncoder;
 //    }
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -43,16 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/resource","/js/**","/css/**","/fonts/**","/img/**","/sass/**").permitAll()
-                .antMatchers("/","/home/index").permitAll()
-                .antMatchers("/room/*","/about","/contact","/blog","/blog/*").permitAll()
-                .antMatchers("/login","/register","/forgot-password").permitAll()
-                .antMatchers("/booking").hasAnyRole("Admin","Customer")
+                .antMatchers("/resource", "/js/**", "/css/**", "/fonts/**", "/img/**", "/sass/**").permitAll()
+                .antMatchers("/", "/home/index").permitAll()
+                .antMatchers("/room/*", "/about", "/contact", "/blog", "/blog/*").permitAll()
+                .antMatchers("/login", "/register", "/forgot-password").permitAll()
+                .antMatchers("/booking").hasAnyRole("Admin", "Customer")
                 .anyRequest().authenticated();
         http
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home/index",true)
+                .successHandler(loginSuccessHandler)
                 .failureUrl("/login?error=fail")
                 .and()
                 .rememberMe()
@@ -63,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID","remember-me")
+                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/home/index");
         http
                 .oauth2Login()
@@ -72,6 +74,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=fail")
                 .authorizationEndpoint()
                 .baseUri("/oauth2/authorization");
-
     }
 }
