@@ -26,12 +26,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
-//    private final PasswordEncoder passwordEncoder;
+    //    private final PasswordEncoder passwordEncoder;
 //
 //    @Autowired
 //    public SecurityConfig(PasswordEncoder passwordEncoder) {
 //        this.passwordEncoder = passwordEncoder;
 //    }
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -51,8 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/home/index",true)
+                .successHandler(loginSuccessHandler)
                 .failureUrl("/login?error=fail")
                 .and()
                 .rememberMe()
