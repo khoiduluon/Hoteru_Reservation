@@ -25,5 +25,10 @@ public class AdminIndexController {
     public String getcustomer(){
         return "/Admin/Customer_copy";
     }
+
+    @RequestMapping("/admin/roommgmt")
+    public String getroom(){
+        return "/Admin/Room_copy";
+    }
     
 }
