@@ -45,11 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/resource", "/js/**", "/css/**", "/fonts/**", "/img/**", "/sass/**").permitAll()
-                .antMatchers("/", "/home/index").permitAll()
-                .antMatchers("/room/*", "/about", "/contact", "/blog", "/blog/*").permitAll()
-                .antMatchers("/login", "/register", "/forgot-password").permitAll()
-                .antMatchers("/booking").hasAnyRole("Admin", "Customer")
+                .antMatchers("/resource","/js/**","/css/**","/fonts/**","/img/**","/sass/**").permitAll()
+                .antMatchers("/","/home/index","/room/**","/about","/contact","/comment","/comment/room/**").permitAll()
+                .antMatchers("/login","/register","/forgot-password").permitAll()
+                .antMatchers("/booking").hasAnyRole("Admin","Customer")
                 .anyRequest().authenticated();
         http
                 .formLogin()
@@ -65,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me")
+                .deleteCookies("JSESSIONID","remember-me")
                 .logoutSuccessUrl("/home/index");
         http
                 .oauth2Login()
@@ -74,5 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=fail")
                 .authorizationEndpoint()
                 .baseUri("/oauth2/authorization");
+
     }
 }
