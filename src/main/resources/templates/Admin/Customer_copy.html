@@ -428,7 +428,7 @@
 		);
 
 		$$("formCustomer").bind("CustomerTable");
-		setvalueButton();
+		
 		$$("CustomerTable").attachEvent("onSelectChange", function () {
 		 var id = $$("txtUsr").getValue();
 		 axios.get("/api/cus/"+id).then(function (response) {
@@ -440,9 +440,11 @@
 			 else{
 				$$("role").setValue(0);
 			 }
-			
+
 		 })
 		});
+
+		setvalueButton();
 	});
 
 </script>

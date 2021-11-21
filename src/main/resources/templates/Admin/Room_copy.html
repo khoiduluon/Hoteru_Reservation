@@ -352,85 +352,201 @@
 				<div class="card">
 					<div class="card-header">
 						<h3>
-							Rooms Management
+							Room Management
 						</h3>
 					</div>
-					<div class="card-content">  
-                        <center> <h2>Customer Management</h2></center>
-                          <h2 th:text="${message}"></h2>
-                          <form th:action="@{/admin/room/save}" th:object="${room}" method="post" enctype="multipart/form-data">
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon5" style="width:100px;">Roomid</span>
-                              </div>
-                              <input type="text" class="form-control" placeholder="RoomId?" th:field="*{id}"  aria-describedby="basic-addon5">
-                            </div>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1" style="width:100px;">RoomName</span>
-                              </div>
-                              <input type="text" class="form-control" placeholder="RoomName?" th:field="*{name}"  aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2" style="width:100px;">Description</span>
-                              </div>
-                              <textarea type="text" class="form-control" placeholder="Description?" th:field="*{description}" aria-describedby="basic-addon2"/>
-                            </div>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3" style="width:100px;">Image</span>
-                              </div>
-                              <input type="file" name="image" class="form-control"  aria-describedby="basic-addon3" accept="image/jpeg, image/png"/>
-                            </div>
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon4" style="width:100px;">RoomType</span>
-                              </div>
-                             <select class="form-select" th:field="*{roomType}">
-                               <option th:each="items :${listType}" th:value="${items.id}" th:text="${items.name}">
-                               </option>
-                             </select>
-                            </div>
-                    
-                            <hr>
-                            <button class="btn btn-outline-danger">Save</button>
-                            <a  class="btn btn-outline-danger" th:href="@{'/admin/room/delete/' + ${room.id}}">Delete</a>
-                            <hr>
-                            <table class="table table-striped table-bordered table-hover">
-                              <thead class="thead-light">
-                              <tr>
-                                <th>Roomid</th>
-                                <th>Roomtype</th>
-                                <th>Roomname</th>
-                                <th>Description</th>
-                                <th>Image</th>
-                                <th colspan="2">Action</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr th:each="item : ${list}">
-                                <td th:text="${item.id}"></td>
-                                <td th:text="${item.roomType.id}"></td>
-                                <td th:text="${item.roomType.name}"></td>
-                                <td th:text="${item.description}"></td>
-                                <td>
-                                  <img th:src="@{'/img/rooms/room-1.jpg'}" alt="Lỗi"
-                                       style="width: 70px; height: 70px;">
-                                </td>
-                                <td><a th:href="@{'/admin/room/edit/' + ${item.id}}">Edit</a></td>
-                                <td><a th:href="@{'/admin/room/delete/' + ${item.id}}">Delete</a></td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </form>
-                        </div>
-					
+					<div class="card-content">
+						<div id="mgmtBody"></div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end main content -->
+	<!-- import script -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+	<script th:src="@{/Admin/index.js}"></script>
+	<!-- end import script -->
 </body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+	webix.ready(async function () {
+		await searchService();
+		await webix.ui({
+			"container": "mgmtBody",
+			css: "container",
+			autoheight: true,
+			"cols": [
+				{
+					columns: [
+						{ id: "id", "header": "ID", "sort": "int", fillspace: 2	 },
+						{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 3 },
+					],
+					"view": "datatable",
+					id: "RoomTable",
+					select: true,
+					scroll: "y",
+					data: ListRoom,
+					width: 750,
+					height: 500
+				},
+				{
+
+					"view": "form",
+					id: "formRoom",
+					// "borderless": 1,
+					"rows": [
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id" },
+						{ "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
+						{ "view": "text", id: "txtType", "label": "Type",required: true },
+						{ "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160, required: true },
+						{
+							"cols": [
+								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1,  },
+								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100,},
+								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, },
+							]
+						}
+					],
+					autowidth: true,
+				}
+			]
+		}
+		);
+
+		$$("formRoom").bind("RoomTable");
+		//setvalueButton();
+
+		$$("RoomTable").attachEvent("onSelectChange", function () {
+		 var idRoom = $$("txtID").getValue();
+		 axios.get("/api/room/"+idRoom).then(function (response) {
+			 let selectedItems = response.data;
+			 console.log(selectedItems)
+			 $$("txtType").setValue(selectedItems.roomType.name);
+		 })
+		});
+	});
+
+</script>
+
+
+<!-- function -->
+<script>
+	let ListRoom = [];
+	function searchService() {
+		axios.get('/api/AllRoom')
+			.then(function (response) {
+				ListRoom = response.data;
+				$$("RoomTable").parse(ListRoom, "json");
+				console.log(ListRoom);
+			})
+			.catch(function (error) {
+				console.error(error)
+			});
+	}
+
+
+
+	// function setvalueButton() {
+	// 	$$("btnUpdate").disable();
+	// 	$$("btnDelete").disable();
+	// 	$$("btnNew").disable();
+
+	// 	$$("ServiceTable").attachEvent("onSelectChange", () => {
+	// 		$$("btnSave").disable();
+	// 		$$("btnUpdate").enable();
+	// 		$$("btnDelete").enable();
+	// 		$$("btnNew").enable();
+	// 		$$("txtID").disable();
+	// 	});
+	// }
+
+	// function clearForm() {
+	// 	$$("txtID").setValue("");
+	// 	$$("txtName").setValue("");
+	// 	$$("txtPrice").setValue("");
+	// 	$$("txtDesc").setValue("");
+	// 	$$("btnSave").enable();
+	// 	$$("btnUpdate").disable();
+	// 	$$("btnDelete").disable();
+	// 	$$("btnNew").disable();
+	// }
+
+	// function save() {
+	// 	const obj = {
+	// 		id: $$("txtID").getValue(),
+	// 		name: $$("txtName").getValue(),
+	// 		price: $$("txtPrice").getValue(),
+	// 		description: $$("txtDesc").getValue(),
+	// 	}
+
+	// 	if (obj.name == "") {
+	// 		webix.alert({
+	// 			type: "alert-error",
+	// 			title: "Name can not be null!",
+	// 		});
+	// 	}
+	// 	else if (obj.price == "") {
+	// 		webix.alert({
+	// 			type: "alert-error",
+	// 			title: "Price can not be null!",
+	// 		});
+	// 	}
+	// 	else if (obj.description == "") {
+	// 		webix.alert({
+	// 			type: "alert-error",
+	// 			title: "Description can not be null!",
+	// 		});
+	// 	}
+	// 	else {
+	// 		axios.post('/api/insertService', obj).then(function (response) {
+	// 			webix.alert({
+	// 				title: "Successfully!",
+	// 			}).then(function () {
+	// 				location.reload();
+	// 			});
+
+	// 		})
+	// 			.catch(function (error) {
+	// 				webix.alert({
+	// 					type: "alert-error",
+	// 					title: "An Error Occurred",
+	// 				});
+	// 			});
+	// 	}
+	// }
+
+	// function deleteService() {
+	// 	webix.confirm({
+	// 		title: "Title",
+	// 		ok: "Yes", cancel: "No",
+	// 		text: "Are you sure to delete this?"
+	// 	})
+	// 		.then(function () {
+	// 			var id = $$("txtID").getValue();
+	// 			axios.get('/api/deleteService/' + id)
+	// 				.then(function (response) {
+	// 					if (response.data == true) {
+	// 						webix.alert({
+	// 							title: "Successfully!",
+	// 						}).then(function () {
+	// 							location.reload();
+	// 						});
+	// 					}
+	// 				})
+	// 				.catch(function (error) {
+	// 					webix.alert({
+	// 						type: "alert-error",
+	// 						title: "An Error Occurred",
+	// 					});
+	// 				});
+	// 		})
+	// 		.fail(function () {
+
+	// 		});
+	// }
+
+</script>
 
 </html>
