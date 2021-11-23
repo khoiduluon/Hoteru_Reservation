@@ -19,4 +19,10 @@ public class RoomTypeServiceImpl implements RoomTypeService{
     public List<RoomType> findAll() {
         return roomTypeRepository.findAll();
     }
+
+    @Override
+    public RoomType findByID(String id) {
+       
+        return roomTypeRepository.findById(id).get();
+    }
 }

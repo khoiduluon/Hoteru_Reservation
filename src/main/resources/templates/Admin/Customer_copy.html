@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Hoteru Food Mgmt</title>
+	<title>Hoteru Customer Mgmt</title>
 
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
@@ -378,20 +378,37 @@
 			autoheight: true,
 			"cols": [
 				{
-					columns: [
-						{ id: "username", "header": "ID", "sort": "string", fillspace: 1 },
-						{ id: "fullname", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
-						{ id: "role", "header": "ROLE", "sort": "string", fillspace: 2 },
+					rows: [
+						{
+							columns: [
+								{ id: "username", "header": "ID", "sort": "string", fillspace: 1 },
+								{ id: "fullname", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
+								{ id: "role", "header": "ROLE", "sort": "string", fillspace: 2 },
 
-					],
-					"view": "datatable",
-					id: "CustomerTable",
-					select: true,
-					scroll: "y",
-					data: ListCustomers,
-					width: 750,
-					height: 500
+							],
+							"view": "datatable",
+							id: "CustomerTable",
+							select: true,
+							scroll: "y",
+							data: ListCustomers,
+							width: 750,
+							height: 500
+						},
+						{
+							rows: [
+								{
+									"view": "button", id: "btnExport", "css": "webix_primary", "label": "Export Data",
+									"borderless": 1, width: 100, click: function () {
+										var key = $$("CustomerTable").getFilter("fullname").value;
+										location.href = '/excel/customer?key=' + key;
+										console.log(location.href = '/excel/customer?key=' + key);
+									}
+								},
+							]
+						},
+					]
 				},
+				
 				{
 
 					"view": "form",
@@ -402,8 +419,8 @@
 						{ "view": "text", id: "txtPass", "label": "Pass", "name": "password", required: true },
 						{ "view": "text", id: "txtFullname", "label": "Fullname", "name": "fullname", required: true },
 						{ "view": "text", id: "txtPhone", "label": "Phone", "name": "phone", required: true },
-						{ "view": "text", id: "txtEmail", "label": "Email", "name": "email"},
-						{ "label": "Address", id: "txtAddress", "view": "textarea", name: "address", height: 60},
+						{ "view": "text", id: "txtEmail", "label": "Email", "name": "email" },
+						{ "label": "Address", id: "txtAddress", "view": "textarea", name: "address", height: 60 },
 						{
 							view: "switch",
 							label: "Is Admin?", labelWidth: 80,
@@ -414,10 +431,10 @@
 						},
 						{
 							"cols": [
-								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1,click: clearForm  },
-								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save  },
-								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save  },
-								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteCustomer  },
+								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: clearForm },
+								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save },
+								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteCustomer },
 							]
 						}
 					],
@@ -428,21 +445,23 @@
 		);
 
 		$$("formCustomer").bind("CustomerTable");
-		setvalueButton();
+
 		$$("CustomerTable").attachEvent("onSelectChange", function () {
-		 var id = $$("txtUsr").getValue();
-		 axios.get("/api/cus/"+id).then(function (response) {
-			 let customer = response.data;
-			 console.log(customer)
-			 if(customer.role === "Admin"){
-				$$("role").setValue(1);
-			 }
-			 else{
-				$$("role").setValue(0);
-			 }
-			
-		 })
+			var id = $$("txtUsr").getValue();
+			axios.get("/api/cus/" + id).then(function (response) {
+				let customer = response.data;
+				console.log(customer)
+				if (customer.role === "Admin") {
+					$$("role").setValue(1);
+				}
+				else {
+					$$("role").setValue(0);
+				}
+
+			})
 		});
+
+		setvalueButton();
 	});
 
 </script>
@@ -499,12 +518,12 @@
 			address: $$("txtAddress").getValue()
 		}
 		let role = $$("role").getValue();
-		if(role === 1){
+		if (role === 1) {
 			obj.role = "Admin"
-		}else{
+		} else {
 			obj.role = "Customer"
 		}
-		
+
 		if (obj.username == "") {
 			webix.alert({
 				type: "alert-error",

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Hoteru Food Mgmt</title>
+	<title>Hoteru Service Mgmt</title>
 
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
@@ -311,7 +311,7 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="#" class="sidebar-nav-link active">
 					<div>
 						<i class="fas fa-bed"></i>
 					</div>
@@ -319,7 +319,7 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a th:href="@{/admin/servicemgmt}" class="sidebar-nav-link">
+				<a th:href="@{/admin/servicemgmt}" class="sidebar-nav-link ">
 					<div>
 						<i class="fas fa-concierge-bell"></i>
 					</div>
@@ -327,7 +327,7 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a th:href="@{/admin/foodmgmt}" class="sidebar-nav-link active">
+				<a th:href="@{/admin/foodmgmt}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-utensils"></i>
 					</div>
@@ -352,7 +352,7 @@
 				<div class="card">
 					<div class="card-header">
 						<h3>
-							Food Management
+							Room Management
 						</h3>
 					</div>
 					<div class="card-content">
@@ -371,7 +371,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 	webix.ready(async function () {
-		await searchFood();
+		await searchService();
 		await webix.ui({
 			"container": "mgmtBody",
 			css: "container",
@@ -379,53 +379,81 @@
 			"cols": [
 				{
 					rows: [
+
 						{
 							columns: [
-								{ id: "id", "header": "ID", "sort": "int", fillspace: 1 },
-								{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
-								{ id: "price", "header": "PRICE", "sort": "int", fillspace: 2 },
-
+								{ id: "id", "header": "ID", "sort": "int", fillspace: 2 },
+								{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 3 },
 							],
 							"view": "datatable",
-							id: "FoodTable",
+							id: "RoomTable",
 							select: true,
 							scroll: "y",
-							data: ListFood,
+							data: ListRoom,
 							width: 750,
-							height: 500
+							height: 500,
+
 						},
 						{
 							rows: [
 								{
 									"view": "button", id: "btnExport", "css": "webix_primary", "label": "Export Data",
 									"borderless": 1, width: 100, click: function () {
-										var key = $$("FoodTable").getFilter("name").value;
-										location.href = '/excel/food?key=' + key;
-										console.log(location.href = '/excel/food?key=' + key);
+										var key = $$("RoomTable").getFilter("name").value;
+										location.href = '/excel/room?key=' + key;
+										console.log(location.href = '/excel/room?key=' + key);
 									}
 								},
 							]
 						},
-
 					]
 				},
+
 
 				{
 
 					"view": "form",
-					id: "formFood",
+					id: "formRoom",
 					// "borderless": 1,
 					"rows": [
-						{ "view": "text", id: "txtID", "label": "ID", "name": "id" },
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id", required: true },
 						{ "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
-						{ "view": "text", id: "txtPrice", "label": "Price", "name": "price", required: true },
+						{
+							view: "combo", id: "txtType", "label": "Type",
+							select: true,
+							options: {
+								filter: function (obj, value) {
+									return obj.value.toString().toLowerCase().indexOf(value.toLowerCase()) !== -1;
+								},
+								body: {
+									view: 'list',
+									id: 'listType',
+									padding: 0,
+									scroll: true,
+									type: {
+										height: 28,
+									},
+									data: [],
+								},
+							}
+						},
 						{ "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160, required: true },
+						{
+							view: "template",
+							borderless: 1,
+
+							template:
+								"<h3>Select Image:</h3>" +
+								"<form action='/upload' method='post' enctype='multipart/form-data'>" +
+								"<input type='file' id='img' name='image'  accept='image/*' multiple	/>" +
+								"</from>"
+						},
 						{
 							"cols": [
 								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: clearForm },
 								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save },
 								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save },
-								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteFood },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteRoom },
 							]
 						}
 					],
@@ -435,8 +463,29 @@
 		}
 		);
 
-		$$("formFood").bind("FoodTable");
+		$$("formRoom").bind("RoomTable");
 		setvalueButton();
+
+		$$("RoomTable").attachEvent("onSelectChange", function () {
+			var idRoom = $$("txtID").getValue();
+			axios.get("/api/room/" + idRoom).then(function (response) {
+				let selectedItems = response.data;
+				$$("txtType").setValue(selectedItems.roomType.id);
+			})
+		});
+
+		axios.get('/api/AllType')
+			.then(function (response) {
+				ListType = response.data;
+				combo = ListType.map((obj) => ({ id: obj.id, value: obj.name }))
+				console.log(combo);
+				$$('listType').define('data', combo);
+				$$('listType').refresh();
+			})
+			.catch(function (error) {
+				console.error(error)
+			});
+
 	});
 
 </script>
@@ -444,36 +493,43 @@
 
 <!-- function -->
 <script>
-	let ListFood = [];
-	function searchFood() {
-		axios.get('/api/AllFood')
+	let ListRoom = [];
+	let ListType = [];
+	var combo = [];
+	var id = 'roommgmt';
+	function searchService() {
+		axios.get('/api/AllRoom')
 			.then(function (response) {
-				ListFood = response.data;
-				$$("FoodTable").parse(ListFood, "json");
+				ListRoom = response.data;
+				$$("RoomTable").parse(ListRoom, "json");
+				console.log(ListRoom);
 			})
 			.catch(function (error) {
 				console.error(error)
 			});
+
+
 	}
+
+
 
 	function setvalueButton() {
 		$$("btnUpdate").disable();
 		$$("btnDelete").disable();
 		$$("btnNew").disable();
 
-		$$("FoodTable").attachEvent("onSelectChange", () => {
+		$$("RoomTable").attachEvent("onSelectChange", () => {
 			$$("btnSave").disable();
 			$$("btnUpdate").enable();
 			$$("btnDelete").enable();
 			$$("btnNew").enable();
-			$$("txtID").disable();
 		});
 	}
 
 	function clearForm() {
 		$$("txtID").setValue("");
 		$$("txtName").setValue("");
-		$$("txtPrice").setValue("");
+		$$("txtType").setValue("STD");
 		$$("txtDesc").setValue("");
 		$$("btnSave").enable();
 		$$("btnUpdate").disable();
@@ -482,12 +538,18 @@
 	}
 
 	function save() {
+		var input = document.getElementById("img");
+		var file = input.value.split("\\");
+		var fileName = file[file.length - 1];
 		const obj = {
 			id: $$("txtID").getValue(),
 			name: $$("txtName").getValue(),
-			price: $$("txtPrice").getValue(),
+			roomType: $$("txtType").getValue(),
 			description: $$("txtDesc").getValue(),
+			image:  fileName
 		}
+
+
 
 		if (obj.name == "") {
 			webix.alert({
@@ -495,10 +557,16 @@
 				title: "Name can not be null!",
 			});
 		}
-		else if (obj.price == "") {
+		else if (obj.id == "") {
 			webix.alert({
 				type: "alert-error",
-				title: "Price can not be null!",
+				title: "ID can not be null!",
+			});
+		}
+		else if (obj.roomType == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Please select room type!",
 			});
 		}
 		else if (obj.description == "") {
@@ -507,12 +575,27 @@
 				title: "Description can not be null!",
 			});
 		}
+		else if (obj.image == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Please select at least one image!",
+			});
+		}
 		else {
-			axios.post('/api/insert', obj).then(function (response) {
+			console.log(obj)
+			axios.post('/api/insertRoom', obj).then(function (response) {
 				webix.alert({
 					title: "Successfully!",
 				}).then(function () {
-					location.reload();
+				
+					if (fileName === "")
+						location.reload();
+					//else
+						// axios.post('/upload').then(function (response) {
+						// 	console.log("đây nè: "+response)
+						// 	//location.href(response.data);
+						// });
+						//location.href = '/upload';
 				});
 
 			})
@@ -525,7 +608,7 @@
 		}
 	}
 
-	function deleteFood() {
+	function deleteRoom() {
 		webix.confirm({
 			title: "Title",
 			ok: "Yes", cancel: "No",
@@ -533,7 +616,7 @@
 		})
 			.then(function () {
 				var id = $$("txtID").getValue();
-				axios.get('/api/delete/' + id)
+				axios.get('/api/deleteRoom/' + id)
 					.then(function (response) {
 						if (response.data == true) {
 							webix.alert({
