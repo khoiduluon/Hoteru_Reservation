@@ -378,20 +378,38 @@
 			autoheight: true,
 			"cols": [
 				{
-					columns: [
-						{ id: "id", "header": "ID", "sort": "int", fillspace: 1 },
-						{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
-						{ id: "price", "header": "PRICE", "sort": "int", fillspace: 2 },
+					rows: [
+						{
+							columns: [
+								{ id: "id", "header": "ID", "sort": "int", fillspace: 1 },
+								{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
+								{ id: "price", "header": "PRICE", "sort": "int", fillspace: 2 },
 
-					],
-					"view": "datatable",
-					id: "FoodTable",
-					select: true,
-					scroll: "y",
-					data: ListFood,
-					width: 750,
-					height: 500
+							],
+							"view": "datatable",
+							id: "FoodTable",
+							select: true,
+							scroll: "y",
+							data: ListFood,
+							width: 750,
+							height: 500
+						},
+						{
+							rows: [
+								{
+									"view": "button", id: "btnExport", "css": "webix_primary", "label": "Export Data",
+									"borderless": 1, width: 100, click: function () {
+										var key = $$("FoodTable").getFilter("name").value;
+										location.href = '/excel/food?key=' + key;
+										console.log(location.href = '/excel/food?key=' + key);
+									}
+								},
+							]
+						},
+
+					]
 				},
+
 				{
 
 					"view": "form",

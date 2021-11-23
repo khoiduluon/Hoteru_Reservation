@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<title>Hoteru Service Mgmt</title>
@@ -378,34 +378,82 @@
 			autoheight: true,
 			"cols": [
 				{
-					columns: [
-						{ id: "id", "header": "ID", "sort": "int", fillspace: 2	 },
-						{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 3 },
-					],
-					"view": "datatable",
-					id: "RoomTable",
-					select: true,
-					scroll: "y",
-					data: ListRoom,
-					width: 750,
-					height: 500
+					rows: [
+
+						{
+							columns: [
+								{ id: "id", "header": "ID", "sort": "int", fillspace: 2 },
+								{ id: "name", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 3 },
+							],
+							"view": "datatable",
+							id: "RoomTable",
+							select: true,
+							scroll: "y",
+							data: ListRoom,
+							width: 750,
+							height: 500,
+
+						},
+						{
+							rows: [
+								{
+									"view": "button", id: "btnExport", "css": "webix_primary", "label": "Export Data",
+									"borderless": 1, width: 100, click: function () {
+										var key = $$("RoomTable").getFilter("name").value;
+										location.href = '/excel/room?key=' + key;
+										console.log(location.href = '/excel/room?key=' + key);
+									}
+								},
+							]
+						},
+					]
 				},
+
+
 				{
 
 					"view": "form",
 					id: "formRoom",
 					// "borderless": 1,
 					"rows": [
-						{ "view": "text", id: "txtID", "label": "ID", "name": "id" },
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id", required: true },
 						{ "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
-						{ "view": "text", id: "txtType", "label": "Type",required: true },
+						{
+							view: "combo", id: "txtType", "label": "Type",
+							select: true,
+							options: {
+								filter: function (obj, value) {
+									return obj.value.toString().toLowerCase().indexOf(value.toLowerCase()) !== -1;
+								},
+								body: {
+									view: 'list',
+									id: 'listType',
+									padding: 0,
+									scroll: true,
+									type: {
+										height: 28,
+									},
+									data: [],
+								},
+							}
+						},
 						{ "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160, required: true },
 						{
+							view: "template",
+							borderless: 1,
+
+							template:
+								"<h3>Select Image:</h3>" +
+								"<form action='/upload' method='post' enctype='multipart/form-data'>" +
+								"<input type='file' id='img' name='image'  accept='image/*' multiple	/>" +
+								"</from>"
+						},
+						{
 							"cols": [
-								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1,  },
-								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100,},
-								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, },
-								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, },
+								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: clearForm },
+								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save },
+								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteRoom },
 							]
 						}
 					],
@@ -416,16 +464,28 @@
 		);
 
 		$$("formRoom").bind("RoomTable");
-		//setvalueButton();
+		setvalueButton();
 
 		$$("RoomTable").attachEvent("onSelectChange", function () {
-		 var idRoom = $$("txtID").getValue();
-		 axios.get("/api/room/"+idRoom).then(function (response) {
-			 let selectedItems = response.data;
-			 console.log(selectedItems)
-			 $$("txtType").setValue(selectedItems.roomType.name);
-		 })
+			var idRoom = $$("txtID").getValue();
+			axios.get("/api/room/" + idRoom).then(function (response) {
+				let selectedItems = response.data;
+				$$("txtType").setValue(selectedItems.roomType.id);
+			})
 		});
+
+		axios.get('/api/AllType')
+			.then(function (response) {
+				ListType = response.data;
+				combo = ListType.map((obj) => ({ id: obj.id, value: obj.name }))
+				console.log(combo);
+				$$('listType').define('data', combo);
+				$$('listType').refresh();
+			})
+			.catch(function (error) {
+				console.error(error)
+			});
+
 	});
 
 </script>
@@ -434,6 +494,9 @@
 <!-- function -->
 <script>
 	let ListRoom = [];
+	let ListType = [];
+	var combo = [];
+	var id = 'roommgmt';
 	function searchService() {
 		axios.get('/api/AllRoom')
 			.then(function (response) {
@@ -444,108 +507,136 @@
 			.catch(function (error) {
 				console.error(error)
 			});
+
+
 	}
 
 
 
-	// function setvalueButton() {
-	// 	$$("btnUpdate").disable();
-	// 	$$("btnDelete").disable();
-	// 	$$("btnNew").disable();
+	function setvalueButton() {
+		$$("btnUpdate").disable();
+		$$("btnDelete").disable();
+		$$("btnNew").disable();
 
-	// 	$$("ServiceTable").attachEvent("onSelectChange", () => {
-	// 		$$("btnSave").disable();
-	// 		$$("btnUpdate").enable();
-	// 		$$("btnDelete").enable();
-	// 		$$("btnNew").enable();
-	// 		$$("txtID").disable();
-	// 	});
-	// }
+		$$("RoomTable").attachEvent("onSelectChange", () => {
+			$$("btnSave").disable();
+			$$("btnUpdate").enable();
+			$$("btnDelete").enable();
+			$$("btnNew").enable();
+		});
+	}
 
-	// function clearForm() {
-	// 	$$("txtID").setValue("");
-	// 	$$("txtName").setValue("");
-	// 	$$("txtPrice").setValue("");
-	// 	$$("txtDesc").setValue("");
-	// 	$$("btnSave").enable();
-	// 	$$("btnUpdate").disable();
-	// 	$$("btnDelete").disable();
-	// 	$$("btnNew").disable();
-	// }
+	function clearForm() {
+		$$("txtID").setValue("");
+		$$("txtName").setValue("");
+		$$("txtType").setValue("STD");
+		$$("txtDesc").setValue("");
+		$$("btnSave").enable();
+		$$("btnUpdate").disable();
+		$$("btnDelete").disable();
+		$$("btnNew").disable();
+	}
 
-	// function save() {
-	// 	const obj = {
-	// 		id: $$("txtID").getValue(),
-	// 		name: $$("txtName").getValue(),
-	// 		price: $$("txtPrice").getValue(),
-	// 		description: $$("txtDesc").getValue(),
-	// 	}
+	function save() {
+		var input = document.getElementById("img");
+		var file = input.value.split("\\");
+		var fileName = file[file.length - 1];
+		const obj = {
+			id: $$("txtID").getValue(),
+			name: $$("txtName").getValue(),
+			roomType: $$("txtType").getValue(),
+			description: $$("txtDesc").getValue(),
+			image:  fileName
+		}
 
-	// 	if (obj.name == "") {
-	// 		webix.alert({
-	// 			type: "alert-error",
-	// 			title: "Name can not be null!",
-	// 		});
-	// 	}
-	// 	else if (obj.price == "") {
-	// 		webix.alert({
-	// 			type: "alert-error",
-	// 			title: "Price can not be null!",
-	// 		});
-	// 	}
-	// 	else if (obj.description == "") {
-	// 		webix.alert({
-	// 			type: "alert-error",
-	// 			title: "Description can not be null!",
-	// 		});
-	// 	}
-	// 	else {
-	// 		axios.post('/api/insertService', obj).then(function (response) {
-	// 			webix.alert({
-	// 				title: "Successfully!",
-	// 			}).then(function () {
-	// 				location.reload();
-	// 			});
 
-	// 		})
-	// 			.catch(function (error) {
-	// 				webix.alert({
-	// 					type: "alert-error",
-	// 					title: "An Error Occurred",
-	// 				});
-	// 			});
-	// 	}
-	// }
 
-	// function deleteService() {
-	// 	webix.confirm({
-	// 		title: "Title",
-	// 		ok: "Yes", cancel: "No",
-	// 		text: "Are you sure to delete this?"
-	// 	})
-	// 		.then(function () {
-	// 			var id = $$("txtID").getValue();
-	// 			axios.get('/api/deleteService/' + id)
-	// 				.then(function (response) {
-	// 					if (response.data == true) {
-	// 						webix.alert({
-	// 							title: "Successfully!",
-	// 						}).then(function () {
-	// 							location.reload();
-	// 						});
-	// 					}
-	// 				})
-	// 				.catch(function (error) {
-	// 					webix.alert({
-	// 						type: "alert-error",
-	// 						title: "An Error Occurred",
-	// 					});
-	// 				});
-	// 		})
-	// 		.fail(function () {
+		if (obj.name == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Name can not be null!",
+			});
+		}
+		else if (obj.id == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "ID can not be null!",
+			});
+		}
+		else if (obj.roomType == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Please select room type!",
+			});
+		}
+		else if (obj.description == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Description can not be null!",
+			});
+		}
+		else if (obj.image == "") {
+			webix.alert({
+				type: "alert-error",
+				title: "Please select at least one image!",
+			});
+		}
+		else {
+			console.log(obj)
+			axios.post('/api/insertRoom', obj).then(function (response) {
+				webix.alert({
+					title: "Successfully!",
+				}).then(function () {
+				
+					if (fileName === "")
+						location.reload();
+					//else
+						// axios.post('/upload').then(function (response) {
+						// 	console.log("đây nè: "+response)
+						// 	//location.href(response.data);
+						// });
+						//location.href = '/upload';
+				});
 
-	// 		});
-	// }
+			})
+				.catch(function (error) {
+					webix.alert({
+						type: "alert-error",
+						title: "An Error Occurred",
+					});
+				});
+		}
+	}
+
+	function deleteRoom() {
+		webix.confirm({
+			title: "Title",
+			ok: "Yes", cancel: "No",
+			text: "Are you sure to delete this?"
+		})
+			.then(function () {
+				var id = $$("txtID").getValue();
+				axios.get('/api/deleteRoom/' + id)
+					.then(function (response) {
+						if (response.data == true) {
+							webix.alert({
+								title: "Successfully!",
+							}).then(function () {
+								location.reload();
+							});
+						}
+					})
+					.catch(function (error) {
+						webix.alert({
+							type: "alert-error",
+							title: "An Error Occurred",
+						});
+					});
+			})
+			.fail(function () {
+
+			});
+	}
 
 </script>
 
