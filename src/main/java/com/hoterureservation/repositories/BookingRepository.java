@@ -1,5 +1,6 @@
 package com.hoterureservation.repositories;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.hoterureservation.dtos.Top6CustomerDto;
@@ -16,4 +17,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long>{
   @Query("select new com.hoterureservation.dtos.Top6CustomerDto(b.customerb.username, b.customerb.fullname, b.customerb.phone, sum(b.total)) "+
   "from Booking b group by b.customerb.username, b.customerb.fullname, b.customerb.phone order by sum(b.total) desc")
   public List<Top6CustomerDto> top6();
+
+  @Query("select DISTINCT(MONTH(b.bookDate)) from Booking b where YEAR(b.bookDate) = ?1")
+  public Collection<Integer> findAllMonthByYear(int year);
+
+  @Query("select sum(b.total) from Booking b where MONTH(b.bookDate) = ?1 and YEAR(b.bookDate) = ?2")
+  public Integer revenueMonth(int month, int year);
 }
