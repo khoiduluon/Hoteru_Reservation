@@ -22,7 +22,6 @@ public class RoomTypeServiceImpl implements RoomTypeService{
 
     @Override
     public RoomType findByID(String id) {
-       
         return roomTypeRepository.findById(id).get();
     }
 }

@@ -1,9 +1,12 @@
 package com.hoterureservation.services.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.hoterureservation.dtos.CountDto;
 import com.hoterureservation.dtos.FBookingDto;
+import com.hoterureservation.dtos.RevenueDto;
 import com.hoterureservation.dtos.SBookingDto;
 import com.hoterureservation.dtos.Top6CustomerDto;
 import com.hoterureservation.repositories.BookingRepository;
@@ -59,5 +62,27 @@ public class ReportServiceImpl implements ReportService{
   public List<SBookingDto> countSBooking() {
     return serviceBookingRepository.countSBooking();
   }
-  
+
+  @Override
+  public List<RevenueDto> revenue12Month(int year) {
+    String []months ={"January","February","March","April","May","June","July","August","September","October","November","December"};
+    Collection<Integer> listmonth = bookingRepository.findAllMonthByYear(year);
+    List<RevenueDto> list = new ArrayList<>();
+    for(int i = 1; i <= 12; i++){
+      RevenueDto dto = null;
+      if(listmonth.contains(i)){
+        dto = RevenueDto.builder()
+                        .month(months[i-1])
+                        .total(bookingRepository.revenueMonth(i, year))
+                        .build();
+      }else{
+        dto = RevenueDto.builder()
+                        .month(months[i-1])
+                        .total(0)
+                        .build();
+      }
+      list.add(dto);
+    }
+    return list;
+  }
 }
