@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Hoteru Admin</title>
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}"/>
+	<meta name="viewport"
+		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}" />
+	<style>
+		select,
+		button {
+			font-size: 15px;
+			font-weight: 300;
+			font-family: monospace;
+			text-transform: uppercase;
+			background: #fff;
+			border-radius: 2px;
+			width: 170px;
+			margin-bottom: 3%;
+		}
 
+		select:hover,
+		button:hover {
+			background-color: #3d3d3d;
+			color: #fff;
+			box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+		}
+	</style>
 	<!-- Import lib -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
 	<link rel="stylesheet" type="text/css" th:href="@{/Admin/fontawesome-free/css/all.min.css}">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script th:src="@{/restAPI/Report.js}"></script>
-	<script>getIndex();</script>
+	<script>
+		getIndex();
+	</script>
 	<!-- End import lib -->
 
 	<link rel="stylesheet" type="text/css" th:href="@{/Admin/style.css}">
 </head>
+
 <body class="overlay-scrollbar">
 	<!-- navbar -->
 	<div class="navbar">
@@ -236,9 +260,10 @@
 			</li>
 			<li class="nav-item avt-wrapper">
 				<div class="avt dropdown">
-					<img src="https://us.123rf.com/450wm/donets/donets1508/donets150800333/43440158-vector-user-icon-of-man-in-business-suit.jpg?ver=6" alt="User image" class="dropdown-toggle" data-toggle="user-menu">
+					<img src="https://us.123rf.com/450wm/donets/donets1508/donets150800333/43440158-vector-user-icon-of-man-in-business-suit.jpg?ver=6"
+						alt="User image" class="dropdown-toggle" data-toggle="user-menu">
 					<ul id="user-menu" class="dropdown-menu">
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-user-tie"></i>
@@ -254,7 +279,7 @@
 								<span>Settings</span>
 							</a>
 						</li>
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a href="#" class="dropdown-menu-link">
 								<div>
 									<i class="far fa-credit-card"></i>
@@ -262,7 +287,7 @@
 								<span>Payments</span>
 							</a>
 						</li>
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a href="#" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-spinner"></i>
@@ -270,7 +295,7 @@
 								<span>Projects</span>
 							</a>
 						</li>
-						<li  class="dropdown-menu-item">
+						<li class="dropdown-menu-item">
 							<a href="#" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
@@ -306,7 +331,7 @@
 					<span>Users Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
+			<li class="sidebar-nav-item">
 				<a href="#" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-bed"></i>
@@ -314,7 +339,7 @@
 					<span>Rooms Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
+			<li class="sidebar-nav-item">
 				<a th:href="@{/admin/servicemgmt}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-concierge-bell"></i>
@@ -322,7 +347,7 @@
 					<span>Services Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
+			<li class="sidebar-nav-item">
 				<a th:href="@{/admin/foodmgmt}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-utensils"></i>
@@ -330,7 +355,7 @@
 					<span>Foods Mgmt</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
+			<li class="sidebar-nav-item">
 				<a href="#" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-chart-line"></i>
@@ -402,7 +427,7 @@
 								</tr>
 							</thead>
 							<tbody id="top6Customer">
-							
+
 							</tbody>
 						</table>
 					</div>
@@ -410,20 +435,8 @@
 			</div>
 
 		</div>
-		
+
 		<div class="row">
-			<!-- <div class="col-12 col-m-12 col-sm-12">
-				<div class="card">
-					<div class="card-header">
-						<h3>
-							Chartjs
-						</h3>
-					</div>
-					<div class="card-content">
-						<canvas id="myChart"></canvas>
-					</div>
-				</div>
-			</div> -->
 
 			<div class="col-6 col-m-12 col-sm-12">
 				<div class="card">
@@ -434,21 +447,39 @@
 						<i class="fas fa-ellipsis-h"></i>
 					</div>
 					<div class="card-content" id="FoodPercent">
-		
+
 					</div>
 				</div>
 			</div>
-		
-		<div class="col-6 col-m-12 col-sm-12">
-			<div class="card">
-				<div class="card-header">
-					<h3>
-						Service Selected Percent
-					</h3>
-					<i class="fas fa-ellipsis-h"></i>
+
+			<div class="col-6 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Service Selected Percent
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content" id="ServicePercent">
+
+					</div>
 				</div>
-				<div class="card-content" id="ServicePercent">
-		
+			</div>
+
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header row">
+						<h2>
+							Revenue Chart
+						</h2>
+						<select id="mySelect" onchange="myFunction()" style="margin-left: auto; 
+						margin-right: 0;">
+							<option value="six" >Within 6 Months</option>
+							<option value="year"selected>Within 1 Year</option>
+						</select>
+					</div>
+					<div class="card-content">
+						<canvas id="myChart"></canvas>
 					</div>
 				</div>
 			</div>
@@ -456,12 +487,14 @@
 
 	</div>
 	</div>
-		</div>
+	</div>
 	</div>
 	<!-- end main content -->
 	<!-- import script -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<script th:src="@{/Admin/index.js}"></script>
+	<!-- <script>myFunction();</script> -->
 	<!-- end import script -->
 </body>
+
 </html>

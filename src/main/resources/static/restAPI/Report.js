@@ -6,7 +6,6 @@ async function getIndex() {
       document.getElementById("food").innerHTML = objCount.countDto.food;
       document.getElementById("service").innerHTML = objCount.countDto.service;
       document.getElementById("room").innerHTML = objCount.countDto.room;
-      console.log(objCount);
 
       for (var i = 1; i < 7; i++) {
         document.getElementById("top6Customer").insertAdjacentHTML("beforeend",

@@ -10,25 +10,25 @@ const themeLight = 'light'
 const body = document.getElementsByTagName('body')[0]
 
 function setCookie(cname, cvalue, exdays) {
-  var d = new Date()
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
-  var expires = "expires="+d.toUTCString()
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+	var d = new Date()
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+	var expires = "expires=" + d.toUTCString()
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
 }
 
 function getCookie(cname) {
-  var name = cname + "="
-  var ca = document.cookie.split(';')
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1)
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length)
-    }
-  }
-  return ""
+	var name = cname + "="
+	var ca = document.cookie.split(';')
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1)
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length)
+		}
+	}
+	return ""
 }
 
 loadTheme()
@@ -54,7 +54,7 @@ function collapseSidebar() {
 	body.classList.toggle('sidebar-expand')
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
 	openCloseDropdown(event)
 }
 
@@ -83,33 +83,85 @@ function openCloseDropdown(event) {
 	}
 }
 
+//chart 
+let label12Months = [];
+let label6Months = [];
+let data12Months = [];
+let data6Months = [];
+
+window.onload = function()
+{
+	axios.get('/report/revenue?year=' + 2021)
+	.then(function (response) {
+		let DefaultData = response.data;
+		for (var i = 0; i < DefaultData.length; i++) {
+			label12Months.push(DefaultData[i].month);
+			data12Months.push(DefaultData[i].total);
+		}
+
+		for (var i = 0; i < 6; i++) {
+			label6Months.push(DefaultData[i].month);
+			data6Months.push(DefaultData[i].total);
+		}
+	})
+	.catch(function (error) {
+		console.log(error);
+	});
+};
+
+
+
 var ctx = document.getElementById('myChart')
-ctx.height = 500
-ctx.width = 500
+ctx.height = 450
+ctx.width = 450
 var data = {
-	labels: ['January', 'February', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+	labels: label12Months,
 	datasets: [{
-		fill: false,
-		label: 'Completed',
+		fill: true,
+		label: 'Total Revenue',
 		borderColor: successColor,
-		data: [120, 115, 130, 100, 123, 88, 99, 66, 120, 52, 59],
+		data: data12Months,
 		borderWidth: 2,
-		lineTension: 0,
-	}, {
-		fill: false,
-		label: 'Issues',
-		borderColor: dangerColor,
-		data: [66, 44, 12, 48, 99, 56, 78, 23, 100, 22, 47],
-		borderWidth: 2,
-		lineTension: 0,
+
 	}]
 }
-
 var lineChart = new Chart(ctx, {
 	type: 'line',
 	data: data,
 	options: {
 		maintainAspectRatio: false,
 		bezierCurve: false,
+		responsive: true,
+		legend: false,
 	}
 })
+
+function Change6Month(lineChart) {
+	lineChart.data.datasets[0].data = data6Months;
+	lineChart.data.labels = label6Months;
+
+	lineChart.update();
+}
+
+
+
+function Change12Month(lineChart) {
+	lineChart.data.datasets[0].data = data12Months;
+	lineChart.data.labels = label12Months;
+
+	lineChart.update();
+}
+
+function myFunction() {
+	var x = document.getElementById("mySelect").value;
+	console.log(x)
+	if (x === "year") {
+		Change12Month(lineChart);
+	}
+	else if (x === "six") {
+		Change6Month(lineChart);
+	}
+}
+
+
+
