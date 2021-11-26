@@ -88,6 +88,8 @@ let label12Months = [];
 let label6Months = [];
 let data12Months = [];
 let data6Months = [];
+let label6MonthLast = [];
+let data6MonthsLast = [];
 
 window.onload = function()
 {
@@ -102,6 +104,11 @@ window.onload = function()
 		for (var i = 0; i < 6; i++) {
 			label6Months.push(DefaultData[i].month);
 			data6Months.push(DefaultData[i].total);
+		}
+
+		for (var i = 6; i < DefaultData.length; i++) {
+			label6MonthLast.push(DefaultData[i].month);
+			data6MonthsLast.push(DefaultData[i].total);
 		}
 	})
 	.catch(function (error) {
@@ -143,7 +150,12 @@ function Change6Month(lineChart) {
 	lineChart.update();
 }
 
+function Change6MonthLast(lineChart) {
+	lineChart.data.datasets[0].data = data6MonthsLast;
+	lineChart.data.labels = label6MonthLast;
 
+	lineChart.update();
+}
 
 function Change12Month(lineChart) {
 	lineChart.data.datasets[0].data = data12Months;
@@ -158,8 +170,10 @@ function myFunction() {
 	if (x === "year") {
 		Change12Month(lineChart);
 	}
-	else if (x === "six") {
+	else if (x === "first") {
 		Change6Month(lineChart);
+	}else if (x === "last"){
+		Change6MonthLast(lineChart);
 	}
 }
 

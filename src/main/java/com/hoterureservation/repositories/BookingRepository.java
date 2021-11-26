@@ -23,4 +23,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long>{
 
   @Query("select sum(b.total) from Booking b where MONTH(b.bookDate) = ?1 and YEAR(b.bookDate) = ?2")
   public Integer revenueMonth(int month, int year);
+
+  public List<Booking> findByFullnameLike(String key);
 }

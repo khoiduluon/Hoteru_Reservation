@@ -15,4 +15,6 @@ public interface RoomRepository extends JpaRepository<Room, String>{
   @Query("select r from Room r where r.id not in(select b.roomb.id from Booking b where in_Date between ?1 and ?2"+
   " or out_Date between ?1 and ?2) and r.roomType.id = ?3")
   public List<Room> search(String inDate, String outDate, String id);
+
+  public List<Room> findByNameLike(String key);
 }
