@@ -52,6 +52,7 @@ public class BookingController {
         model.addAttribute("room",room);
         model.addAttribute("list",list);
         model.addAttribute("listFood",listFood);
+        model.addAttribute("listDate", bookingService.finDateBooking(id));
         return "Booking/booking";
     }
 

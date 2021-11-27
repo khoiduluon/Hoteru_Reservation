@@ -11,7 +11,7 @@ async function getIndex() {
         var No = i+1;
         document.getElementById("top6Customer").insertAdjacentHTML("beforeend",
           "	<tr>" +
-          "<td>" + No + "</td>" +
+          "<td>" + (i+1) + "</td>" +
           "<td>" + objCount.listCustomer[i].username + "</td>" +
           "<td>" + objCount.listCustomer[i].fullname + "</td>" +
           "<td>" + objCount.listCustomer[i].phone + "</td>" +
