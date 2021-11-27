@@ -7,6 +7,8 @@ import com.hoterureservation.repositories.RoomRepository;
 import com.hoterureservation.services.RoomService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +19,11 @@ public class RoomServiceImpl implements RoomService{
   @Override
   public List<Room> findAll() {
     return roomRepository.findAll();
+  }
+
+  @Override
+  public Page<Room> pageAll(Pageable pageable) {
+    return roomRepository.findAll(pageable);
   }
 
   @Override
@@ -43,5 +50,6 @@ public class RoomServiceImpl implements RoomService{
   public List<Room> search(String checkin, String checkout, String id) {
     return roomRepository.search(checkin, checkout, id);
   }
+
 
 }

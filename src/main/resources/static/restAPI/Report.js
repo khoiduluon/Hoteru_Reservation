@@ -1,14 +1,14 @@
 async function getIndex() {
   axios.get('/report/index')
     .then(function (response) {
-      console.log(response.data)
       let objCount = response.data;
       document.getElementById("user").innerHTML = objCount.countDto.user;
       document.getElementById("food").innerHTML = objCount.countDto.food;
       document.getElementById("service").innerHTML = objCount.countDto.service;
       document.getElementById("room").innerHTML = objCount.countDto.room;
-
-      for (var i = 0; i < 7; i++) {
+      console.log(objCount)
+      for (var i = 0; i < 6; i++) {
+        var No = i+1;
         document.getElementById("top6Customer").insertAdjacentHTML("beforeend",
           "	<tr>" +
           "<td>" + (i+1) + "</td>" +

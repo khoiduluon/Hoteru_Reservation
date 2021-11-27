@@ -7,23 +7,57 @@
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}" />
 	<style>
-		select,
-		button {
-			font-size: 15px;
-			font-weight: 300;
-			font-family: monospace;
-			text-transform: uppercase;
-			background: #fff;
-			border-radius: 2px;
-			width: 170px;
-			margin-bottom: 3%;
+		:root {
+			--background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+			--gray: #34495e;
+			--darkgray: #2c3e50;
 		}
 
-		select:hover,
-		button:hover {
-			background-color: #3d3d3d;
+		select {
+			/* Reset Select */
+			appearance: none;
+			outline: 0;
+			border: 0;
+			box-shadow: none;
+			/* Personalize */
+			flex: 1;
+			padding: 0 1em;
 			color: #fff;
-			box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+			background-color: var(--darkgray);
+			background-image: none;
+			cursor: pointer;
+		}
+
+		/* Remove IE arrow */
+		select::-ms-expand {
+			display: none;
+		}
+
+		/* Custom Select wrapper */
+		.select {
+			position: relative;
+			display: flex;
+			width: 20em;
+			height: 3em;
+			border-radius: .25em;
+			overflow: hidden;
+		}
+
+		/* Arrow */
+		.select::after {
+			content: '\25BC';
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 1em;
+			background-color: #34495e;
+			transition: .25s all ease;
+			pointer-events: none;
+		}
+
+		/* Transition */
+		.select:hover::after {
+			color: #f39c12;
 		}
 	</style>
 	<!-- Import lib -->
@@ -374,7 +408,7 @@
 					<p>
 						<i class="fas fa-users"></i>
 					</p>
-					<h3 id="user"></h3>
+					<h1 id="user"></h1>
 					<p>Users</p>
 				</div>
 			</div>
@@ -383,7 +417,7 @@
 					<p>
 						<i class="fas fa-bed"></i>
 					</p>
-					<h3 id="room"></h3>
+					<h1 id="room"></h1>
 					<p>Rooms</p>
 				</div>
 			</div>
@@ -392,7 +426,7 @@
 					<p>
 						<i class="fas fa-concierge-bell"></i>
 					</p>
-					<h3 id="service"></h3>
+					<h1 id="service"></h1>
 					<p>Services</p>
 				</div>
 			</div>
@@ -401,7 +435,7 @@
 					<p>
 						<i class="fas fa-utensils"></i>
 					</p>
-					<h3 id="food"></h3>
+					<h1 id="food"></h1>
 					<p>Foods</p>
 				</div>
 			</div>
@@ -472,12 +506,15 @@
 						<h2>
 							Revenue Chart
 						</h2>
-						<select id="mySelect" onchange="myFunction()" style="margin-left: auto; 
+						<div class="select" style="margin-left: auto; 
 						margin-right: 0;">
-							<option value="first" >Within 6 Months</option>
-							<option value="last" >Within 6 Months Last</option>
-							<option value="year"selected>Within 1 Year</option>
-						</select>
+							<select id="mySelect" onchange="myFunction()">
+								<option value="first">First half year</option>
+								<option value="last">Second half year</option>
+								<option value="year" selected>Full Year</option>
+							</select>
+						</div>
+
 					</div>
 					<div class="card-content">
 						<canvas id="myChart"></canvas>
@@ -494,7 +531,7 @@
 	<!-- import script -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<script th:src="@{/Admin/index.js}"></script>
-	<!-- <script>myFunction();</script> -->
+	<script>SearchIncomeDefaults(); Change12Month(lineChart);</script>
 	<!-- end import script -->
 </body>
 
