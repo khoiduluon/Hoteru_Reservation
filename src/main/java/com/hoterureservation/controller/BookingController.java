@@ -1,5 +1,6 @@
 package com.hoterureservation.controller;
 
+import com.hoterureservation.dtos.DateBookingDto;
 import com.hoterureservation.entities.Booking;
 import com.hoterureservation.entities.Customer;
 import com.hoterureservation.entities.Food;
@@ -18,7 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -52,7 +55,8 @@ public class BookingController {
         model.addAttribute("room",room);
         model.addAttribute("list",list);
         model.addAttribute("listFood",listFood);
-        model.addAttribute("listDate", bookingService.finDateBooking(id));
+        List<DateBookingDto> listDate = bookingService.finDateBooking(id);
+       model.addAttribute("listDate", listDate);
         return "Booking/booking";
     }
 

@@ -4,6 +4,8 @@ var cardRoomPrice = document.getElementById("card-room-price").value;
 var cardTotalPrice = document.getElementById("card-total-price").value = parseInt(cardRoomPrice);
 var fullName = document.getElementById("fullname").value;
 var phone = document.getElementById("phone").value;
+
+
 document.getElementById("card-total-price").innerHTML = cardRoomPrice;
 
 const dateCheckIn = () => {
@@ -131,43 +133,20 @@ const booking = function () {
 // })
 // let formatPrice = new Intl.NumberFormat().format(formatTotal);
 
-var startDate, endDate, dateRange = [];
-
-
-const obj = [
-    {
-        start: '2021/11/1',
-        end: '2021/11/3'
-    },
-    {
-        start: '2021/11/5',
-        end: '2021/11/8'
-    },
-    {
-        start: '2021/11/15',
-        end: '2021/11/21'
-    },
-]
-
-var objDate = obj.map(obj => ({start: new Date(obj.start), end: new Date(obj.end)}))
+var dateRange = [];
+var listDate = document.getElementById("listDate").value;
+var obj = JSON.parse(listDate);
+var objDate = obj.map(obj => ({start: new Date(obj.inDate), end: new Date(obj.outDate)}))
 
 $('#checkIn').datepicker({
     beforeShowDay: function (date) {
         var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
         for (let i = 0; i < objDate.length; i++) {
             for (let date = objDate[i].start; date <= objDate[i].end; date.setDate(date.getDate() + 1)) {
-                console.log(date)
                 dateRange.push($.datepicker.formatDate('yy-mm-dd', date))
             }
         }
     return [dateRange.indexOf(dateString) == -1];
-        // for (var d = new Date(startDate);
-        //      d <= new Date(endDate);
-        //      d.setDate(d.getDate() + 1)) {
-        //     dateRange.push($.datepicker.formatDate('yy-mm-dd', d));
-        // }
-        // //console.log(dateString);
-        // return [dateRange.indexOf(dateString) == -1];
     }
 });
 
@@ -176,17 +155,9 @@ $('#checkOut').datepicker({
         var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
         for (let i = 0; i < objDate.length; i++) {
             for (let date = objDate[i].start; date <= objDate[i].end; date.setDate(date.getDate() + 1)) {
-                console.log(date)
                 dateRange.push($.datepicker.formatDate('yy-mm-dd', date))
             }
         }
         return [dateRange.indexOf(dateString) == -1];
-        // for (var d = new Date(startDate);
-        //      d <= new Date(endDate);
-        //      d.setDate(d.getDate() + 1)) {
-        //     dateRange.push($.datepicker.formatDate('yy-mm-dd', d));
-        // }
-        // //console.log(dateString);
-        // return [dateRange.indexOf(dateString) == -1];
     }
 });
