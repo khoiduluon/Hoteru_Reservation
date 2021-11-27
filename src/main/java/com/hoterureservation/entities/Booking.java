@@ -11,7 +11,6 @@ import org.hibernate.annotations.Where;
 import lombok.Data;
 
 @SuppressWarnings("serial")
-@Where(clause = "status = 'NORMAL'")
 @Data
 @Entity
 @Table(name = "Booking")
