@@ -1,5 +1,7 @@
 package com.hoterureservation.dtos;
 
+import java.util.Date;
+
 import lombok.*;
 
 @Builder
@@ -8,6 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DateBookingDto {
-    private String inDate;
-    private String outDate;
+    private Date inDate;
+    private Date outDate;
 }
