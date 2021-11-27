@@ -91,15 +91,17 @@ let data6Months = [];
 let label6MonthLast = [];
 let data6MonthsLast = [];
 
-window.onload = function()
-{
+async function SearchIncomeDefaults(){
 	axios.get('/report/revenue?year=' + 2021)
 	.then(function (response) {
 		let DefaultData = response.data;
+		console.log(DefaultData);
 		for (var i = 0; i < DefaultData.length; i++) {
 			label12Months.push(DefaultData[i].month);
 			data12Months.push(DefaultData[i].total);
 		}
+		console.log(label12Months);
+		console.log(data12Months);
 
 		for (var i = 0; i < 6; i++) {
 			label6Months.push(DefaultData[i].month);
@@ -114,7 +116,8 @@ window.onload = function()
 	.catch(function (error) {
 		console.log(error);
 	});
-};
+}
+
 
 
 
@@ -140,6 +143,11 @@ var lineChart = new Chart(ctx, {
 		bezierCurve: false,
 		responsive: true,
 		legend: false,
+		scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
 	}
 })
 
