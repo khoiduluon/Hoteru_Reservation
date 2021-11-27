@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hoterureservation.dtos.BookingDto;
+import com.hoterureservation.dtos.DateBookingDto;
 import com.hoterureservation.entities.*;
 import com.hoterureservation.repositories.BookingRepository;
 import com.hoterureservation.repositories.FoodBookingRepository;
@@ -96,5 +97,10 @@ public class BookingServiceImpl implements BookingService{
     Booking booking = bookingRepository.findById(id).get();
     booking.setStatus("CANCEL");
     bookingRepository.save(booking);
+  }
+
+  @Override
+  public List<DateBookingDto> finDateBooking(String id) {
+    return bookingRepository.finDateBooking(id);
   }
 }

@@ -3,6 +3,7 @@ package com.hoterureservation.services;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.hoterureservation.dtos.DateBookingDto;
 import com.hoterureservation.entities.Booking;
 
 public interface BookingService {
@@ -15,4 +16,6 @@ public interface BookingService {
   public List<Booking> findByUsername(String username);
 
   public void cancel(Long id);
+
+  public List<DateBookingDto> finDateBooking(String id);
 }
