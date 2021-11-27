@@ -128,3 +128,4 @@ const booking = function (){
 //     currency: 'VND'
 // })
 // let formatPrice = new Intl.NumberFormat().format(formatTotal);
+
