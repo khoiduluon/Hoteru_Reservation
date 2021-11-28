@@ -31,8 +31,13 @@ public class ReportController {
     return reportDto;
   }
 
-  @RequestMapping("/revenue")
+  @GetMapping("/revenue")
   public List<RevenueDto> revenue12Month(@RequestParam("year") int year){
     return reportService.revenue12Month(year);
+  }
+  
+  @GetMapping("/service-food/book")
+  public SFBookDto getSFBook(@RequestParam("id") Long id){
+    return reportService.getSFBook(id);
   }
 }

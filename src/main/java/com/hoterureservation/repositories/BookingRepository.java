@@ -27,6 +27,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long>{
 
   public List<Booking> findByFullnameLike(String key);
 
-  @Query("select new com.hoterureservation.dtos.DateBookingDto(b.inDate, b.outDate) from Booking b where b.roomb.id = ?1")
+  @Query("select new com.hoterureservation.dtos.DateBookingDto(b.inDate, b.outDate) from Booking b where b.roomb.id = ?1 and b.status = 'NORMAL'")
   public List<DateBookingDto> finDateBooking(String id);
 }
