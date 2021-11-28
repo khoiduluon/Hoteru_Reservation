@@ -6,6 +6,7 @@ import com.hoterureservation.dtos.CountDto;
 import com.hoterureservation.dtos.FBookingDto;
 import com.hoterureservation.dtos.RevenueDto;
 import com.hoterureservation.dtos.SBookingDto;
+import com.hoterureservation.dtos.SFBookDto;
 import com.hoterureservation.dtos.Top6CustomerDto;
 
 public interface ReportService {
@@ -18,4 +19,6 @@ public interface ReportService {
   public List<SBookingDto> countSBooking();
 
   public List<RevenueDto> revenue12Month(int year);
+
+  public SFBookDto getSFBook(Long id);
 }

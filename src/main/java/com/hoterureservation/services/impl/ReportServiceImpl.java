@@ -8,7 +8,10 @@ import com.hoterureservation.dtos.CountDto;
 import com.hoterureservation.dtos.FBookingDto;
 import com.hoterureservation.dtos.RevenueDto;
 import com.hoterureservation.dtos.SBookingDto;
+import com.hoterureservation.dtos.SFBookDto;
 import com.hoterureservation.dtos.Top6CustomerDto;
+import com.hoterureservation.entities.Food;
+import com.hoterureservation.entities.Services;
 import com.hoterureservation.repositories.BookingRepository;
 import com.hoterureservation.repositories.FoodBookingRepository;
 import com.hoterureservation.repositories.ServiceBookingRepository;
@@ -84,5 +87,12 @@ public class ReportServiceImpl implements ReportService{
       list.add(dto);
     }
     return list;
+  }
+
+  @Override
+  public SFBookDto getSFBook(Long id) {
+    List<Services> lisServices= serviceBookingRepository.findByBookingIn(id);
+    List<Food> lisFoods = foodBookingRepository.findByBookingIn(id);
+    return SFBookDto.builder().listServices(lisServices).listFoods(lisFoods).build();
   }
 }
