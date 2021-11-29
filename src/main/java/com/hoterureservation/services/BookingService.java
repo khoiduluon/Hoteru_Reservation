@@ -18,4 +18,6 @@ public interface BookingService {
   public void cancel(Long id);
 
   public List<DateBookingDto> finDateBooking(String id);
+
+  public List<Booking> findAll();
 }

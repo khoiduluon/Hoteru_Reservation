@@ -103,4 +103,9 @@ public class BookingServiceImpl implements BookingService{
   public List<DateBookingDto> finDateBooking(String id) {
     return bookingRepository.finDateBooking(id);
   }
+
+  @Override
+  public List<Booking> findAll() {
+    return bookingRepository.findAll();
+  }
 }

@@ -31,4 +31,9 @@ public class AdminIndexController {
         return "/Admin/Room_copy";
     }
     
+    @RequestMapping("/admin/bookingmgmt")
+    public String getBooking(){
+        return "/Admin/Booking_copy";
+    }
+    
 }

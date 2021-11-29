@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Hoteru Customer Mgmt</title>
+	<title>Hoteru Service Mgmt</title>
 
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
@@ -303,14 +303,15 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a th:href="@{/admin/customermgmt}" class="sidebar-nav-link active ">
+				<a th:href="@{/admin/customermgmt}" class="sidebar-nav-link ">
 					<div>
 						<i class="fas fa-users"></i>
 					</div>
 					<span>Customer Mgmt</span>
+				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a th:href="@{/admin/roommgmt}" class="sidebar-nav-link ">
+				<a th:href="@{/admin/roommgmt}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-bed"></i>
 					</div>
@@ -334,7 +335,7 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a th:href="@{/admin/bookingmgmt}" class="sidebar-nav-link">
+				<a th:href="@{/admin/bookingmgmt}" class="sidebar-nav-link active">
 					<div>
 						<i class="fas fa-chart-line"></i>
 					</div>
@@ -351,7 +352,7 @@
 				<div class="card">
 					<div class="card-header">
 						<h3>
-							Service Management
+							Booking Management
 						</h3>
 					</div>
 					<div class="card-content">
@@ -381,17 +382,17 @@
 					rows: [
 						{
 							columns: [
-								{ id: "username", "header": "ID", "sort": "string", fillspace: 1 },
-								{ id: "fullname", header: ["NAME", { content: "textFilter" }], "sort": "string", fillspace: 5 },
-								{ id: "role", "header": "ROLE", "sort": "string", fillspace: 2 },
+								{ id: "id", "header": "Id Booking", "sort": "int", fillspace: 2 },
+								{ id: "fullname", header: ["Customer Name", { content: "textFilter" }], "sort": "string", fillspace: 5 },
+								{ id: "total", "header": "Total", "sort": "int", fillspace: 2, },
 
 							],
 							"view": "datatable",
-							id: "CustomerTable",
+							id: "tableBooking",
 							select: true,
 							scroll: "y",
-							data: ListCustomers,
-							width: 750,
+							data: ListBooking,
+							width: 650,
 							height: 500
 						},
 						{
@@ -399,202 +400,230 @@
 								{
 									"view": "button", id: "btnExport", "css": "webix_primary", "label": "Export Data",
 									"borderless": 1, width: 100, click: function () {
-										var key = $$("CustomerTable").getFilter("fullname").value;
-										location.href = '/excel/customer?key=' + key;
-										console.log(location.href = '/excel/customer?key=' + key);
+										var key = $$("tableBooking").getFilter("fullname").value;
+										location.href = '/excel/booking?key=' + key;
 									}
 								},
 							]
 						},
+
 					]
 				},
-				
+
 				{
 
 					"view": "form",
-					id: "formCustomer",
+					id: "formBooking",
 					// "borderless": 1,
+					disabled: true,
 					"rows": [
-						{ "view": "text", id: "txtUsr", "label": "UsrName", "name": "username", required: true },
-						{ "view": "text", id: "txtPass", "label": "Pass", "name": "password", required: true },
-						{ "view": "text", id: "txtFullname", "label": "Fullname", "name": "fullname", required: true },
-						{ "view": "text", id: "txtPhone", "label": "Phone", "name": "phone", required: true },
-						{ "view": "text", id: "txtEmail", "label": "Email", "name": "email" },
-						{ "label": "Address", id: "txtAddress", "view": "textarea", name: "address", height: 60 },
-						{
-							view: "switch",
-							label: "Is Admin?", labelWidth: 80,
-							value: true,
-							id: "role",
-							onLabel: "ADMIN",
-							offLabel: "USER"
-						},
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id", },
+						{ "view": "text", id: "txtCustomer", "label": "Customer", "name": "fullname" },
+						{ "view": "text", id: "txtRoom", "label": "Room" },
+						{ "view": "text", id: "txtstartdate", "label": "Start Date", },
+						{ "view": "text", id: "txtenddate", "label": "End Date", },
+						{ "view": "text", id: "txtPhone", "label": "Phone No.", "name": "phone" },
+						{ "view": "text", id: "txtTotal", "label": "Total", "name": "total", format: "1,111" },
+						{ "view": "text", id: "txtCreate", "label": "Cre. Date", },
+
+
 						{
 							"cols": [
-								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: clearForm },
-								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save },
-								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save },
-								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteCustomer },
+								{
+									"view": "button", "css": "webix_primary", "label": "Service Selection",
+									"borderless,": 1, click: function () {
+
+										webix.ui(popupService).show();
+										$$('girdService').parse(selectionSerivce)
+									}
+								},
+								{
+									"view": "button", "css": "webix_primary", "label": "Food Selection",
+									"borderless": 1, click: function () {
+
+										webix.ui(popupFood).show();
+										$$('girdFood').parse(selectionFood)
+
+									}
+								}
 							]
-						}
+						},
+
+						{
+							"view": "radio", id: "rdoStatus", "label": "Status",
+							options: [
+								{ value: "NORMAL", id: "NORMAL" },
+								{ value: "COMPLETED", id: "COMPLETED" },
+								{ value: "CANCEL", id: "CANCEL" }
+							],
+						},
 					],
+
+
 					autowidth: true,
 				}
 			]
 		}
 		);
 
-		$$("formCustomer").bind("CustomerTable");
+		$$("formBooking").bind("tableBooking");
+		$$("tableBooking").attachEvent("onSelectChange", function () {
 
-		$$("CustomerTable").attachEvent("onSelectChange", function () {
-			var id = $$("txtUsr").getValue();
-			axios.get("/api/cus/" + id).then(function (response) {
-				let customer = response.data;
-				console.log(customer)
-				if (customer.role === "Admin") {
-					$$("role").setValue(1);
-				}
-				else {
-					$$("role").setValue(0);
-				}
+			$$("formBooking").enable();
+			var id = $$("txtID").getValue();
 
-			})
+			axios.get("/getOne/" + id).then(function (response) {
+				let BookingDetails = response.data;
+				$$("txtRoom").setValue(BookingDetails.roomb.name);
+				$$("rdoStatus").setValue(BookingDetails.status);
+				$$("txtstartdate").setValue((BookingDetails.inDate).slice(0, 10));
+				$$("txtenddate").setValue((BookingDetails.outDate).slice(0, 10));
+				$$("txtCreate").setValue((BookingDetails.bookDate).slice(0, 10))
+			});
+
+			axios.get("/report/service-food/book?id=" + id).then(function (response) {
+				let Selections = response.data;
+				selectionFood = Selections.listFoods;
+				selectionSerivce = Selections.listServices;
+			});
+
 		});
 
-		setvalueButton();
+		$$("rdoStatus").attachEvent("onItemClick", function () {
+			webix.confirm({
+				title: "Title",
+				ok: "Yes", cancel: "No",
+				text: "Are you sure to change this status?"
+			})
+				.then(function () {
+					let detail = {
+						id: $$("txtID").getValue(),
+						status: $$("rdoStatus").getValue()
+					}
+					axios.post('/updateBooking', detail)
+						.then(function (response) {
+							if (response.data == true) {
+								webix.alert({
+									title: "Successfully!",
+								})
+							}
+						})
+						.catch(function (error) {
+							webix.alert({
+								type: "alert-error",
+								title: "An Error Occurred",
+							});
+						});
+				})
+				.fail(function () {
+
+				});
+		});
 	});
 
+	const popupService = {
+		view: "window",
+		id: "winService",
+		height: 450,
+		position: "center",
+		move: true,
+		width: 600,
+		left: 450, top: 50,
+		head: {
+			view: "toolbar", cols: [
+				{ width: 4 },
+				{ view: "label", label: "Selection Service" },
+				{ view: "button", label: 'Close', width: 100, align: 'right', click: function () { $$('winService').close(); } }
+			]
+		},
+		body: {
+			view: "datatable",
+			id: "girdService",
+			columns: [
+				{ id: "id", header: "Id", width: 80 },
+				{ id: "name", header: "Service Name", width: 200 },
+				{ id: "price", header: "Price", width: 100 }
+			],
+			select: "row",
+			autoheight: true,
+			autowidth: true,
+			//data:selectionSerivce
+		}
+	}
+
+	const popupFood = {
+		view: "window",
+		id: "winFood",
+		height: 450,
+		position: "center",
+		move: true,
+		width: 600,
+		left: 450, top: 50,
+		head: {
+			view: "toolbar", cols: [
+				{ width: 4 },
+				{ view: "label", label: "Selection Food" },
+				{ view: "button", label: 'Close', width: 100, align: 'right', click: function () { $$('winFood').close(); } }
+			]
+		},
+		body: {
+			view: "datatable",
+			id: "girdFood",
+			columns: [
+				{ id: "id", header: "ID", width: 80 },
+				{ id: "name", header: "Food Name", width: 200 },
+				{ id: "price", header: "Price", width: 100 }
+			],
+			select: "row",
+			autoheight: true,
+			autowidth: true,
+			//data: selectionFood
+		}
+	}
 </script>
 
 
 <!-- function -->
 <script>
-	let ListCustomers = [];
+	let ListBooking = [];
+	let selectionFood = [];
+	let selectionSerivce = [];
 	function searchService() {
-		axios.get('/api/Allcustomer')
+		axios.get('/getAllBooking')
 			.then(function (response) {
-				ListCustomers = response.data;
-				$$("CustomerTable").parse(ListCustomers, "json");
+				ListBooking = response.data;
+				$$("tableBooking").parse(ListBooking, "json"); //cai nay parse len from,form chinh a
+				//console.log(ListBooking);
 			})
 			.catch(function (error) {
 				console.error(error)
 			});
 	}
 
-	function setvalueButton() {
-		$$("btnUpdate").disable();
-		$$("btnDelete").disable();
-		$$("btnNew").disable();
+	// function save() {
+	// 	const obj = {
+	// 		id: $$("txtID").getValue(),
+	// 		name: $$("txtName").getValue(),
+	// 		price: $$("txtPrice").getValue(),
+	// 		description: $$("txtDesc").getValue(),
+	// 	}
 
-		$$("CustomerTable").attachEvent("onSelectChange", () => {
-			$$("btnSave").disable();
-			$$("btnUpdate").enable();
-			$$("btnDelete").enable();
-			$$("btnNew").enable();
-		});
-	}
+	// 	axios.post('/api/insertService', obj).then(function (response) {
+	// 		webix.alert({
+	// 			title: "Successfully!",
+	// 		}).then(function () {
+	// 			location.reload();
+	// 		});
 
-	function clearForm() {
-		$$("txtUsr").setValue("");
-		$$("txtPass").setValue("");
-		$$("txtFullname").setValue("");
-		$$("txtPhone").setValue("");
-		$$("txtEmail").setValue("");
-		$$("txtAddress").setValue("");
-		$$("role").setValue(0);
-		$$("btnSave").enable();
-		$$("btnUpdate").disable();
-		$$("btnDelete").disable();
-		$$("btnNew").disable();
-	}
+	// 	})
+	// 		.catch(function (error) {
+	// 			webix.alert({
+	// 				type: "alert-error",
+	// 				title: "An Error Occurred",
+	// 			});
+	// 		});
 
-	function save() {
-		const obj = {
-			username: $$("txtUsr").getValue(),
-			password: $$("txtPass").getValue(),
-			fullname: $$("txtFullname").getValue(),
-			phone: $$("txtPhone").getValue(),
-			email: $$("txtEmail").getValue(),
-			address: $$("txtAddress").getValue()
-		}
-		let role = $$("role").getValue();
-		if (role === 1) {
-			obj.role = "Admin"
-		} else {
-			obj.role = "Customer"
-		}
-
-		if (obj.username == "") {
-			webix.alert({
-				type: "alert-error",
-				title: "Username can not be null!",
-			});
-		}
-		else if (obj.password == "") {
-			webix.alert({
-				type: "alert-error",
-				title: "Password can not be null!",
-			});
-		}
-		else if (obj.fullname == "") {
-			webix.alert({
-				type: "alert-error",
-				title: "Fullname can not be null!",
-			});
-		}
-		else if (obj.phone == "") {
-			webix.alert({
-				type: "alert-error",
-				title: "Phone can not be null!",
-			});
-		}
-		else {
-			axios.post('/api/insertCus', obj).then(function (response) {
-				webix.alert({
-					title: "Successfully!",
-				}).then(function () {
-					location.reload();
-				});
-
-			})
-				.catch(function (error) {
-					webix.alert({
-						type: "alert-error",
-						title: "An Error Occurred",
-					});
-				});
-		}
-	}
-
-	function deleteCustomer() {
-		webix.confirm({
-			title: "Title",
-			ok: "Yes", cancel: "No",
-			text: "Are you sure to delete this?"
-		})
-			.then(function () {
-				var id = $$("txtUsr").getValue();
-				axios.get('/api/deleteCus/' + id)
-					.then(function (response) {
-						if (response.data == true) {
-							webix.alert({
-								title: "Successfully!",
-							}).then(function () {
-								location.reload();
-							});
-						}
-					})
-					.catch(function (error) {
-						webix.alert({
-							type: "alert-error",
-							title: "An Error Occurred",
-						});
-					});
-			})
-			.fail(function () {
-
-			});
-	}
+	// }
 
 </script>
 
