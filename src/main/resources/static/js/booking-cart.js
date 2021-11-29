@@ -139,6 +139,8 @@ var obj = JSON.parse(listDate);
 var objDate = obj.map(obj => ({start: new Date(obj.inDate), end: new Date(obj.outDate)}))
 
 $('#checkIn').datepicker({
+    dateFormat: 'dd M yy',
+    minDate: 0,
     beforeShowDay: function (date) {
         var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
         for (let i = 0; i < objDate.length; i++) {
@@ -151,6 +153,8 @@ $('#checkIn').datepicker({
 });
 
 $('#checkOut').datepicker({
+    dateFormat: 'dd M yy',
+    minDate: 0,
     beforeShowDay: function (date) {
         var dateString = jQuery.datepicker.formatDate('yy-mm-dd', date);
         for (let i = 0; i < objDate.length; i++) {

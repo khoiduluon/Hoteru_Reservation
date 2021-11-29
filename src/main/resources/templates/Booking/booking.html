@@ -88,7 +88,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <button th:each="list : ${list}" class="dropdown-item" type="button">
-                                        <input type="checkbox" class="service" th:value="*{list.id}" th:name="*{list.name +'-'+ list.price}" onClick="getService()"/> [[*{list.name}]] ([[*{list.price}]])
+                                        <label><input type="checkbox" class="service" th:value="*{list.id}" th:name="*{list.name +'-'+ list.price}" onClick="getService()"/> [[*{list.name}]] ([[*{list.price}]])</label>
                                     </button>
 <!--                                    <button class="dropdown-item" type="button">-->
 <!--                                        <input type="checkbox">value2-->
@@ -104,7 +104,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <button th:each="list : ${listFood}" class="dropdown-item" type="button">
-                                        <input type="checkbox" class="food" th:value="*{list.id}" th:name="*{list.name +'-'+ list.price}" onClick="getFood()"> [[*{list.name}]] ([[*{list.price}]])
+                                        <label><input type="checkbox" class="food" th:value="*{list.id}" th:name="*{list.name +'-'+ list.price}" onClick="getFood()"> [[*{list.name}]] ([[*{list.price}]])</label>
                                     </button>
                                 </div>
                             </div>
