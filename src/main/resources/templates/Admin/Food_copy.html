@@ -417,7 +417,7 @@
 					id: "formFood",
 					// "borderless": 1,
 					"rows": [
-						{ "view": "text", id: "txtID", "label": "ID", "name": "id" },
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id" ,readonly:true},
 						{ "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
 						{ "view": "text", id: "txtPrice", "label": "Price", "name": "price", required: true },
 						{ "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160, required: true },
@@ -467,7 +467,6 @@
 			$$("btnUpdate").enable();
 			$$("btnDelete").enable();
 			$$("btnNew").enable();
-			$$("txtID").disable();
 		});
 	}
 
