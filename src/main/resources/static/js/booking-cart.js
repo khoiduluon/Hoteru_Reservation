@@ -151,7 +151,6 @@ $('#checkIn').datepicker({
     return [dateRange.indexOf(dateString) == -1];
     }
 });
-
 $('#checkOut').datepicker({
     dateFormat: 'dd M yy',
     minDate: 0,
