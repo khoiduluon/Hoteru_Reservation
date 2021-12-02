@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phonenumber" th:field="*{phone}" required/>
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder="Phonenumber" th:field="*{phone}" required minlength="10" maxlength="11"/>
                     </div>
 
                     <div class="form-outline mb-4">
