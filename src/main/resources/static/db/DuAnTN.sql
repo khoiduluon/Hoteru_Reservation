@@ -8,8 +8,8 @@ create table Customer(
 	password nvarchar(50) not null,
 	fullname nvarchar(150) not null,
 	phone nvarchar(12) not null,
-	address nvarchar(100) not null,
-	email nvarchar(100) not null,
+	address nvarchar(100) null,
+	email nvarchar(100) null,
 	role varchar(20) not null
 )
 go
@@ -38,10 +38,10 @@ create table Room(
 	id varchar(20) primary key,
 	name nvarchar(150) not null,
 	roomtype_id varchar(20) not null,
-	image1 nvarchar(100) not null,
-	image2 nvarchar(100) not null,
-	image3 nvarchar(100) not null,
-	image4 nvarchar(100) not null,
+	image1 nvarchar(100) null,
+	image2 nvarchar(100) null,
+	image3 nvarchar(100) null,
+	image4 nvarchar(100) null,
 	description nvarchar(max) not null
 )
 go
@@ -135,7 +135,6 @@ FOREIGN KEY (food_id)
 REFERENCES Food (id);
 
 -----Insert data
-
 GO
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'admin', N'123', N'admin', N'0123456778', N'tổ 17 Đinh Tiên Hoàng', N'admin@gmail.com', N'Admin')
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'bichbtt', N'123', N'Bùi Thị Thu Bích', N'090486547', N'Tân An, Long An', N'bich@gmail.com', N'Customer')
@@ -173,27 +172,29 @@ INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], 
 GO
 SET IDENTITY_INSERT [dbo].[Booking] ON 
 
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (1, CAST(N'1970-01-01' AS Date), N'ngandhl', N'P002', CAST(N'2021-11-15' AS Date), CAST(N'2021-11-16' AS Date), 1938000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (2, CAST(N'1970-01-01' AS Date), N'ngandhl', N'P010', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-24' AS Date), 740000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (3, CAST(N'1970-01-01' AS Date), N'ngandhl', N'P005', CAST(N'2021-11-17' AS Date), CAST(N'2021-11-17' AS Date), 3005000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (4, CAST(N'2021-11-15' AS Date), N'ngandhl', N'P008', CAST(N'2021-11-15' AS Date), CAST(N'2021-11-18' AS Date), 5370000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (5, CAST(N'2021-11-15' AS Date), N'ngandhl', N'P001', CAST(N'2021-11-15' AS Date), CAST(N'2021-11-15' AS Date), 910000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (6, CAST(N'2021-11-17' AS Date), N'ngandhl', N'P006', CAST(N'2021-11-30' AS Date), CAST(N'2021-12-02' AS Date), 1729000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (7, CAST(N'2021-11-20' AS Date), N'ngandhl', N'P003', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 4664000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (8, CAST(N'2021-11-20' AS Date), N'ngandhl', N'P008', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 5489000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (9, CAST(N'2021-11-20' AS Date), N'phutn', N'P005', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3640000, N'Trần Ngọc Phú', N'034569770', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (10, CAST(N'2021-11-20' AS Date), N'phutn', N'P002', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 2340000, N'Trần Ngọc Phú', N'034569770', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (11, CAST(N'2021-11-20' AS Date), N'trungth', N'P005', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3615000, N'Trần Hiếu Trung', N'0456654789', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (12, CAST(N'2021-11-20' AS Date), N'trungth', N'P008', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3169000, N'Trần Hiếu Trung', N'0456654789', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (13, CAST(N'2021-11-20' AS Date), N'trungth', N'P001', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3350000, N'Trần Hiếu Trung', N'0456654789', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (14, CAST(N'2021-11-20' AS Date), N'bichbtt', N'P008', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 5396000, N'Bùi Thị Thu Bích', N'090486547', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (15, CAST(N'2021-11-20' AS Date), N'bichbtt', N'P004', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3177000, N'Bùi Thị Thu Bích', N'090486547', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (16, CAST(N'2021-11-20' AS Date), N'thaontp', N'P008', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3575000, N'Nguyễn Thị Phương Thảo', N'45645645654', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (17, CAST(N'2021-11-20' AS Date), N'thaontp', N'P001', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3487000, N'Nguyễn Thị Phương Thảo', N'45645645654', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (18, CAST(N'2021-11-20' AS Date), N'daotn', N'P004', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 2918000, N'Trần Ngọc Đào', N'88888456789', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (19, CAST(N'2021-11-20' AS Date), N'nguyenvana', N'P010', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 950000, N'Nguyễn Văn A', N'123456789', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (20, CAST(N'2021-11-20' AS Date), N'Bne', N'P009', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 500000, N'Nguyễn Văn B', N'9999788789', N'NORMAL')
-INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (21, CAST(N'2021-11-20' AS Date), N'Bne', N'P001', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 1219000, N'Nguyễn Văn B', N'9999788789', N'NORMAL')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (1, CAST(N'1970-01-01' AS Date), N'ngandhl', N'P002', CAST(N'2021-11-15' AS Date), CAST(N'2021-11-16' AS Date), 1938000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'CANCEL')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (2, CAST(N'1970-01-01' AS Date), N'ngandhl', N'P010', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-24' AS Date), 740000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (3, CAST(N'1970-01-01' AS Date), N'ngandhl', N'P005', CAST(N'2021-11-17' AS Date), CAST(N'2021-11-17' AS Date), 3005000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (4, CAST(N'2021-11-15' AS Date), N'ngandhl', N'P008', CAST(N'2021-12-15' AS Date), CAST(N'2021-12-18' AS Date), 5370000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'PENDING')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (5, CAST(N'2021-11-15' AS Date), N'ngandhl', N'P001', CAST(N'2021-11-15' AS Date), CAST(N'2021-11-15' AS Date), 910000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (6, CAST(N'2021-11-17' AS Date), N'ngandhl', N'P006', CAST(N'2021-11-30' AS Date), CAST(N'2021-12-02' AS Date), 1729000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (7, CAST(N'2021-11-20' AS Date), N'ngandhl', N'P003', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 4664000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (8, CAST(N'2021-11-20' AS Date), N'ngandhl', N'P008', CAST(N'2021-12-20' AS Date), CAST(N'2021-12-20' AS Date), 5489000, N'Đoàn Huỳnh Long Ngân', N'0998894560', N'PENDING')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (9, CAST(N'2021-11-20' AS Date), N'phutn', N'P005', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3640000, N'Trần Ngọc Phú', N'034569770', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (10, CAST(N'2021-11-20' AS Date), N'phutn', N'P002', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 2340000, N'Trần Ngọc Phú', N'034569770', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (11, CAST(N'2021-11-20' AS Date), N'trungth', N'P005', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3615000, N'Trần Hiếu Trung', N'0456654789', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (12, CAST(N'2021-11-20' AS Date), N'trungth', N'P008', CAST(N'2021-12-25' AS Date), CAST(N'2021-12-28' AS Date), 3169000, N'Trần Hiếu Trung', N'0456654789', N'PENDING')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (13, CAST(N'2021-11-20' AS Date), N'trungth', N'P001', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3350000, N'Trần Hiếu Trung', N'0456654789', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (14, CAST(N'2021-11-20' AS Date), N'bichbtt', N'P008', CAST(N'2021-12-10' AS Date), CAST(N'2021-12-14' AS Date), 5396000, N'Bùi Thị Thu Bích', N'090486547', N'PENDING')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (15, CAST(N'2021-11-20' AS Date), N'bichbtt', N'P004', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3177000, N'Bùi Thị Thu Bích', N'090486547', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (16, CAST(N'2021-11-20' AS Date), N'thaontp', N'P008', CAST(N'2022-01-15' AS Date), CAST(N'2022-01-20' AS Date), 3575000, N'Nguyễn Thị Phương Thảo', N'45645645654', N'PENDING')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (17, CAST(N'2021-11-20' AS Date), N'thaontp', N'P001', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 3487000, N'Nguyễn Thị Phương Thảo', N'45645645654', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (18, CAST(N'2021-11-20' AS Date), N'daotn', N'P004', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 2918000, N'Trần Ngọc Đào', N'88888456789', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (19, CAST(N'2021-11-20' AS Date), N'nguyenvana', N'P010', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 950000, N'Nguyễn Văn A', N'123456789', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (20, CAST(N'2021-11-20' AS Date), N'Bne', N'P009', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 500000, N'Nguyễn Văn B', N'9999788789', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (21, CAST(N'2021-11-20' AS Date), N'Bne', N'P001', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 1219000, N'Nguyễn Văn B', N'9999788789', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (22, CAST(N'2021-01-26' AS Date), N'phutn', N'P001', CAST(N'2021-11-26' AS Date), CAST(N'2021-11-26' AS Date), 3648000, N'Trần Ngọc Phú', N'034569770', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (23, CAST(N'2021-06-26' AS Date), N'phutn', N'P005', CAST(N'2021-11-26' AS Date), CAST(N'2021-11-26' AS Date), 3266000, N'Trần Ngọc Phú', N'034569770', N'COMPLETED')
 SET IDENTITY_INSERT [dbo].[Booking] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Comment] ON 
@@ -315,6 +316,22 @@ INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (89, 19
 INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (90, 19, 4)
 INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (91, 21, 1)
 INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (92, 21, 2)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (93, 22, 1)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (94, 22, 2)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (95, 22, 3)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (96, 22, 5)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (97, 22, 6)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (98, 22, 7)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (99, 22, 8)
+GO
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (100, 22, 9)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (101, 23, 2)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (102, 23, 3)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (103, 23, 4)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (104, 23, 5)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (105, 23, 6)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (106, 23, 7)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (107, 23, 8)
 SET IDENTITY_INSERT [dbo].[Booking_Service] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Food] ON 
@@ -459,4 +476,18 @@ INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (113, 19, 5)
 INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (114, 21, 7)
 INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (115, 21, 8)
 INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (116, 21, 9)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (117, 22, 3)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (118, 22, 4)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (119, 22, 7)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (120, 22, 8)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (121, 22, 9)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (122, 22, 12)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (123, 22, 14)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (124, 22, 15)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (125, 22, 18)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (126, 23, 10)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (127, 23, 11)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (128, 23, 12)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (129, 23, 13)
 SET IDENTITY_INSERT [dbo].[Booking_Food] OFF
+GO
