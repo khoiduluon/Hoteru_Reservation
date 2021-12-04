@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long>{
-  @Query("select b from Booking b where b.customerb.username = ?1 and b.status in('NORMAL','COMPLETED')")
+  @Query("select b from Booking b where b.customerb.username = ?1 and b.status != 'CANCEL '")
   public List<Booking> findByUsername(String username);
 
   @Query("select new com.hoterureservation.dtos.Top6CustomerDto(b.customerb.username, b.customerb.fullname, b.customerb.phone, sum(b.total)) "+
@@ -27,6 +27,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long>{
 
   public List<Booking> findByFullnameLike(String key);
 
-  @Query("select new com.hoterureservation.dtos.DateBookingDto(b.inDate, b.outDate) from Booking b where b.roomb.id = ?1 and b.status = 'NORMAL'")
+  @Query("select new com.hoterureservation.dtos.DateBookingDto(b.inDate, b.outDate) from Booking b where b.roomb.id = ?1 and b.status = 'PENDING'")
   public List<DateBookingDto> finDateBooking(String id);
 }
