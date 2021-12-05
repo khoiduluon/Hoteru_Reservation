@@ -181,7 +181,8 @@
     ----------------------------*/
     var today = new Date(); 
     var dd = today.getDate(); 
-    var mm = today.getMonth() + 1; 
+    var mm = today.getMonth();
+
 
     var yyyy = today.getFullYear(); 
     if (dd < 10) { 
@@ -191,14 +192,13 @@
 
     var month;
 
-    for (let i = 0; i <= 12; i++) {
+    for (let i = 0; i < 12; i++) {
         const element = mS[i];
-        if (mm == mS.indexOf(mS[i])) {
-            month = mS[i-1];
+        if (mm == mS.indexOf(element)) {
+            month = mS[i];
         }
     }
-    var today = dd + ' ' + month + ' ' + yyyy; 
-
+    var today = dd + ' ' + month + ' ' + yyyy;
     $(".check__in").val(today);
     $(".check__out").val(today);
 
