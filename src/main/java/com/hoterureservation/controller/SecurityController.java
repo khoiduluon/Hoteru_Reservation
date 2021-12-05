@@ -45,13 +45,14 @@ public class SecurityController {
     public String register(Model model, @Valid Customer customer, BindingResult bindingResult) {
         if (customerService.checkUserExist(customer.getUsername())) {
             model.addAttribute("message", "Username đã tồn tại");
-            if (!customer.getPassword().equals(customer.getRe_password())) {
-                model.addAttribute("message", "Mật khẩu không trùng");
-            }
+            return "Security/register";
+        } else if (!customer.getPassword().equals(customer.getRe_password())) {
+            model.addAttribute("message", "Mật khẩu không trùng");
+            return "Security/register";
         }
-            customer.setRole("Customer");
-            customerService.save(customer);
-            model.addAttribute("message", "Đăng ký thành công");
+        customer.setRole("Customer");
+        customerService.save(customer);
+        model.addAttribute("message", "Đăng ký thành công");
         return "Security/register";
     }
 
