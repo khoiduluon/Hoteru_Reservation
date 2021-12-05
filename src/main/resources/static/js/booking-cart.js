@@ -120,7 +120,7 @@ const booking = function () {
         showToast()
         setTimeout(() => {
             location.reload()
-        }, 2100);
+        }, 5000);
         location.href = "/booking/detail/" + response.data;
     }).catch(function (error) {
         showToastError();

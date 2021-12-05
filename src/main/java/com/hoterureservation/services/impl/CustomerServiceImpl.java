@@ -1,5 +1,8 @@
 package com.hoterureservation.services.impl;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import com.hoterureservation.entities.Customer;
 import com.hoterureservation.repositories.CustomerRepository;
 import com.hoterureservation.services.CustomerService;
@@ -28,7 +31,8 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public boolean checkUserExist(String username){
-        return customerRepository.findById(username) !=null ? true : false;
+        Optional<Customer> customer = customerRepository.findById(username);
+        return customer.isEmpty() ? false : true;
     }
 
     @Override

@@ -50,7 +50,7 @@ public class BookingServiceImpl implements BookingService{
     booking.setPhone(dto.getPhone());
     booking.setRoomb(room);
     booking.setCustomerb(customer);
-    booking.setStatus("NORMAL");
+    booking.setStatus("PENDING");
     bookingService.save(booking);
 
     List<Services> serviceList = dto.getServiceBookings();
