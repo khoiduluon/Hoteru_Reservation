@@ -28,7 +28,10 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public boolean checkUserExist(String username){
-        return customerRepository.findById(username) !=null ? true : false;
+        if(username.isEmpty()){
+            return false;
+        }
+        return customerRepository.findById(username) != null ? true : false;
     }
 
     @Override
