@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Hoteru Service Mgmt</title>
+	<title>Hoteru Managerment</title>
 
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}" />
+		<link rel="icon" type="image/png" th:href="@{/img/location.png}" />
 
 	<!-- Import lib -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
@@ -30,8 +30,8 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<img th:src="@{/Admin/assets/AT-pro-logo.png}" alt="ATPro logo" class="logo logo-light">
-				<img th:src="@{/Admin/assets/AT-pro-logo.png}" alt="ATPro logo" class="logo logo-dark">
+				<img th:src="@{/img/logo-black.png}" alt="ATPro logo" class="logo logo-light">
+				<img th:src="@{/img/logo-Copy.png}" alt="ATPro logo" class="logo logo-dark">
 			</li>
 		</ul>
 		<!-- end nav left -->
@@ -449,10 +449,10 @@
 						},
 						{
 							"cols": [
-								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: clearForm },
-								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, width: 100, click: save },
-								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: save },
-								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, width: 100, "borderless": 1, click: deleteRoom },
+								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: clearForm },
+								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, click: save },
+								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0,  "borderless": 1, click: save },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0,  "borderless": 1, click: deleteRoom },
 							]
 						}
 					],
