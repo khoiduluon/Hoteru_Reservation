@@ -1,7 +1,9 @@
 axios.get('/getAllBooking')
     .then(function (response) {
         let ListNoti = response.data;
-        let number =0;
+        const status = ListNoti.filter(s => s.status === 'PENDING')
+        document.getElementById("numberNoti").innerHTML = status.length;
+        let number = 0;
         for (let i = 0; i <= ListNoti.length; i++) {
             if (ListNoti[i].status === 'PENDING') {
                 number++;
@@ -24,10 +26,11 @@ axios.get('/getAllBooking')
                 number++;
             } 
         }
-        document.getElementById("numberNoti").innerHTML = String(number)
+
     })
     .catch(function (error) {
         console.error(error)
     });
+
 
 
