@@ -6,6 +6,7 @@
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<link rel="icon" type="image/png" th:href="@{/img/location.png}" />
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<style>
 		:root {
 			--background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
@@ -333,8 +334,10 @@
 						<h2>
 							Revenue Chart
 						</h2>
+
 						<div class="select" style="margin-left: auto; 
 						margin-right: 0;">
+							<select class="selectYear"></select>
 							<select id="mySelect" onchange="myFunction()">
 								<option value="first">First half year</option>
 								<option value="last">Second half year</option>
@@ -357,6 +360,8 @@
 	<!-- end main content -->
 	<!-- import script -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+	<script th:src="@{/Admin/yearPicker.js}"></script>
+	<script th:src="@{/js/year-select.js}"></script>
 	<script th:src="@{/Admin/notifacation.js}"></script>
 	<script th:src="@{/Admin/index.js}"></script>
 	<script>SearchIncomeDefaults(); Change12Month(lineChart);</script>
