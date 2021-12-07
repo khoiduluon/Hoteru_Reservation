@@ -2,11 +2,11 @@
 <html>
 
 <head>
-	<title>Hoteru Service Mgmt</title>
+	<title>Hoteru Managerment</title>
 
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="icon" type="image/png" th:href="@{/Admin/assets/AT-pro-logo.png}" />
+	<link rel="icon" type="image/png" th:href="@{/img/location.png}" />
 
 	<!-- Import lib -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
@@ -30,8 +30,8 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<img th:src="@{/Admin/assets/AT-pro-logo.png}" alt="ATPro logo" class="logo logo-light">
-				<img th:src="@{/Admin/assets/AT-pro-logo.png}" alt="ATPro logo" class="logo logo-dark">
+				<img th:src="@{/img/logo-black.png}" alt="ATPro logo" class="logo logo-light">
+				<img th:src="@{/img/logo-Copy.png}" alt="ATPro logo" class="logo logo-dark">
 			</li>
 		</ul>
 		<!-- end nav left -->
@@ -417,26 +417,27 @@
 					// "borderless": 1,
 					disabled: true,
 					autoheight: true,
+					autowidth: true,
 					"rows": [
-						{ "view": "text", id: "txtID", "label": "ID", "name": "id",readonly:true},
-						{ "view": "text", id: "txtCustomer", "label": "Customer", "name": "fullname",readonly:true},
-						{ "view": "text", id: "txtRoom", "label": "Room",readonly:true },
-						{ "view": "text", id: "txtCreate", "label": "Cre. Date", readonly:true},
-						{ "view": "text", id: "txtstartdate", "label": "Start Date",readonly:true },
-						{ "view": "text", id: "txtenddate", "label": "End Date", readonly:true},
-						{ "view": "text", id: "txtPhone", "label": "Phone No.", "name": "phone",readonly:true },
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id", readonly: true },
+						{ "view": "text", id: "txtCustomer", "label": "Customer", "name": "fullname", readonly: true },
+						{ "view": "text", id: "txtRoom", "label": "Room", readonly: true },
+						{ "view": "text", id: "txtCreate", "label": "Cre. Date", readonly: true },
+						{ "view": "text", id: "txtstartdate", "label": "Start Date", readonly: true },
+						{ "view": "text", id: "txtenddate", "label": "End Date", readonly: true },
+						{ "view": "text", id: "txtPhone", "label": "Phone No.", "name": "phone", readonly: true },
 						{
 							view: "template",
-							borderless:1,
-							template:"<center><h3>Detail Receipt</h3></center>"
+							borderless: 1,
+							template: "<center><h3>Detail Receipt</h3></center>"
 						},
 						{
 							"cols": [
-								{ "view": "text", id: "txtRoomPrice", "label": "Room", format: "1,111", labelAlign: "center",readonly:true},
-								{ "view": "text", id: "txtS&FPrice", "label": "Services", format: "1,111", labelAlign: "center",readonly:true }
+								{ "view": "text", id: "txtRoomPrice", "label": "Room", format: "1,111", labelAlign: "center", readonly: true },
+								{ "view": "text", id: "txtS&FPrice", "label": "Services", format: "1,111", labelAlign: "center", readonly: true }
 							]
 						},
-						{ "view": "text", id: "txtTotal", "label": "Total", "name": "total", format: "1,111", labelAlign: "center",readonly:true },
+						{ "view": "text", id: "txtTotal", "label": "Total", "name": "total", format: "1,111", labelAlign: "center", readonly: true },
 
 
 
@@ -465,7 +466,7 @@
 						{
 							"view": "radio", id: "rdoStatus", "label": "Status", labelAlign: "center",
 							options: [
-								{ value: "NORMAL", id: "NORMAL" },
+								{ value: "PENDING", id: "PENDING" },
 								{ value: "COMPLETED", id: "COMPLETED" },
 								{ value: "CANCEL", id: "CANCEL" }
 							],
@@ -473,7 +474,7 @@
 					],
 
 
-					autowidth: true,
+					
 				}
 			]
 		}
@@ -494,8 +495,8 @@
 				$$("txtenddate").setValue((BookingDetails.outDate).slice(0, 10));
 				$$("txtCreate").setValue((BookingDetails.bookDate).slice(0, 10));
 				$$("txtRoomPrice").setValue((BookingDetails.roomb.roomType.price));
-				$$("txtS&FPrice").setValue((BookingDetails.total)-(BookingDetails.roomb.roomType.price));
-			
+				$$("txtS&FPrice").setValue((BookingDetails.total) - (BookingDetails.roomb.roomType.price));
+
 			});
 
 			axios.get("/report/service-food/book?id=" + id).then(function (response) {
@@ -533,7 +534,12 @@
 						});
 				})
 				.fail(function () {
+					var OldId = $$("txtID").getValue();
+					axios.get("/getOne/" + OldId).then(function (response) {
+						let OldBookingDetails = response.data;
+						$$("rdoStatus").setValue(OldBookingDetails.status);
 
+					});
 				});
 		});
 	});
@@ -609,7 +615,7 @@
 		axios.get('/getAllBooking')
 			.then(function (response) {
 				ListBooking = response.data;
-				$$("tableBooking").parse(ListBooking, "json"); //cai nay parse len from,form chinh a
+				$$("tableBooking").parse(ListBooking, "json");
 				//console.log(ListBooking);
 			})
 			.catch(function (error) {

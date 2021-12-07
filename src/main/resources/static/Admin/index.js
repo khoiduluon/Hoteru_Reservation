@@ -95,13 +95,13 @@ async function SearchIncomeDefaults(){
 	axios.get('/report/revenue?year=' + 2021)
 	.then(function (response) {
 		let DefaultData = response.data;
-		console.log(DefaultData);
+	//	console.log(DefaultData);
 		for (var i = 0; i < DefaultData.length; i++) {
 			label12Months.push(DefaultData[i].month);
 			data12Months.push(DefaultData[i].total);
 		}
-		console.log(label12Months);
-		console.log(data12Months);
+		//console.log(label12Months);
+		//console.log(data12Months);
 
 		for (var i = 0; i < 6; i++) {
 			label6Months.push(DefaultData[i].month);
@@ -174,7 +174,7 @@ function Change12Month(lineChart) {
 
 function myFunction() {
 	var x = document.getElementById("mySelect").value;
-	console.log(x)
+	//console.log(x)
 	if (x === "year") {
 		Change12Month(lineChart);
 	}
