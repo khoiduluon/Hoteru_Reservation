@@ -100,7 +100,7 @@ function SearchIncomeDefaults() {
 	label6MonthLast = [];
 	data6MonthsLast = [];
 	let yearselect = document.getElementById('yearcbo').value;
-	console.log(yearselect);
+	// console.log(yearselect);
 	axios.get('/report/revenue?year=' + 2021)
 		.then(function (response) {
 			let DefaultData = response.data;
@@ -121,6 +121,7 @@ function SearchIncomeDefaults() {
 				label6MonthLast.push(DefaultData[i].month);
 				data6MonthsLast.push(DefaultData[i].total);
 			}
+			myFunction();
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -135,7 +136,7 @@ function SearchIncomeByYear() {
 	label6MonthLast = [];
 	data6MonthsLast = [];
 	let yearselect = document.getElementById('yearcbo').value;
-	console.log(yearselect);
+//console.log(yearselect);
 	axios.get('/report/revenue?year=' + yearselect)
 		.then(function (response) {
 			let DefaultData = response.data;
@@ -156,6 +157,7 @@ function SearchIncomeByYear() {
 				label6MonthLast.push(DefaultData[i].month);
 				data6MonthsLast.push(DefaultData[i].total);
 			}
+			myFunction();
 		})
 		.catch(function (error) {
 			console.log(error);
