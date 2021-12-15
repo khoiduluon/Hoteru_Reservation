@@ -68,7 +68,7 @@
 						alt="User image" class="dropdown-toggle" data-toggle="user-menu">
 					<ul id="user-menu" class="dropdown-menu">
 						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="/logout" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
 								</div>
@@ -189,7 +189,7 @@
 							select: true,
 							scroll: "y",
 							data: ListBooking,
-							width: 650,
+							width: 800,
 							height: 550
 						},
 						{
@@ -345,7 +345,8 @@
 	const popupService = {
 		view: "window",
 		id: "winService",
-		height: 450,
+		// height: 450,
+		autoheight: true,
 		position: "center",
 		move: true,
 		width: 800,
@@ -375,7 +376,7 @@
 	const popupFood = {
 		view: "window",
 		id: "winFood",
-		height: 450,
+		autoheight: true,
 		position: "center",
 		move: true,
 		width: 800,

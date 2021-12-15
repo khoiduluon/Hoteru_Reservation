@@ -66,7 +66,7 @@
 						alt="User image" class="dropdown-toggle" data-toggle="user-menu">
 					<ul id="user-menu" class="dropdown-menu">
 						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="/logout" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
 								</div>
@@ -150,8 +150,12 @@
 					</div>
 				</div>
 				<div class="card-content col-12">
-					<div class="col6"><center><img src="/img/FPT_Polytechnic.png" width="10%" height="10%"></center></div>
-					<div class="col6" style="padding-top: 5px"><center>Copyright 2021 by FPT_Polytechnic. All Rights Reserved.</center></div>
+					<div class="col6">
+						<center><img src="/img/FPT_Polytechnic.png" width="10%" height="10%"></center>
+					</div>
+					<div class="col6" style="padding-top: 5px">
+						<center>Copyright 2021 by FPT_Polytechnic. All Rights Reserved.</center>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -186,7 +190,7 @@
 							select: true,
 							scroll: "y",
 							data: ListCustomers,
-							width: 650,
+							width: 800,
 							height: 500
 						},
 						{
@@ -227,11 +231,21 @@
 							offLabel: "USER"
 						},
 						{
+							view: "template",
+							borderless: 1,
+
+							template:
+								"<h3>Select Avatar:</h3>" +
+								"<form action='/upload' method='post' enctype='multipart/form-data'>" +
+								"<input type='file' id='img' name='image'  accept='image/*'/>" +
+								"</from>"
+						},
+						{
 							"cols": [
-								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0,  "borderless": 1, click: clearForm },
+								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: clearForm },
 								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, click: save },
 								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: save },
-								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0,  "borderless": 1, click: deleteCustomer },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: deleteCustomer },
 							]
 						}
 					],
@@ -271,6 +285,7 @@
 		axios.get('/api/Allcustomer')
 			.then(function (response) {
 				ListCustomers = response.data;
+				$$("CustomerTable").clearAll();
 				$$("CustomerTable").parse(ListCustomers, "json");
 			})
 			.catch(function (error) {
@@ -306,14 +321,25 @@
 	}
 
 	function save() {
+		var input = document.getElementById("img");
+		var file = input.value.split("\\");
+		var fileName = file[file.length - 1];
 		const obj = {
 			username: $$("txtUsr").getValue(),
 			password: $$("txtPass").getValue(),
 			fullname: $$("txtFullname").getValue(),
 			phone: $$("txtPhone").getValue(),
 			email: $$("txtEmail").getValue(),
-			address: $$("txtAddress").getValue()
+			address: $$("txtAddress").getValue(),
 		}
+		//check image
+		if (fileName === "") {
+			obj.image = "default.png";
+		}
+		else{
+			obj.image =fileName;
+		}
+		//check role
 		let role = $$("role").getValue();
 		if (role === 1) {
 			obj.role = "Admin"
@@ -350,7 +376,8 @@
 				webix.alert({
 					title: "Successfully!",
 				}).then(function () {
-					location.reload();
+					searchService();
+					//location.reload();
 				});
 
 			})
@@ -377,7 +404,8 @@
 							webix.alert({
 								title: "Successfully!",
 							}).then(function () {
-								location.reload();
+								searchService();
+								//location.reload();
 							});
 						}
 					})
@@ -395,4 +423,5 @@
 
 </script>
 <script th:src="@{/Admin/notifacation.js}"></script>
+
 </html>
