@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.File;
 
 import com.hoterureservation.controller.FileUploadController;
+
 @SpringBootApplication
 @EnableAutoConfiguration
 public class HotelReservationApplication {

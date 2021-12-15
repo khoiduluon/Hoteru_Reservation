@@ -6,7 +6,7 @@ var fullName = document.getElementById("fullname").value;
 var phone = document.getElementById("phone").value;
 var totalStayPrice = 0;
 
- document.getElementById("card-total-price").innerHTML = cardRoomPrice;
+document.getElementById("card-total-price").innerHTML = cardRoomPrice;
 
 const dateCheckIn = () => {
     let checkIn = document.getElementById("checkIn").value;
@@ -104,29 +104,6 @@ const getFood = function () {
     return foods;
 }
 
-const booking = function () {
-    const obj = {
-        customerb: document.getElementById("user_id").value,
-        roomb: document.getElementById("room_id").value,
-        inDate: new Date(dateCheckIn()),
-        outDate: new Date(dateCheckOut()),
-        total: cardTotalPrice,
-        fullname: fullName,
-        phone: phone,
-        foodBookings: getFood(),
-        serviceBookings: getService()
-    }
-    axios.post('/book-create', obj).then(function (response) {
-        showToast()
-        setTimeout(() => {
-            location.reload()
-        }, 5000);
-        location.href = "/booking/detail/" + response.data;
-    }).catch(function (error) {
-        showToastError();
-    });
-}
-
 // let formatCurrency = new Intl.NumberFormat('en-US',{
 //     style:'currency',
 //     currency: 'VND'
@@ -136,7 +113,7 @@ const booking = function () {
 var dateRange = [];
 var listDate = document.getElementById("listDate").value;
 var obj = JSON.parse(listDate);
-var objDate = obj.map(obj => ({start: new Date(obj.inDate), end: new Date(obj.outDate)}))
+var objDate = obj.map(obj => ({ start: new Date(obj.inDate), end: new Date(obj.outDate) }))
 
 $('#checkIn').datepicker({
     dateFormat: 'dd M yy',
@@ -148,7 +125,7 @@ $('#checkIn').datepicker({
                 dateRange.push($.datepicker.formatDate('yy-mm-dd', date))
             }
         }
-    return [dateRange.indexOf(dateString) == -1];
+        return [dateRange.indexOf(dateString) == -1];
     }
 });
 $('#checkOut').datepicker({
@@ -164,3 +141,43 @@ $('#checkOut').datepicker({
         return [dateRange.indexOf(dateString) == -1];
     }
 });
+
+const booking = function () {
+    const ci = dateCheckIn();
+    const co = dateCheckOut();
+    const newObjDate = objDate.map(obj => ({ start: obj.start.getTime(), end: obj.end.getTime() }))
+
+    const obj = {
+        customerb: document.getElementById("user_id").value,
+        roomb: document.getElementById("room_id").value,
+        inDate: new Date(dateCheckIn()),
+        outDate: new Date(dateCheckOut()),
+        total: cardTotalPrice,
+        fullname: fullName,
+        phone: phone,
+        foodBookings: getFood(),
+        serviceBookings: getService()
+    }
+
+    if (co - ci === 0) {
+        alert('Please select Date')
+        return false;
+    }
+    for (let i = new Date(ci); i <= new Date(co); i.setDate(i.getDate() + 1)) {
+        if (newObjDate.some(date => date.end === i.getTime())) {
+            alert("The date you choose is already booked");
+            return false;
+        } else {
+            axios.post('/book-create', obj).then(function (response) {
+                showToast()
+                setTimeout(() => {
+                    location.reload()
+                }, 5000);
+                location.href = "/booking/detail/" + response.data;
+            }).catch(function (error) {
+                showToastError();
+            });
+        }
+
+    }
+}
