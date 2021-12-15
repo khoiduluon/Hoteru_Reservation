@@ -68,7 +68,7 @@
 						alt="User image" class="dropdown-toggle" data-toggle="user-menu">
 					<ul id="user-menu" class="dropdown-menu">
 						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="/logout" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
 								</div>
@@ -189,7 +189,7 @@
 							select: true,
 							scroll: "y",
 							data: ListService,
-							width: 650,
+							width: 800,
 							height: 500
 						},
 						{
@@ -247,6 +247,7 @@
 		axios.get('/api/AllService')
 			.then(function (response) {
 				ListService = response.data;
+				$$("ServiceTable").clearAll();
 				$$("ServiceTable").parse(ListService, "json");
 			})
 			.catch(function (error) {
@@ -309,7 +310,7 @@
 				webix.alert({
 					title: "Successfully!",
 				}).then(function () {
-					location.reload();
+					searchService();	//location.reload();
 				});
 
 			})
@@ -336,7 +337,7 @@
 							webix.alert({
 								title: "Successfully!",
 							}).then(function () {
-								location.reload();
+								searchService();	//location.reload();
 							});
 						}
 					})
