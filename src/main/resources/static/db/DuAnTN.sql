@@ -10,6 +10,7 @@ create table Customer(
 	phone nvarchar(12) not null,
 	address nvarchar(100) null,
 	email nvarchar(100) null,
+	image nvarchar(100) null,
 	role varchar(20) not null
 )
 go
@@ -135,12 +136,13 @@ FOREIGN KEY (food_id)
 REFERENCES Food (id);
 
 -----Insert data
+USE [Booking]
 GO
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'admin', N'123', N'admin', N'0123456778', N'tổ 17 Đinh Tiên Hoàng', N'admin@gmail.com', N'Admin')
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'bichbtt', N'123', N'Bùi Thị Thu Bích', N'090486547', N'Tân An, Long An', N'bich@gmail.com', N'Customer')
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'Bne', N'123', N'Nguyễn Văn B', N'9999788789', N'TP Hồ Chí Minh', N'nguyenvanB@gmail.com', N'Customer')
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'daotn', N'123', N'Trần Ngọc Đào', N'88888456789', N'TP Hồ Chí Minh', N'daotn@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'ngandhl', N'123', N'Đoàn Huỳnh Long Ngân', N'0998894560', N'Quận 12, TP Hồ Chí Minh', N'ngan@gmail.com', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'ngandhl', N'161200', N'Đoàn Huỳnh Long Ngân', N'4564564564', N'ngan@gmail.com', N'ngan@gmail.com', N'Customer')
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'nguyenvana', N'123', N'Nguyễn Văn A', N'123456789', N'TP Hồ Chí Minh', N'nguyenvanA@gmail.com', N'Customer')
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'phutn', N'123', N'Trần Ngọc Phú', N'034569770', N'Trảng Bom, Đồng Nai', N'phu@gmail.com', N'Customer')
 INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'thaontp', N'123', N'Nguyễn Thị Phương Thảo', N'45645645654', N'TP Hồ Chí Minh', N'thao@gmail.com', N'Customer')
@@ -195,6 +197,9 @@ INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [ou
 INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (21, CAST(N'2021-11-20' AS Date), N'Bne', N'P001', CAST(N'2021-11-20' AS Date), CAST(N'2021-11-20' AS Date), 1219000, N'Nguyễn Văn B', N'9999788789', N'COMPLETED')
 INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (22, CAST(N'2021-01-26' AS Date), N'phutn', N'P001', CAST(N'2021-11-26' AS Date), CAST(N'2021-11-26' AS Date), 3648000, N'Trần Ngọc Phú', N'034569770', N'COMPLETED')
 INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (23, CAST(N'2021-06-26' AS Date), N'phutn', N'P005', CAST(N'2021-11-26' AS Date), CAST(N'2021-11-26' AS Date), 3266000, N'Trần Ngọc Phú', N'034569770', N'COMPLETED')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (25, CAST(N'2021-12-15' AS Date), N'ngandhl', N'P008', CAST(N'2022-02-03' AS Date), CAST(N'2022-02-09' AS Date), 8725000, N'Đoàn Huỳnh Long Ngân', N'4564564564', N'PENDING')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (26, CAST(N'2021-12-15' AS Date), N'ngandhl', N'P008', CAST(N'2022-02-23' AS Date), CAST(N'2022-02-28' AS Date), 7615000, N'Đoàn Huỳnh Long Ngân', N'4564564564', N'PENDING')
+INSERT [dbo].[Booking] ([id], [book_Date], [username], [room_id], [in_Date], [out_Date], [total], [fullname], [phone], [status]) VALUES (27, CAST(N'2021-12-15' AS Date), N'ngandhl', N'P008', CAST(N'2021-12-22' AS Date), CAST(N'2021-12-24' AS Date), 2520000, N'Đoàn Huỳnh Long Ngân', N'4564564564', N'PENDING')
 SET IDENTITY_INSERT [dbo].[Booking] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Comment] ON 
@@ -332,6 +337,11 @@ INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (104, 2
 INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (105, 23, 6)
 INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (106, 23, 7)
 INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (107, 23, 8)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (108, 25, 7)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (109, 25, 8)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (110, 26, 1)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (111, 26, 10)
+INSERT [dbo].[Booking_Service] ([id], [booking_id], [service_id]) VALUES (112, 26, 11)
 SET IDENTITY_INSERT [dbo].[Booking_Service] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Food] ON 
@@ -489,5 +499,11 @@ INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (126, 23, 10)
 INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (127, 23, 11)
 INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (128, 23, 12)
 INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (129, 23, 13)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (130, 25, 2)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (131, 25, 3)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (132, 26, 1)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (133, 26, 12)
+INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (134, 26, 15)
 SET IDENTITY_INSERT [dbo].[Booking_Food] OFF
 GO
+

@@ -34,6 +34,9 @@ public class Customer implements Serializable {
     @Column(name = "email")
     String email;
 
+    @Column(name = "image")
+    String image = "default.png";
+
     @Column(name = "role")
     String role;
 
