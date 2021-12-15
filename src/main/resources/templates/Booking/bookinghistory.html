@@ -31,8 +31,7 @@
                     <td>[[${#dates.format(b.outDate,'dd/MM/yyyy')}]]</td>
                     <td>[[${#numbers.formatDecimal(b.total,0,'COMMA',0,'POINT')}]] VNĐ</td>
                     <td>
-                        <a th:href="@{|/booking/detail/${b.id}|}"><button type="button" class="btn btn-outline-info">Detail</button></a> &ensp;
-                        <th:block th:if="${b.status} == 'NORMAL'">
+                        <a th:href="@{|/booking/detail/${b.id}|}"><button type="button" class="btn btn-outline-info">Detail</button></a>                        <th:block th:if="${b.status} == 'PENDING'">
                             <a th:href="@{|/booking/cancel/${b.id}|}"><button type="button" class="btn btn-outline-danger">Cancel</button></a>
                         </th:block>
                     </td>
