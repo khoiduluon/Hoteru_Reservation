@@ -8,10 +8,18 @@
     <div class="room-details-slider">
         <div class="container">
             <div class="room__details__pic__slider owl-carousel">
-                <div class="room__details__pic__slider__item set-bg" data-setbg="/img/rooms/details/rd-1.jpg"></div>
-                <div class="room__details__pic__slider__item set-bg" data-setbg="/img/rooms/details/rd-2.jpg"></div>
-                <div class="room__details__pic__slider__item set-bg" data-setbg="/img/rooms/details/rd-3.jpg"></div>
-                <div class="room__details__pic__slider__item set-bg" data-setbg="/img/rooms/details/rd-4.jpg"></div>
+                <div class="room__details__pic__slider__item set-bg">
+                    <img th:src="@{'/img/rooms/' + ${room.image1}}" alt="">
+                </div>
+                <div class="room__details__pic__slider__item set-bg">
+                    <img th:src="@{'/img/rooms/' + ${room.image2}}" alt="">
+                </div>
+                <div class="room__details__pic__slider__item set-bg">
+                    <img th:src="@{'/img/rooms/' + ${room.image3}}" alt="">
+                </div>
+                <div class="room__details__pic__slider__item set-bg">
+                    <img th:src="@{'/img/rooms/' + ${room.image4}}" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -24,25 +32,8 @@
                 <div class="col-lg-12">
                     <div class="room__details__content">
                         <div class="room__details__rating">
-                            <div class="room__details__hotel">
-                                <span>Hotel</span>
-                                <div class="room__details__hotel__rating">
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star-half_alt"></span>
-                                </div>
-                            </div>
                             <div class="room__details__advisor">
                                 <img src="/img/rooms/details/tripadvisor.png" alt="">
-                                <div class="room__details__advisor__rating">
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star"></span>
-                                    <span class="icon_star-half_alt"></span>
-                                </div>
                                 <span class="review">([[${comment}]] Reviews)</span>
                             </div>
                         </div>

@@ -28,10 +28,18 @@
             <div class="row" th:each="room : ${listRoom}">
                 <div class="col-lg-6 p-0 order-lg-2 order-md-2 col-md-6">
                     <div class="room__pic__slider owl-carousel">
-                        <div class="room__pic__item set-bg" data-setbg="/img/rooms/room-1.jpg"></div>
-                        <div class="room__pic__item set-bg" data-setbg="/img/rooms/room-2.jpg"></div>
-                        <div class="room__pic__item set-bg" data-setbg="/img/rooms/room-3.jpg"></div>
-                        <div class="room__pic__item set-bg" data-setbg="/img/rooms/room-4.jpg"></div>
+                        <div class="room__pic__item set-bg">
+                            <img th:src="@{'/img/rooms/' + ${room.image1}}" alt="">
+                        </div>
+                        <div class="room__pic__item set-bg" >
+                            <img th:src="@{'/img/rooms/' + ${room.image2}}" alt="">
+                        </div>
+                        <div class="room__pic__item set-bg" >
+                            <img th:src="@{'/img/rooms/' + ${room.image3}}" alt="">
+                        </div>
+                        <div class="room__pic__item set-bg" >
+                            <img th:src="@{'/img/rooms/' + ${room.image4}}" alt="">
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 p-0 order-lg-1 order-md-1 col-md-6">
