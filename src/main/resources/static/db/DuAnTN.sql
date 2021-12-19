@@ -1,140 +1,4 @@
-﻿create database Booking
-
-use Booking
-
-go
-create table Customer(
-	username nvarchar(50) primary key,
-	password nvarchar(50) not null,
-	fullname nvarchar(150) not null,
-	phone nvarchar(12) not null,
-	address nvarchar(100) null,
-	email nvarchar(100) null,
-	image nvarchar(100) null,
-	role varchar(20) not null
-)
-go
-create table Comment(
-	id int identity(1,1) primary key,
-	username nvarchar(50) not null,
-	room_id varchar(20) not null,
-	description nvarchar(max) not null
-)
-go
-create table Bed(
-	code varchar(5) primary key,
-	name nvarchar(50) not null,
-)
-go
-create table Room_Type(
-	id varchar(20) primary key,
-	name nvarchar(150) not null,
-	price float not null,
-	size float not null,
-	capacity int not null,
-	bed_code varchar(5) not null
-)
-go
-create table Room(
-	id varchar(20) primary key,
-	name nvarchar(150) not null,
-	roomtype_id varchar(20) not null,
-	image1 nvarchar(100) null,
-	image2 nvarchar(100) null,
-	image3 nvarchar(100) null,
-	image4 nvarchar(100) null,
-	description nvarchar(max) not null
-)
-go
-create table Service(
-	id int identity(1,1) primary key,
-	name nvarchar(50) not null,
-	price float not null,
-	description nvarchar(max) not null
-)
-go
-create table Booking_Service(
-	id int identity(1,1) primary key,
-	booking_id int not null,
-	service_id int not null
-)
-go
-create table Food(
-	id int identity(1,1) primary key,
-	name nvarchar(50) not null, 
-	price float not null,
-	description nvarchar(max) not null
-)
-go
-create table Booking_Food(
-	id int identity(1,1) primary key,
-	booking_id int not null,
-	food_id int not null
-)
-go
-create table Booking(
-	id int identity(1,1) primary key,
-	book_Date date not null,
-	username nvarchar(50) not null,
-	room_id varchar(20) not null,
-	in_Date date not null,
-	out_Date date not null,
-	total float not null,
-	fullname nvarchar(150) not null,
-	phone nvarchar(12) not null,
-	status nvarchar(30) not null
-)
-go
-ALTER TABLE Room_Type
-ADD CONSTRAINT FK_RT_BED
-FOREIGN KEY (bed_code)
-REFERENCES Bed (code);
-go
-ALTER TABLE Room
-ADD CONSTRAINT FK_ROOM_RT
-FOREIGN KEY (roomtype_id)
-REFERENCES Room_Type (id);
-go
-ALTER TABLE Comment
-ADD CONSTRAINT FK_CMT_ROOM
-FOREIGN KEY (room_id)
-REFERENCES Room (id);
-go
-ALTER TABLE Booking
-ADD CONSTRAINT FK_BOOK_ROOM
-FOREIGN KEY (room_id)
-REFERENCES Room (id);
-go
-ALTER TABLE Booking
-ADD CONSTRAINT FK_BOOK_CUS
-FOREIGN KEY (username)
-REFERENCES Customer (username);
-go
-ALTER TABLE Comment
-ADD CONSTRAINT FK_CMT_CUS
-FOREIGN KEY (username)
-REFERENCES Customer (username);
-go
-ALTER TABLE Booking_Service
-ADD CONSTRAINT FK_BS_BOOK
-FOREIGN KEY (booking_id)
-REFERENCES Booking (id);
-go
-ALTER TABLE Booking_Service
-ADD CONSTRAINT FK_BS_SERVICE
-FOREIGN KEY (service_id)
-REFERENCES Service (id);
-go
-ALTER TABLE Booking_Food
-ADD CONSTRAINT FK_BF_BOOK
-FOREIGN KEY (booking_id)
-REFERENCES Booking (id);
-go
-ALTER TABLE Booking_Food
-ADD CONSTRAINT FK_BF_FOOD
-FOREIGN KEY (food_id)
-REFERENCES Food (id);
-
+﻿
 -----Insert data
 USE [Booking]
 GO
@@ -156,21 +20,21 @@ INSERT [dbo].[Bed] ([code], [name]) VALUES (N'QSB', N'Queen size Bed')
 INSERT [dbo].[Bed] ([code], [name]) VALUES (N'SB', N'Single Bed')
 INSERT [dbo].[Bed] ([code], [name]) VALUES (N'SKSB', N'Super King size Bed')
 GO
-INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'DLX', N'Phòng deluxe', 790000, 30, 6, N'KSB')
-INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'STD', N'Phòng standard', 500000, 18, 2, N'SB')
-INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'SUP', N'Phòng superior', 735000, 22, 6, N'QSB')
-INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'SUT', N'Phòng suite', 1260000, 80, 10, N'SKSB')
+INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'DLX', N'Deluxe Room', 790000, 30, 6, N'KSB')
+INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'STD', N'Standard Room', 500000, 18, 2, N'SB')
+INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'SUP', N'Superior Room', 735000, 22, 6, N'QSB')
+INSERT [dbo].[Room_Type] ([id], [name], [price], [size], [capacity], [bed_code]) VALUES (N'SUT', N'Suite Room', 1260000, 80, 10, N'SKSB')
 GO
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P001', N'Phòng 001 - Lầu 1', N'DLX', N'img01', N'img02', N'img03', N'img04', N'Phòng Deluxe được thiết kế tinh tế sang trọng nội thất đầy đủ tiện nghi hiện đại, cửa sổ kính rộng thoáng bao quát toàn cảnh thành phố mang đến cho bạn một không gian thanh bình và dễ chịu sẽ là sự lựa chọn cho những doanh nhân và khách du lịch.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P002', N'Phòng 002 - Lầu 1', N'SUP', N'img05', N'img06', N'img07', N'img08', N'Phòng Superior Double hay Twin được thiết kế sang trọng ấm cúng sang trọng và đầy đủ tiện nghi, tầm nhìn thoáng khiến bạn cảm thấy dễ chịu thoải mái như ở nhà.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P003', N'Phòng 003 - Lầu 1', N'SUT', N'img09', N'img010', N'img011', N'img012', N'Phòng Suit được thiết kế tinh tế sang trọng nội thất đầy đủ tiện nghi hiện đại, tầm nhìn rộng đẹp bao quát Hồ Tây, Sông Hồng và cảnh thành phố. Sự kết hợp hài hòa giữa không gian yên bình và thoáng đãng của Sông, Hồ và những căn phòng sang trọng cùng với lòng hiếu khách tận tình, chu đáo sẽ là sự lựa chọn cho những doanh nhân và khách du lịch.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P004', N'Phòng 004 - Lầu 1', N'SUT', N'img13', N'img014', N'img015', N'img016', N'Phòng cao cấp nhất, tầng cao nhất, trang bị cùng dịch vụ đặc biệt, thường gồm 1 phòng khách, 1 phòng ngủ, 2 wc, ban công hướng đẹp nhất. ')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P005', N'Phòng 005 - Lầu 1', N'SUT', N'img017', N'img018', N'img019', N'img020', N'Royal Suit room.Phòng ngủ vương giả, phòng tắm rộng rãi, bồn tắm hoặc góc tắm, vòi sen kiểu dáng đẹp.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P006', N'Phòng 006 - Lầu 2', N'SUT', N'img021', N'img022', N'img023', N'img024', N' President Suite/Presidential Suite (Phòng tổng thống): Căn phòng đắt nhất trong khách sạn. Mỗi khách sạn chỉ có duy nhất một phòng tổng thống. Phòng có một hoặc nhiều phòng ngủ và không gian sống nhấn mạnh vào phong cách trang trí, tiện nghi cao cấp và dịch vụ riêng (ví dụ một quản gia trong suốt thời gian lưu trú). Diện tích phòng President Suite thường nằm trong khoảng 80 – 350 m2.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P007', N'Phòng 007 - Lầu 2', N'DLX', N'img021', N'img022', N'img023', N'img024', N'Được trang bị 2 giường đơn đặt cạnh nhau, cho 2 người ở. Bàn làm việc trong phòng đồng thời được thiết kế với ý tưởng cho khách kinh doanh. Diện tích phòng Hollywood Twin Room thường nằm trong khoảng 32 – 40 m2.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P008', N'Phòng 008 - Lầu 2', N'SUT', N'img025', N'img026', N'img027', N'img028', N'Mini Suite/Junior Suite: Một phòng đơn với một giường ngủ và khu vực ngồi tiếp khách. Đôi khi phòng ngủ tách biệt hẳn với khu vực tiếp khách. Diện tích phòng Junior Suite thường nằm trong khoảng 60 – 80 m2.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P009', N'Phòng 009 - Lầu 2', N'STD', N'img025', N'img026', N'img027', N'img028', N'Phòng dành cho một người, được trang bị một giường đơn. Diện tích Single thường nằm trong khoảng 37 – 45 m2.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P010', N'Phòng 010 - Lầu 2', N'STD', N'img029', N'img030', N'img031', N'img032', N'Phòng dành cho 2 người, được trang bị một giường đôi, được gọi là giường cỡ Queen. Diện tích phòng Double thường nằm trong khoảng 40 – 45 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P001', N'ROOM 001 - FLOOR 1', N'DLX', N'room-img-1.jpg', N'room-img-2.jpg', N'room-img-3.jpg', N'room-img-4.jpg', N'Deluxe room is delicately designed, luxuriously furnished, fully furnished with modern amenities, wide glass windows covering the whole city, giving you a peaceful and pleasant space will be the choice for business people. and tourists.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P002', N'ROOM 002 - FLOOR 1', N'SUP', N'room-img-5.jpg', N'room-img-6.jpg', N'room-img-7.jpg', N'room-img-8.jpg', N'Superior Double or Twin rooms are luxuriously designed, cozy, luxurious and fully equipped, with a clear view to make you feel comfortable and at home.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P003', N'ROOM 003 - FLOOR 1', N'SUT', N'room-img-9.jpg', N'room-img-10.jpg', N'room-img-11.jpg', N'room-img-12.jpg', N'The Suite room is elegantly designed, fully furnished with modern amenities, with a beautiful view of West Lake, Red River and the city. The harmonious combination between the peaceful and airy space of the River and Lake and the luxurious rooms with dedicated and attentive hospitality will be the choice for business people and tourists.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P004', N'ROOM 004 - FLOOR 1', N'SUT', N'room-img-13.jpg', N'room-img-14.jpg', N'room-img-15.jpg', N'room-img-16.jpg', N'The most advanced room, the highest floor, equipped with special services, usually includes 1 living room, 1 bedroom, 2 wc, balcony with the best view.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P005', N'ROOM 005 - FLOOR 1', N'SUT', N'room-img-17.jpg', N'room-img-18.jpg', N'room-img-19.jpg', N'room-img-20.jpg', N'Royal Suit room.Royal bedroom, spacious bathroom, bathtub or shower corner, sleek shower.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P006', N'ROOM 006 - FLOOR 2', N'SUT', N'room-img-21.jpg', N'room-img-22.jpg', N'room-img-23.jpg', N'room-img-24.jpg', N' President Suite/Presidential Suite: The most expensive room in the hotel. Each hotel has only one presidential suite. Rooms with one or more bedrooms and living spaces that emphasize décor, premium amenities, and private services (for example, a butler for the duration of your stay). President Suite room area is usually in the range of 80 - 350 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P007', N'ROOM 007 - FLOOR 2', N'DLX', N'room-img-25.jpg', N'room-img-26.jpg', N'room-img-27.jpg', N'room-img-28.jpg', N'Equipped with 2 single beds placed side by side, for 2 people. The desk in the room is also designed with business guests in mind. The area of ​​the Hollywood Twin Room is usually in the range of 32 - 40 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P008', N'ROOM 008 - FLOOR 2', N'SUT', N'room-img-29.jpg', N'room-img-30.jpg', N'room-img-31.jpg', N'room-img-32.jpg', N'Mini Suite/Junior Suite: A single room with one bed and seating area. Sometimes the bedroom is separate from the living area. The area of ​​​​Junior Suite rooms is usually in the range of 60 - 80 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P009', N'ROOM 009 - FLOOR 2', N'STD', N'room-img-33.jpg', N'room-img-34.jpg', N'room-img-35.jpg', N'room-img-36.jpg', N'Room for one person, equipped with a single bed. Single area is usually in the range of 37 - 45 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P010', N'ROOM 010 - FLOOR 2', N'STD', N'room-img-37.jpg', N'room-img-38.jpg', N'room-img-39.jpg', N'room-img-40.jpg', N'Room for 2 people, equipped with a double bed, is called a queen size bed. Double room area is usually in the range of 40-45 m2.')
 GO
 SET IDENTITY_INSERT [dbo].[Booking] ON 
 
@@ -204,27 +68,27 @@ SET IDENTITY_INSERT [dbo].[Booking] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Comment] ON 
 
-INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (1, N'ngandhl', N'P001', N'Phòng khá thoáng, đầy đủ tiện nghi và giường ngủ cũng êm. Phòng có view biển xịn')
-INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (2, N'trungth', N'P001', N'Phòng sạch sẽ, tiện nghi và thông thoáng, tiện nghi khá tốt')
-INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (3, N'phutn', N'P001', N'Phòng rộng, giường đôi khá thoải mái cho 2 người ngủ, tôi khá thích phòng vì có ban công')
-INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (4, N'ngandhl', N'P002', N'Tôi thấy khá ổn vì phòng rộng rãi, sạch sẽ, tủ lạnh có nước giải khát')
-INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (5, N'trungth', N'P002', N'Phòng gần cầu thang, khá khó chịu mỗi khi có người đi cầu thang vì họ nói chuyện làm ồn, cách âm khá kém')
-INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (6, N'phutn', N'P002', N'Của phòng bị hỏng, kêu người sữa thì hẹn nhưng lúc đi vẫn chưa sửa, tôi khá khó chịu về điều này')
+INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (1, N'ngandhl', N'P001', N'The room is quite airy, fully equipped and the bed is also soft. Room with sea view')
+INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (2, N'trungth', N'P001', N'The room is clean, comfortable and airy, the facilities are quite good')
+INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (3, N'phutn', N'P001', N'The room is large, the double bed is quite comfortable for 2 people to sleep, I quite like the room because it has a balcony')
+INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (4, N'ngandhl', N'P002', N'I feel quite good because the room is spacious, clean, the refrigerator has soft drinks')
+INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (5, N'trungth', N'P002', N'The room is near the stairs, it is quite annoying when someone takes the stairs because they talk and make noise, the soundproofing is quite poor')
+INSERT [dbo].[Comment] ([id], [username], [room_id], [description]) VALUES (6, N'phutn', N'P002', N'The door of the room was broken, I asked the milkman to make an appointment but when I went, it still hadn''t been fixed, I was quite upset about this')
 SET IDENTITY_INSERT [dbo].[Comment] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Service] ON 
 
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (1, N'Giặt ủi quần áo', 50000, N'Đây là dịch vụ được tạo ra nhằm đáp ứng nhu cầu vệ sinh cá nhân và mặc của khách hàng.')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (2, N'Xe đưa đón sân bay', 100000, N'Dịch vụ xe đưa đón nhằm đáp ứng nhu cầu di chuyển ngày càng cao và mong muốn tạo được trải nghiệm thoải mái nhất cho khách hàng.')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (3, N'Cho thuê xe máy tự lái', 150000, N'Đáp ứng nhu cầu đi lại tự do cho khách hàng,không hạn chế giờ giấc')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (4, N'Trông trẻ', 150000, N'Đáp ứng như cầu chăm sóc trẻ nhỏ khi khách hàng để khách hàng có thể an tâm nghĩ dưỡng')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (5, N'Bơi 4 mùa', 100000, N'Bể bơi 4 mùa có thể sử dụng mọi lúc theo nhu cầu khách hàng')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (6, N'Karaoke', 150000, N'Phòng Karaoke đáp ứng nhu cầu ca hát của khách hàng')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (7, N'Thu đổi ngoại tệ', 5000, N'Dịch vụ đáp ứng nhu cầu sử dụng,đổi trả các loại tiền ngoại tệ khách hàng')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (8, N'Hội họp, văn phòng', 1000000, N'Dịch vụ phòng họp, hội trường để tổ chức các sự kiện như sinh nhật, đám cưới, event công ty, hội thảo… Các phòng họp, sự kiện đi kèm trong khách sạn có quy mô từ nhỏ từ vài chục người đến vài trăm người. Ngoài ra ở đây còn được trang bị bàn ghế, âm thanh, ánh sáng để đảm bảo sự kiện diễn ra tốt đẹp.')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (9, N'Quầy bar', 500000, N'Quầy bar đều phục vụ thức uống, nhạc,... đáp ứng nhu cầu giải trí, thư giãn của du khách.')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (10, N'Spa và massage', 500000, N'Để đáp ứng nhu cầu làm đẹp của các chị em phụ nữ, các dịch vụ Spa được mở ra nhiều hơn trong những năm gần đây. Bao gồm: xông hơi, lột mụn, gội đầu ...')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (11, N'Fitness center', 500000, N'Các phòng tập thể dục đa năng hay các phòng tập gym luôn là nơi được du khách quan tâm. Khi đi công tác hay du lịch nhưng nhiều người vẫn muốn đảm bảo tiến độ tập luyện cho cơ thể mình')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (1, N'Laundry', 50000, N'This is a service created to meet customers default and personal hygiene needs.')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (2, N'Airport shuttle', 100000, N'Airport shuttleservice main things is meet the increasing travel demand and desire to create the most comfortable experience for customers.')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (3, N'Self-drive motorbike rental', 150000, N'Meet the needs of free travel for customers, without time restrictions')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (4, N'Babysitting', 150000, N'Meet as young child care needs when customers can rest assured')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (5, N'Swimming for 4 seasons', 100000, N'The 4-season swimming pool can be used at all times according to customer needs')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (6, N'Karaoke', 150000, N'Karaoke room meets the singing needs of customers')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (7, N'Foreign currency exchange', 5000, N'Service to meet the needs of using and exchanging foreign currency customers')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (8, N'Meetings, offices', 1000000, N'Service of meeting rooms, halls to organize events such as birthdays, weddings, corporate events, seminars... The meeting rooms, accompanying events in the hotel range in size from a few dozen people to several hundred. people. In addition, here are also equipped with tables and chairs, sound and light to ensure the event goes well.')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (9, N'Bar Center', 500000, N'Meeting room services, halls to organize the bar serves drinks, music,... Meet the entertainment and relaxation needs of visitors.')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (10, N'Spa & massage', 500000, N'To meet the beauty needs of women, spa services have been opened more in recent years. These include: sauna, acne peeling, shampooing ...')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (11, N'Fitness center', 500000, N'Multi-purpose gyms or gyms are always places of interest to visitors. When traveling for work or travel, many people still want to ensure the progress of their workouts.')
 SET IDENTITY_INSERT [dbo].[Service] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Booking_Service] ON 
@@ -346,25 +210,25 @@ SET IDENTITY_INSERT [dbo].[Booking_Service] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Food] ON 
 
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (1, N'California Roll', 70000, N'Cơm cuộn kiểu California')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (2, N'Eel Rice Roll', 90000, N'Cơm cuộn Lươn')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (3, N'Organic Salad W.Grilled Chicken Breast', 70000, N'Sa lát hữu cơ cùng lườn gà nướng')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (4, N'Korean Beef Rice Roll', 80000, N'Cơm cuộn bò kiểu Hàn Quốc')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (5, N'Korean Tuna Rice Roll', 70000, N'Cơm cuộn cá ngừ kiểu Hàn Quốc')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (6, N'Club Sandwich', 90000, N'Bánh mì kẹp')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (7, N'Braised Chicken Feet With Abalonse Sauce', 98000, N'Chân Gà Om Số Bào Ngư')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (8, N'Spinach Dumpling With Shrimp', 82000, N'Há cảo chân rau vịt và tôm')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (9, N'Prawn Dumpling', 99000, N'Há cảo tôm')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (10, N'Baked Bun With BBQ Pork', 70000, N'Bánh thịt nướng BBQ')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (11, N'California Roll', 96000, N'Cơm cuộn kiểu California')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (12, N'Pork Dumling With Shrimp', 99000, N'Xíu mại tôm và thịt heo')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (13, N'Beancurd Skinroll With Shrimp', 86000, N'Đậu hủ chiên giòn nhân tôm')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (14, N'Vegetable Fried Rice', 99000, N'Cơm rang chay')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (15, N'Mango Pomelo Sago', 96000, N'Chè trân châu xoài và bưởi')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (16, N'California Roll', 70000, N'Cơm cuộn kiểu California')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (17, N'Cantonse Chili Pork Wontons', 70000, N'Vằn thắng cay Quảng Đông')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (18, N'Steamed Minced Pork With Mushroom', 80000, N'Xíu mại thịt heo với nấm')
-INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (19, N'Steamed BBQ Pork Bun', 99000, N'Bánh bao xá xíu')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (1, N'California Roll', 70000, N'California-style rice rolls')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (2, N'Eel Rice Roll', 90000, N'Eel Rice is a beloved Japanese dish consists of steamed rice topped with grilled eels that are glazed with a sweetened soy-based sauce (called tare) and caramelized, preferably over a charcoal fire.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (3, N'Organic Salad W.Grilled Chicken Breast', 70000, N'Organic Sweet Gem Salad with Grilled Jidori Chicken Breast at Sapphire, Cellar. Craft. Cook. in Laguna Beach')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (4, N'Korean Beef Rice Roll', 80000, N'Korean seaweed rice rolls that are filled with Bulgogi (Korean marinated BBQ beef) and other vegetable fillings.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (5, N'Korean Tuna Rice Roll', 70000, N'Spicy Tuna Kimbap. This popular tasty Korean nori wrapped roll contains spicy tuna, spinach, egg, carrots and seasoned rice')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (6, N'Club Sandwich', 90000, N'A club sandwich, also called a clubhouse sandwich, is a sandwich of bread (traditionally toasted), sliced cooked poultry, ham or fried bacon, lettuce, ...')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (7, N'Braised Chicken Feet With Abalone Sauce', 98000, N'Heat the pan with medium heat, add a little oil, add ginger, and garlic to saute. Add chicken feet and saute. Add oyster sauce, abalone sauce, soy sauce, soy sauce, rock sugar and 1000 ml of water to boil over medium to high heat. Add peanuts, cover the lid, and turn to medium and small heat for 1.5 hours.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (8, N'Spinach Dumpling With Shrimp', 82000, N'A Chinese dim sum favorite of spinach and shrimp steamed in a wheat starch dumpling.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (9, N'Prawn Dumpling', 99000, N'Har Gow is also known as Chinese Prawn Crystal Dumpling')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (10, N'Baked Bun With BBQ Pork', 70000, N'Brush with egg wash, sprinkle with sesame seeds (if using)')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (11, N'California Roll ver 2', 96000, N'California-style rice rolls but it special')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (12, N'Pork Dumling With Shrimp', 99000, N'In a large bowl set in a larger bowl of ice, combine the pork, shrimp, scallions, ginger, soy sauce and sesame oil. Season generously with salt and pepper.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (13, N'Beancurd Skinroll With Shrimp', 86000, N'For this delicious, mouth watering - Steamed combination minced shrimp and ground pork roll in bean curd ...')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (14, N'Vegetable Fried Rice', 99000, N'Fried rice is a dish of cooked rice that has been stir-fried in a wok or a frying pan and is usually mixed with other ingredients such as eggs, vegetables, seafood, or meat. It is often eaten by itself or as an accompaniment to another dish.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (15, N'Mango Pomelo Sago', 96000, N'The Chinese name of "mango pomelo sago"  comes from the concept of dropping manna from a willow branch which makes people feel refreshed when they taste it. It was also the secret tool of the Guanyin according to the traditional Chinese mythology Journey to the West.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (16, N'California Roll ver 3', 70000, N'The main wrapped ingredients are the avocado and crab meat, or imitation crab (surimi crab), and the optional mayonnaise; these are all typically wrapped with seaweed, although soy paper can be used. The cucumber may have been used since the beginning, or added later, depending on the account. The inside-out roll may be sprinkled on the outside with sesame seeds; tobiko (flying fish roe), or masago (capelin roe) may be used.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (17, N'Cantonse Chili Pork Wontons', 70000, N'This wonton recipe for Chinese New Year is a great representation of the mix of Chinese regional cuisine. Cantonese-Style pork and shrimp filling.')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (18, N'Steamed Minced Pork With Mushroom', 80000, N'Also known yuhk béng, steamed pork patty is one of the staples of traditional Cantonese home cooking')
+INSERT [dbo].[Food] ([id], [name], [price], [description]) VALUES (19, N'Steamed BBQ Pork Bun', 99000, N'Place each bun on a parchment paper square, and steam. I steamed the buns in two separate batches using a bamboo steamer.')
 SET IDENTITY_INSERT [dbo].[Food] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Booking_Food] ON 
