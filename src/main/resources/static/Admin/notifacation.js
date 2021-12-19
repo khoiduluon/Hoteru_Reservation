@@ -1,4 +1,6 @@
 function createnoti(){
+    document.getElementById('notification').innerHTML = "";
+
     axios.get('/getAllBooking')
     .then(function (response) {
         let ListNoti = response.data;
@@ -6,7 +8,7 @@ function createnoti(){
         document.getElementById("numberNoti").innerHTML = status.length;
         for (let i = 0; i <= ListNoti.length; i++) {
             if (ListNoti[i].status === 'PENDING') {
-                document.getElementById("notification").insertAdjacentHTML("afterend",
+                document.getElementById("notification").insertAdjacentHTML("afterbegin",
                     " <li class='dropdown-menu-item'>" +
                     "<a href='/admin/bookingmgmt' class='dropdown-menu-link'>" +
                     "	<div>" +

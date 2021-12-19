@@ -27,6 +27,7 @@ public class HomeController {
     @RequestMapping({"/", "/home/index"})
     public String index(Model model) {
         model.addAttribute("listRoomType", roomTypeService.findAll());
+        model.addAttribute("listRoom", roomTypeService.findAll());
         return "Layout/session";
     }
 

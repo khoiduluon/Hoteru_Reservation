@@ -2,13 +2,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
-                <ul class="header__top__widget">
+                <ul class="header__top__widget" style="padding-top: 20px">
                     <li><span class="icon_pin_alt"></span> 96 D2 Street, Binh Thanh Distric, Ho Chi Minh City</li>
                     <li><span class="icon_phone"></span> (84) 860-788-910</li>
                 </ul>
             </div>
             <div class="col-lg-5">
                 <div class="header__top__right">
+                    <i class="far fa-user"></i>
                     <div class="header__top__auth">
                         <th:block th:unless="${#request.getRemoteUser}">
                             <a class="text-dark" th:href="@{/login}">Login</a> |
@@ -29,15 +30,15 @@
                             </div>
                         </th:block>
                     </div>
-                    <div class="header__top__language">
-                        <img src="/img/lan.png" alt="">
-                        <span>English</span>
-                        <i class="fa fa-angle-down"></i>
-                        <ul>
-                            <li>English</li>
-                            <li>Bangla</li>
-                        </ul>
-                    </div>
+<!--                    <div class="header__top__language">-->
+<!--                        <img src="/img/lan.png" alt="">-->
+<!--                        <span>English</span>-->
+<!--                        <i class="fa fa-angle-down"></i>-->
+<!--                        <ul>-->
+<!--                            <li>English</li>-->
+<!--                            <li>Bangla</li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

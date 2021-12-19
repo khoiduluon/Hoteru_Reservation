@@ -113,7 +113,7 @@ const getFood = function () {
 var dateRange = [];
 var listDate = document.getElementById("listDate").value;
 var obj = JSON.parse(listDate);
-var objDate = obj.map(obj => ({ start: new Date(obj.inDate), end: new Date(obj.outDate) }))
+var objDate = obj.map(obj => ({start: new Date(obj.inDate), end: new Date(obj.outDate)}))
 
 $('#checkIn').datepicker({
     dateFormat: 'dd M yy',
@@ -145,7 +145,7 @@ $('#checkOut').datepicker({
 const booking = function () {
     const ci = dateCheckIn();
     const co = dateCheckOut();
-    const newObjDate = objDate.map(obj => ({ start: obj.start.getTime(), end: obj.end.getTime() }))
+    const newObjDate = objDate.map(obj => ({start: obj.start.getTime(), end: obj.end.getTime()}))
 
     const obj = {
         customerb: document.getElementById("user_id").value,
@@ -159,25 +159,31 @@ const booking = function () {
         serviceBookings: getService()
     }
 
-    if (co - ci === 0) {
-        alert('Please select Date')
-        return false;
-    }
-    for (let i = new Date(ci); i <= new Date(co); i.setDate(i.getDate() + 1)) {
-        if (newObjDate.some(date => date.end === i.getTime())) {
-            alert("The date you choose is already booked");
-            return false;
-        } else {
-            axios.post('/book-create', obj).then(function (response) {
-                showToast()
-                setTimeout(() => {
-                    location.reload()
-                }, 5000);
-                location.href = "/booking/detail/" + response.data;
-            }).catch(function (error) {
-                showToastError();
-            });
-        }
 
+    for (let i = new Date(ci); i <= new Date(co); i.setDate(i.getDate() + 1)) {
+        console.log(i)
+        var temp = newObjDate.some(date => date.start === i.getTime() || date.end === i.getTime());
+    }
+    if (co - ci <= 0) {
+        alert('Please select Date')
+        return;
+    }
+    console.log(temp)
+    if (!temp) {
+        console.log('ok')
+        axios.post('/book-create', obj).then(function (response) {
+            setTimeout(() => {
+                location.reload()
+            }, 5000);
+            location.href = "/booking/detail/" + response.data;
+        }).catch(function (error) {
+            showToastError();
+        });
+        return;
+    }
+    if(temp) {
+        alert("The date you choose is already booked");
+        console.log("not ok")
+        return;
     }
 }
