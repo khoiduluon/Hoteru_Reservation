@@ -19,7 +19,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/Admin/style.css}">
 </head>
 
-<body class="overlay-scrollbar">
+<body class="overlay-scrollbar" onload="createnoti()">
 	<!-- navbar -->
 	<div class="navbar">
 		<!-- nav left -->
@@ -30,16 +30,13 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<img th:src="@{/img/logo-black.png}" alt="ATPro logo" class="logo logo-light">
-				<img th:src="@{/img/logo-Copy.png}" alt="ATPro logo" class="logo logo-dark">
+				<img th:src="@{/img/logo-black.png}" alt="Hoteru logo" class="logo logo-light">
+				<img th:src="@{/img/logo.png}" alt="Hoteru logo" class="logo logo-dark">
 			</li>
 		</ul>
 		<!-- end nav left -->
 		<!-- form -->
-		<form class="navbar-search">
-			<input type="text" name="Search" class="navbar-search-input" placeholder="What you looking for...">
-			<i class="fas fa-search"></i>
-		</form>
+	
 		<!-- end form -->
 		<!-- nav right -->
 		<ul class="navbar-nav nav-right">
@@ -52,7 +49,7 @@
 			<li class="nav-item dropdown">
 				<a class="nav-link">
 					<i class="fas fa-bell dropdown-toggle" data-toggle="notification-menu"></i>
-					<span class="navbar-badge">15</span>
+					<span id="numberNoti" class="navbar-badge">0</span>
 				</a>
 				<ul id="notification-menu" class="dropdown-menu notification-menu">
 					<div class="dropdown-menu-header">
@@ -60,180 +57,8 @@
 							Notifications
 						</span>
 					</div>
-					<div class="dropdown-menu-content overlay-scrollbar scrollbar-hover">
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-gift"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-tasks"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-gift"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-tasks"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-gift"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-tasks"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-gift"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-tasks"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-gift"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-tasks"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-gift"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-tasks"></i>
-								</div>
-								<span>
-									Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-									<br>
-									<span>
-										15/07/2020
-									</span>
-								</span>
-							</a>
-						</li>
-					</div>
-					<div class="dropdown-menu-footer">
-						<span>
-							View all notifications
-						</span>
+					<div id="notification" class="dropdown-menu-content overlay-scrollbar scrollbar-hover">
+
 					</div>
 				</ul>
 			</li>
@@ -243,39 +68,7 @@
 						alt="User image" class="dropdown-toggle" data-toggle="user-menu">
 					<ul id="user-menu" class="dropdown-menu">
 						<li class="dropdown-menu-item">
-							<a class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-user-tie"></i>
-								</div>
-								<span>Profile</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-cog"></i>
-								</div>
-								<span>Settings</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="far fa-credit-card"></i>
-								</div>
-								<span>Payments</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
-								<div>
-									<i class="fas fa-spinner"></i>
-								</div>
-								<span>Projects</span>
-							</a>
-						</li>
-						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="/logout" class="dropdown-menu-link">
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
 								</div>
@@ -359,6 +152,10 @@
 						<div id="mgmtBody"></div>
 					</div>
 				</div>
+				<div class="card-content col-12">
+					<div class="col6"><center><img src="/img/FPT_Polytechnic.png" width="10%" height="10%"></center></div>
+					<div class="col6" style="padding-top: 5px"><center>Copyright 2021 by FPT_Polytechnic. All Rights Reserved.</center></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -392,7 +189,7 @@
 							select: true,
 							scroll: "y",
 							data: ListService,
-							width: 650,
+							width: 800,
 							height: 500
 						},
 						{
@@ -450,6 +247,7 @@
 		axios.get('/api/AllService')
 			.then(function (response) {
 				ListService = response.data;
+				$$("ServiceTable").clearAll();
 				$$("ServiceTable").parse(ListService, "json");
 			})
 			.catch(function (error) {
@@ -512,7 +310,7 @@
 				webix.alert({
 					title: "Successfully!",
 				}).then(function () {
-					location.reload();
+					searchService();	//location.reload();
 				});
 
 			})
@@ -539,7 +337,7 @@
 							webix.alert({
 								title: "Successfully!",
 							}).then(function () {
-								location.reload();
+								searchService();	//location.reload();
 							});
 						}
 					})
@@ -556,5 +354,5 @@
 	}
 
 </script>
-
+<script th:src="@{/Admin/notifacation.js}"></script>
 </html>

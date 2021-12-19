@@ -91,31 +91,77 @@ let data6Months = [];
 let label6MonthLast = [];
 let data6MonthsLast = [];
 
-async function SearchIncomeDefaults(){
+
+function SearchIncomeDefaults() {
+	label12Months = [];
+	label6Months = [];
+	data12Months = [];
+	data6Months = [];
+	label6MonthLast = [];
+	data6MonthsLast = [];
+	let yearselect = document.getElementById('yearcbo').value;
+	// console.log(yearselect);
 	axios.get('/report/revenue?year=' + 2021)
-	.then(function (response) {
-		let DefaultData = response.data;
-	//	console.log(DefaultData);
-		for (var i = 0; i < DefaultData.length; i++) {
-			label12Months.push(DefaultData[i].month);
-			data12Months.push(DefaultData[i].total);
-		}
-		//console.log(label12Months);
-		//console.log(data12Months);
+		.then(function (response) {
+			let DefaultData = response.data;
+			//	console.log(DefaultData);
+			for (var i = 0; i < DefaultData.length; i++) {
+				label12Months.push(DefaultData[i].month);
+				data12Months.push(DefaultData[i].total);
+			}
+			//console.log(label12Months);
+			//console.log(data12Months);
 
-		for (var i = 0; i < 6; i++) {
-			label6Months.push(DefaultData[i].month);
-			data6Months.push(DefaultData[i].total);
-		}
+			for (var i = 0; i < 6; i++) {
+				label6Months.push(DefaultData[i].month);
+				data6Months.push(DefaultData[i].total);
+			}
 
-		for (var i = 6; i < DefaultData.length; i++) {
-			label6MonthLast.push(DefaultData[i].month);
-			data6MonthsLast.push(DefaultData[i].total);
-		}
-	})
-	.catch(function (error) {
-		console.log(error);
-	});
+			for (var i = 6; i < DefaultData.length; i++) {
+				label6MonthLast.push(DefaultData[i].month);
+				data6MonthsLast.push(DefaultData[i].total);
+			}
+			myFunction();
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+}
+
+function SearchIncomeByYear() {
+	label12Months = [];
+	label6Months = [];
+	data12Months = [];
+	data6Months = [];
+	label6MonthLast = [];
+	data6MonthsLast = [];
+	let yearselect = document.getElementById('yearcbo').value;
+//console.log(yearselect);
+	axios.get('/report/revenue?year=' + yearselect)
+		.then(function (response) {
+			let DefaultData = response.data;
+			//	console.log(DefaultData);
+			for (var i = 0; i < DefaultData.length; i++) {
+				label12Months.push(DefaultData[i].month);
+				data12Months.push(DefaultData[i].total);
+			}
+			//console.log(label12Months);
+			//console.log(data12Months);
+
+			for (var i = 0; i < 6; i++) {
+				label6Months.push(DefaultData[i].month);
+				data6Months.push(DefaultData[i].total);
+			}
+
+			for (var i = 6; i < DefaultData.length; i++) {
+				label6MonthLast.push(DefaultData[i].month);
+				data6MonthsLast.push(DefaultData[i].total);
+			}
+			myFunction();
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
 }
 
 
@@ -144,10 +190,10 @@ var lineChart = new Chart(ctx, {
 		responsive: true,
 		legend: false,
 		scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+			y: {
+				beginAtZero: true
+			}
+		}
 	}
 })
 
@@ -180,7 +226,7 @@ function myFunction() {
 	}
 	else if (x === "first") {
 		Change6Month(lineChart);
-	}else if (x === "last"){
+	} else if (x === "last") {
 		Change6MonthLast(lineChart);
 	}
 }
