@@ -1,17 +1,152 @@
-﻿
+﻿create database Booking
+
+use Booking
+
+go
+create table Customer(
+	username nvarchar(50) primary key,
+	password nvarchar(50) not null,
+	fullname nvarchar(150) not null,
+	phone nvarchar(12) not null,
+	address nvarchar(100) null,
+	email nvarchar(100) null,
+	image nvarchar(100) null,
+	role varchar(20) not null
+)
+go
+create table Comment(
+	id int identity(1,1) primary key,
+	username nvarchar(50) not null,
+	room_id varchar(20) not null,
+	description nvarchar(max) not null
+)
+go
+create table Bed(
+	code varchar(5) primary key,
+	name nvarchar(50) not null,
+)
+go
+create table Room_Type(
+	id varchar(20) primary key,
+	name nvarchar(150) not null,
+	price float not null,
+	size float not null,
+	capacity int not null,
+	bed_code varchar(5) not null
+)
+go
+create table Room(
+	id varchar(20) primary key,
+	name nvarchar(150) not null,
+	roomtype_id varchar(20) not null,
+	image1 nvarchar(100) null,
+	image2 nvarchar(100) null,
+	image3 nvarchar(100) null,
+	image4 nvarchar(100) null,
+	description nvarchar(max) not null
+)
+go
+create table Service(
+	id int identity(1,1) primary key,
+	name nvarchar(50) not null,
+	price float not null,
+	description nvarchar(max) not null
+)
+go
+create table Booking_Service(
+	id int identity(1,1) primary key,
+	booking_id int not null,
+	service_id int not null
+)
+go
+create table Food(
+	id int identity(1,1) primary key,
+	name nvarchar(50) not null, 
+	price float not null,
+	description nvarchar(max) not null
+)
+go
+create table Booking_Food(
+	id int identity(1,1) primary key,
+	booking_id int not null,
+	food_id int not null
+)
+go
+create table Booking(
+	id int identity(1,1) primary key,
+	book_Date date not null,
+	username nvarchar(50) not null,
+	room_id varchar(20) not null,
+	in_Date date not null,
+	out_Date date not null,
+	total float not null,
+	fullname nvarchar(150) not null,
+	phone nvarchar(12) not null,
+	status nvarchar(30) not null
+)
+go
+ALTER TABLE Room_Type
+ADD CONSTRAINT FK_RT_BED
+FOREIGN KEY (bed_code)
+REFERENCES Bed (code);
+go
+ALTER TABLE Room
+ADD CONSTRAINT FK_ROOM_RT
+FOREIGN KEY (roomtype_id)
+REFERENCES Room_Type (id);
+go
+ALTER TABLE Comment
+ADD CONSTRAINT FK_CMT_ROOM
+FOREIGN KEY (room_id)
+REFERENCES Room (id);
+go
+ALTER TABLE Booking
+ADD CONSTRAINT FK_BOOK_ROOM
+FOREIGN KEY (room_id)
+REFERENCES Room (id);
+go
+ALTER TABLE Booking
+ADD CONSTRAINT FK_BOOK_CUS
+FOREIGN KEY (username)
+REFERENCES Customer (username);
+go
+ALTER TABLE Comment
+ADD CONSTRAINT FK_CMT_CUS
+FOREIGN KEY (username)
+REFERENCES Customer (username);
+go
+ALTER TABLE Booking_Service
+ADD CONSTRAINT FK_BS_BOOK
+FOREIGN KEY (booking_id)
+REFERENCES Booking (id);
+go
+ALTER TABLE Booking_Service
+ADD CONSTRAINT FK_BS_SERVICE
+FOREIGN KEY (service_id)
+REFERENCES Service (id);
+go
+ALTER TABLE Booking_Food
+ADD CONSTRAINT FK_BF_BOOK
+FOREIGN KEY (booking_id)
+REFERENCES Booking (id);
+go
+ALTER TABLE Booking_Food
+ADD CONSTRAINT FK_BF_FOOD
+FOREIGN KEY (food_id)
+REFERENCES Food (id);
+
 -----Insert data
-USE [Booking]
 GO
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'admin', N'123', N'admin', N'0123456778', N'tổ 17 Đinh Tiên Hoàng', N'admin@gmail.com', N'Admin')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'bichbtt', N'123', N'Bùi Thị Thu Bích', N'090486547', N'Tân An, Long An', N'bich@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'Bne', N'123', N'Nguyễn Văn B', N'9999788789', N'TP Hồ Chí Minh', N'nguyenvanB@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'daotn', N'123', N'Trần Ngọc Đào', N'88888456789', N'TP Hồ Chí Minh', N'daotn@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'ngandhl', N'161200', N'Đoàn Huỳnh Long Ngân', N'4564564564', N'ngan@gmail.com', N'ngan@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'nguyenvana', N'123', N'Nguyễn Văn A', N'123456789', N'TP Hồ Chí Minh', N'nguyenvanA@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'phutn', N'123', N'Trần Ngọc Phú', N'034569770', N'Trảng Bom, Đồng Nai', N'phu@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'thaontp', N'123', N'Nguyễn Thị Phương Thảo', N'45645645654', N'TP Hồ Chí Minh', N'thao@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'trungth', N'123', N'Trần Hiếu Trung', N'0456654789', N'Bình Tân, TP Hồ Chí Minh', N'trung@gmail.com', N'Customer')
-INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [role]) VALUES (N'user', N'123', N'user', N'0123456778', N'tổ 14 Bùi Thị Xuân', N'user@gmail.com', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'admin', N'123', N'admin', N'0123456778', N'tổ 17 Đinh Tiên Hoàng', N'admin@gmail.com', N'default.png', N'Admin')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'bichbtt', N'123', N'Bùi Thị Thu Bích', N'090486547', N'Tân An, Long An', N'bich@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'Bne', N'123', N'Nguyễn Văn B', N'9999788789', N'TP Hồ Chí Minh', N'nguyenvanB@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'daotn', N'123', N'Trần Ngọc Đào', N'88888456789', N'TP Hồ Chí Minh', N'daotn@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'ngandhl', N'161200', N'Đoàn Huỳnh Long Ngân', N'4564564564', N'ngan@gmail.com', N'ngan@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'nguyenvana', N'123', N'Nguyễn Văn A', N'123456789', N'TP Hồ Chí Minh', N'nguyenvanA@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'phutn', N'123', N'Trần Ngọc Phú', N'034569770', N'Trảng Bom, Đồng Nai', N'phu@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'thaontp', N'123', N'Nguyễn Thị Phương Thảo', N'45645645654', N'TP Hồ Chí Minh', N'thao@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'trungth', N'123', N'Trần Hiếu Trung', N'0456654789', N'Bình Tân, TP Hồ Chí Minh', N'trung@gmail.com', N'default.png', N'Customer')
+INSERT [dbo].[Customer] ([username], [password], [fullname], [phone], [address], [email], [image], [role]) VALUES (N'user', N'123', N'user', N'0123456778', N'tổ 14 Bùi Thị Xuân', N'user@gmail.com', N'default.png', N'Customer')
 GO
 INSERT [dbo].[Bed] ([code], [name]) VALUES (N'DB', N'Double Bed')
 INSERT [dbo].[Bed] ([code], [name]) VALUES (N'EXB', N'Extra Bed')
@@ -30,11 +165,11 @@ INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], 
 INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P003', N'ROOM 003 - FLOOR 1', N'SUT', N'room-img-20.jpg', N'room-img-39.jpg', N'room-img-28.jpg', N'room-img-9.jpg', N'The Suite room is elegantly designed, fully furnished with modern amenities, with a beautiful view of West Lake, Red River and the city. The harmonious combination between the peaceful and airy space of the River and Lake and the luxurious rooms with dedicated and attentive hospitality will be the choice for business people and tourists.')
 INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P004', N'ROOM 004 - FLOOR 1', N'SUT', N'room-img-8.jpg', N'room-img-41.jpg', N'room-img-42.jpg', N'room-img-44.jpg', N'The most advanced room, the highest floor, equipped with special services, usually includes 1 living room, 1 bedroom, 2 wc, balcony with the best view.')
 INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P005', N'ROOM 005 - FLOOR 1', N'SUT', N'room-img-10.jpg', N'room-img-28.jpg', N'room-img-1.jpg', N'room-img-36.jpg', N'Royal Suit room.Royal bedroom, spacious bathroom, bathtub or shower corner, sleek shower.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P006', N'ROOM 006 - FLOOR 2', N'SUT', N'room-img-11.jpg', N'room-img-22.jpg', N'room-img-23.jpg', N'room-img-24.jpg', N' President Suite/Presidential Suite: The most expensive room in the hotel. Each hotel has only one presidential suite. Rooms with one or more bedrooms and living spaces that emphasize décor, premium amenities, and private services (for example, a butler for the duration of your stay). President Suite room area is usually in the range of 80 - 350 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P006', N'ROOM 006 - FLOOR 2', N'SUT', N'room-img-11.jpg', N'room-img-22.jpg', N'room-img-34.jpg', N'room-img-24.jpg', N' President Suite/Presidential Suite: The most expensive room in the hotel. Each hotel has only one presidential suite. Rooms with one or more bedrooms and living spaces that emphasize décor, premium amenities, and private services (for example, a butler for the duration of your stay). President Suite room area is usually in the range of 80 - 350 m2.')
 INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P007', N'ROOM 007 - FLOOR 2', N'DLX', N'room-img-12.jpg', N'room-img-26.jpg', N'room-img-27.jpg', N'room-img-28.jpg', N'Equipped with 2 single beds placed side by side, for 2 people. The desk in the room is also designed with business guests in mind. The area of ​​the Hollywood Twin Room is usually in the range of 32 - 40 m2.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P008', N'ROOM 008 - FLOOR 2', N'SUT', N'room-img-13.jpg', N'room-img-30.jpg', N'room-img-31.jpg', N'room-img-32.jpg', N'Mini Suite/Junior Suite: A single room with one bed and seating area. Sometimes the bedroom is separate from the living area. The area of ​​​​Junior Suite rooms is usually in the range of 60 - 80 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P008', N'ROOM 008 - FLOOR 2', N'SUT', N'room-img-13.jpg', N'room-img-44.jpg', N'room-img-39.jpg', N'room-img-7.jpg', N'Mini Suite/Junior Suite: A single room with one bed and seating area. Sometimes the bedroom is separate from the living area. The area of ​​​​Junior Suite rooms is usually in the range of 60 - 80 m2.')
 INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P009', N'ROOM 009 - FLOOR 2', N'STD', N'room-img-16.jpg', N'room-img-34.jpg', N'room-img-35.jpg', N'room-img-36.jpg', N'Room for one person, equipped with a single bed. Single area is usually in the range of 37 - 45 m2.')
-INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P010', N'ROOM 010 - FLOOR 2', N'STD', N'room-img-18.jpg', N'room-img-38.jpg', N'room-img-39.jpg', N'room-img-40.jpg', N'Room for 2 people, equipped with a double bed, is called a queen size bed. Double room area is usually in the range of 40-45 m2.')
+INSERT [dbo].[Room] ([id], [name], [roomtype_id], [image1], [image2], [image3], [image4], [description]) VALUES (N'P010', N'ROOM 010 - FLOOR 2', N'STD', N'room-img-18.jpg', N'room-img-38.jpg', N'room-img-39.jpg', N'room-img-43.jpg', N'Room for 2 people, equipped with a double bed, is called a queen size bed. Double room area is usually in the range of 40-45 m2.')
 GO
 SET IDENTITY_INSERT [dbo].[Booking] ON 
 
@@ -370,4 +505,3 @@ INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (133, 26, 12)
 INSERT [dbo].[Booking_Food] ([id], [booking_id], [food_id]) VALUES (134, 26, 15)
 SET IDENTITY_INSERT [dbo].[Booking_Food] OFF
 GO
-
