@@ -348,8 +348,8 @@
 		if (fileName === "") {
 			obj.image = "default.png";
 		}
-		else{
-			obj.image =fileName;
+		else {
+			obj.image = fileName;
 		}
 		//check role
 		let role = $$("role").getValue();
@@ -383,7 +383,7 @@
 				title: "Phone can not be null!",
 			});
 		}
-		else if(!($$("formCustomer").validate())){
+		else if (!($$("formCustomer").validate())) {
 			webix.alert({
 				type: "alert-error",
 				title: "Data format incorrect!",
@@ -426,12 +426,15 @@
 								//location.reload();
 							});
 						}
+						else {
+							webix.alert({
+								type: "alert-error",
+								title: "An Error Occurred! Data could be use in another table",
+							});
+						}
 					})
 					.catch(function (error) {
-						webix.alert({
-							type: "alert-error",
-							title: "An Error Occurred",
-						});
+
 					});
 			})
 			.fail(function () {

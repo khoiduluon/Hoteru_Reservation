@@ -142,7 +142,7 @@
 					<span>Booking Mgmt</span>
 				</a>
 			</li>
-			
+
 		</ul>
 	</div>
 	<!-- end sidebar -->
@@ -417,6 +417,12 @@
 								title: "Successfully!",
 							}).then(function () {
 								searchService();//location.reload();
+							});
+						}
+						else {
+							webix.alert({
+								type: "alert-error",
+								title: "An Error Occurred! Data could be use in another table",
 							});
 						}
 					})
