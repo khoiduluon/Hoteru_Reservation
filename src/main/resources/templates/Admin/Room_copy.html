@@ -6,7 +6,7 @@
 
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-		<link rel="icon" type="image/png" th:href="@{/img/location.png}" />
+	<link rel="icon" type="image/png" th:href="@{/img/location.png}" />
 
 	<!-- Import lib -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
@@ -36,7 +36,7 @@
 		</ul>
 		<!-- end nav left -->
 		<!-- form -->
-	
+
 		<!-- end form -->
 		<!-- nav right -->
 		<ul class="navbar-nav nav-right">
@@ -127,6 +127,14 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
+				<a th:href="@{/admin/roomtypemgmt}" class="sidebar-nav-link">
+					<div>
+						<i class="fa fa-bath"></i>
+					</div>
+					<span>RoomType Mgmt</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
 				<a th:href="@{/admin/bookingmgmt}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-chart-line"></i>
@@ -152,8 +160,12 @@
 					</div>
 				</div>
 				<div class="card-content col-12">
-					<div class="col6"><center><img src="/img/FPT_Polytechnic.png" width="10%" height="10%"></center></div>
-					<div class="col6" style="padding-top: 5px"><center>Copyright 2021 by FPT_Polytechnic. All Rights Reserved.</center></div>
+					<div class="col6">
+						<center><img src="/img/FPT_Polytechnic.png" width="10%" height="10%"></center>
+					</div>
+					<div class="col6" style="padding-top: 5px">
+						<center>Copyright 2021 by FPT_Polytechnic. All Rights Reserved.</center>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -212,7 +224,7 @@
 					id: "formRoom",
 					// "borderless": 1,
 					"rows": [
-						{ "view": "text", id: "txtID", "label": "ID", "name": "id", required: true, readonly: true },
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id", required: true },
 						{ "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
 						{
 							view: "combo", id: "txtType", "label": "Type",
@@ -241,15 +253,22 @@
 							template:
 								"<h3>Select Image:</h3>" +
 								"<form action='/upload' method='post' enctype='multipart/form-data'>" +
-								"<input type='file' id='img' name='image'  accept='image/*'	/>" +
+								"<label for='img'> 1</label>" +
+								"<input type='file' id='img' name='image'  accept='image/*'style='padding: 4px' 	/>" +
+								"<label for='img2'> 2</label>" +
+								"<input type='file' id='img2' name='image2'  accept='image/*' style='padding: 4px'	/> </br>" +
+								"<label for='img3'>  3</label>" +
+								"<input type='file' id='img3' name='image3'  accept='image/*'style='padding: 4px'	/>" +
+								"<label for='img4'> 4</label>" +
+								"<input type='file' id='img4' name='image4'  accept='image/*'style='padding: 4px'	/>" +
 								"</from>"
 						},
 						{
 							"cols": [
 								{ "label": "New", id: "btnNew", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: clearForm },
 								{ "view": "button", id: "btnSave", "css": "webix_primary", "label": "Save", "borderless": 1, click: save },
-								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0,  "borderless": 1, click: save },
-								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0,  "borderless": 1, click: deleteRoom },
+								{ "label": "Update", id: "btnUpdate", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: save },
+								{ "label": "Delete", id: "btnDelete", "view": "button", "css": "webix_primary", "height": 0, "borderless": 1, click: deleteRoom },
 							]
 						}
 					],
@@ -292,7 +311,6 @@
 	let ListRoom = [];
 	let ListType = [];
 	var combo = [];
-	var id = 'roommgmt';
 	function searchService() {
 		axios.get('/api/AllRoom')
 			.then(function (response) {
@@ -338,16 +356,25 @@
 		var input = document.getElementById("img");
 		var file = input.value.split("\\");
 		var fileName = file[file.length - 1];
+		var input2 = document.getElementById("img2");
+		var file2 = input.value.split("\\");
+		var fileName2 = file[file.length - 1];
+		var input3 = document.getElementById("img3");
+		var file3 = input.value.split("\\");
+		var fileName3 = file[file.length - 1];
+		var input4 = document.getElementById("img4");
+		var file4 = input.value.split("\\");
+		var fileName4 = file[file.length - 1];
 		const obj = {
 			id: $$("txtID").getValue(),
 			name: $$("txtName").getValue(),
 			roomType: $$("txtType").getValue(),
 			description: $$("txtDesc").getValue(),
-			image:  fileName
+			image: fileName,
+			image2: fileName2,
+			image3: fileName3,
+			image4: fileName4
 		}
-
-
-
 		if (obj.name == "") {
 			webix.alert({
 				type: "alert-error",
@@ -372,10 +399,10 @@
 				title: "Description can not be null!",
 			});
 		}
-		else if (obj.image == "") {
+		else if (obj.image == "" || obj.image2 == ""  || obj.image3 == ""  || obj.image4 == ""  ) {
 			webix.alert({
 				type: "alert-error",
-				title: "Please select at least one image!",
+				title: "Please select  at least one image!",
 			});
 		}
 		else {
@@ -388,11 +415,11 @@
 					// if (fileName === "")
 					// 	location.reload();
 					//else
-						// axios.post('/upload').then(function (response) {
-						// 	console.log("đây nè: "+response)
-						// 	//location.href(response.data);
-						// });
-						//location.href = '/upload';
+					// axios.post('/upload').then(function (response) {
+					// 	console.log("đây nè: "+response)
+					// 	//location.href(response.data);
+					// });
+					//location.href = '/upload';
 				});
 
 			})
@@ -437,4 +464,5 @@
 
 </script>
 <script th:src="@{/Admin/notifacation.js}"></script>
+
 </html>

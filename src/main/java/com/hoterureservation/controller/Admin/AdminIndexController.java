@@ -35,5 +35,10 @@ public class AdminIndexController {
     public String getBooking(){
         return "/Admin/Booking_copy";
     }
+
+    @RequestMapping("/admin/roomtypemgmt")
+    public String getRoomType(){
+        return "/Admin/RoomType_copy";
+    }
     
 }
