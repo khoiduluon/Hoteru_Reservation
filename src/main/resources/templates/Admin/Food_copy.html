@@ -6,7 +6,7 @@
 
 	<meta name="viewport"
 		content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-		<link rel="icon" type="image/png" th:href="@{/img/location.png}" />
+	<link rel="icon" type="image/png" th:href="@{/img/location.png}" />
 
 	<!-- Import lib -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
@@ -161,8 +161,12 @@
 					</div>
 				</div>
 				<div class="card-content col-12">
-					<div class="col6"><center><img src="/img/FPT_Polytechnic.png" width="10%" height="10%"></center></div>
-					<div class="col6" style="padding-top: 5px"><center>Copyright 2021 by FPT_Polytechnic. All Rights Reserved.</center></div>
+					<div class="col6">
+						<center><img src="/img/FPT_Polytechnic.png" width="10%" height="10%"></center>
+					</div>
+					<div class="col6" style="padding-top: 5px">
+						<center>Copyright 2021 by FPT_Polytechnic. All Rights Reserved.</center>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -225,7 +229,7 @@
 					},
 					// "borderless": 1,
 					"rows": [
-						{ "view": "text", id: "txtID", "label": "ID", "name": "id" ,readonly:true},
+						{ "view": "text", id: "txtID", "label": "ID", "name": "id", readonly: true },
 						{ "view": "text", id: "txtName", "label": "Name", "name": "name", required: true },
 						{ "view": "text", id: "txtPrice", "label": "Price", "name": "price", required: true },
 						{ "label": "Desc", id: "txtDesc", "view": "textarea", name: "description", height: 160, required: true },
@@ -358,6 +362,13 @@
 								searchFood();
 								// location.reload();
 							});
+
+						}
+						else {
+							webix.alert({
+								type: "alert-error",
+								title: "An Error Occurred! Data could be use in another table",
+							});
 						}
 					})
 					.catch(function (error) {
@@ -374,4 +385,5 @@
 
 </script>
 <script th:src="@{/Admin/notifacation.js}"></script>
+
 </html>

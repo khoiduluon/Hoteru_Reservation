@@ -361,6 +361,12 @@
 								searchService();	//location.reload();
 							});
 						}
+						else {
+							webix.alert({
+								type: "alert-error",
+								title: "An Error Occurred! Data could be use in another table",
+							});
+						}
 					})
 					.catch(function (error) {
 						webix.alert({

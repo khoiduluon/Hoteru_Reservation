@@ -399,7 +399,7 @@
 				title: "Description can not be null!",
 			});
 		}
-		else if (obj.image == "" || obj.image2 == ""  || obj.image3 == ""  || obj.image4 == ""  ) {
+		else if (obj.image == "" || obj.image2 == "" || obj.image3 == "" || obj.image4 == "") {
 			webix.alert({
 				type: "alert-error",
 				title: "Please select  at least one image!",
@@ -447,6 +447,12 @@
 								title: "Successfully!",
 							}).then(function () {
 								searchService();//location.reload();
+							});
+						}
+						else {
+							webix.alert({
+								type: "alert-error",
+								title: "An Error Occurred! Data could be use in another table",
 							});
 						}
 					})
