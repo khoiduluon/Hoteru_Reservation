@@ -236,7 +236,7 @@ SET IDENTITY_INSERT [dbo].[Service] ON
 
 INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (1, N'Laundry', 50000, N'This is a service created to meet customers default and personal hygiene needs.')
 INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (2, N'Airport shuttle', 100000, N'Airport shuttleservice main things is meet the increasing travel demand and desire to create the most comfortable experience for customers.')
-INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (3, N'Self-drive motorbike rental', 150000, N'Meet the needs of free travel for customers, without time restrictions')
+INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (3, N'Self drive motorbike rental', 150000, N'Meet the needs of free travel for customers, without time restrictions')
 INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (4, N'Babysitting', 150000, N'Meet as young child care needs when customers can rest assured')
 INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (5, N'Swimming for 4 seasons', 100000, N'The 4-season swimming pool can be used at all times according to customer needs')
 INSERT [dbo].[Service] ([id], [name], [price], [description]) VALUES (6, N'Karaoke', 150000, N'Karaoke room meets the singing needs of customers')
