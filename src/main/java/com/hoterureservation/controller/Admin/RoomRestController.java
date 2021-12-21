@@ -51,9 +51,9 @@ public class RoomRestController {
         room.setRoomType(type);
         room.setDescription(obj.getDescription());
         room.setImage1(obj.getImage());
-        room.setImage2(obj.getImage());
-        room.setImage3(obj.getImage());
-        room.setImage4(obj.getImage());
+        room.setImage2(obj.getImage2());
+        room.setImage3(obj.getImage3());
+        room.setImage4(obj.getImage4());
         return service.save(room);
     }
 

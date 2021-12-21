@@ -8,13 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomDtos {
+public class RoomTypeDtos {
     String name;
     String id;
-    String roomType;
-    String description;
-    String image;
-    String image2;
-    String image3;
-    String image4;
+    Double price;
+    Double size;
+    Long capacity;
+    String typeBed;
 }
